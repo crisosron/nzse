@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_content_blocks_text_blocks",
+  "info": {
+    "displayName": "TextBlock",
+    "icon": "align-center",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

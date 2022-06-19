@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_seo_default_seos",
+  "info": {
+    "displayName": "Default Seo",
+    "icon": "search",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string",
+      "required": true
+    },
+    "metaDescription": {
+      "type": "text"
+    }
+  }
+}
