@@ -47,10 +47,6 @@ const getGlobalAttributes = gql`
       data {
         attributes {
           siteName
-          defaultSeo {
-            metaTitle
-            metaDescription
-          }
           favicon {
             data {
               attributes {
