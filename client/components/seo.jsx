@@ -3,14 +3,16 @@ import { useContext } from "react";
 import { GlobalContext } from "../pages/_app";
 
 const Seo = ({ seo }) => {
-  const { defaultSeo, siteName } = useContext(GlobalContext);
+  const { globalSeo, globalAttributes } = useContext(GlobalContext);
+  console.log('Global Seo: ', globalSeo);
   const seoWithDefaults = {
-    ...defaultSeo,
+    ...globalSeo,
     ...seo,
   };
+
   const fullSeo = {
     ...seoWithDefaults,
-    metaTitle: `${seoWithDefaults.metaTitle} | ${siteName}`,
+    metaTitle: seoWithDefaults.metaTitle || globalAttributes.siteName
   };
 
   return (

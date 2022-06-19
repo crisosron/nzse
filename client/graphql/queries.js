@@ -62,4 +62,17 @@ const getGlobalAttributes = gql`
   }
 `;
 
-export { getAllArticles, getHomepage, getGlobalAttributes }
+const getGlobalSeo = gql`
+  query globalSEO {
+    globalSeo {
+      data {
+        attributes {
+          metaTitle
+          metaDescription
+        }
+      }
+    }
+  }
+`;
+
+export { getAllArticles, getHomepage, getGlobalAttributes, getGlobalSeo }

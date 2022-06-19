@@ -12,9 +12,7 @@ const Home = ({ homepage, articles }) => {
   const { globalAttributes: { siteName } } = useContext(GlobalContext);
   return (
     <Layout>
-      { homepage.seo && 
-        <Seo seo={homepage.seo} />
-      }
+      <Seo seo={homepage.seo}></Seo>
       <div>
         <div>
           <h1 className="text-3xl font-bold underline text-red-400">{siteName}</h1>
