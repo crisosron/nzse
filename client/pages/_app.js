@@ -14,8 +14,6 @@ export const GlobalContext = createContext({});
 const MyApp = ({ Component, pageProps }) => {
   const { globalAttributes } = pageProps;
 
-  console.log('Got favicon: ', globalAttributes.favicon);
-
   return (
     <>
       <Head>

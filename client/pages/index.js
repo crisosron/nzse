@@ -35,7 +35,7 @@ export async function getStaticProps() {
   );
   const articles = articlesData.articles.data?.map((article) => ({ ...article.attributes }));
   const homepage = homepageData.homepage.data?.attributes
-  
+
   return {
     props: {
       homepage,
