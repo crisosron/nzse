@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "seo": {
-      "type": "component",
-      "repeatable": false,
-      "component": "seo.default-seo"
-    },
     "title": {
       "type": "string",
       "required": true
