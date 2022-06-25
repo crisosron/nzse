@@ -75,11 +75,16 @@
 .prose > h4,
 .prose > h5, 
 .prose > h6 {
-  color: theme('colors.blue');
+  color: theme('colors.light-blue');
 }
 
 /* Defaults on rich text ul, and ol bullets and numbers */
 .prose :where(ul > li):not(:where([class~="not-prose"] *))::marker,
 .prose :where(ol > li):not(:where([class~="not-prose"] *))::marker {
-  color: theme('colors.blue');
+  color: theme('colors.light-blue');
+}
+
+.prose :where(a):not(:where([class~="not-prose"] *)) {
+  color: theme('colors.link-blue');
+  text-decoration: none;
 }

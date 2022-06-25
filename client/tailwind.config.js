@@ -9,7 +9,9 @@ module.exports = {
       sansation: ['Sansation', 'serif']
     },
     colors: {
-      'blue': '#4cbedb'
+      'light-blue': '#4cbedb',
+      'dark-blue': '#25235c',
+      'link-blue': '#0074cc'
     }
   },
   plugins: [
