@@ -1,9 +1,9 @@
 import React from "react";
 
-const TextBlock = () => {
+const TextBlock = ({_id, content}) => {
   return (
     <div>
-      Here's a text block
+      { content }
     </div>
   );
 };

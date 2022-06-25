@@ -7,18 +7,17 @@ import { useContext } from "react";
 import { GlobalContext } from "../pages/_app";
 import { graphqlClient } from '../lib/graphql-api'
 import { getAllArticles, getHomepage } from '../graphql/queries';
+import { Blocks} from "../components/blocks";
 
 const Home = ({ homepage, articles }) => {
   const { globalAttributes: { siteName } } = useContext(GlobalContext);
+
+  const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
+
   return (
     <Layout>
-      <Seo seo={homepage.seo}></Seo>
-      <div>
-        <div>
-          <h1 className="text-3xl font-bold underline text-red-400">{siteName}</h1>
-        </div>
-        <Articles articles={articles} />
-      </div>
+      <Seo seo={homepageSeo}></Seo>
+      <Blocks blocks={homepageBlocks} />
     </Layout>
   );
 };

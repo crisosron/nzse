@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { blocksListSubquery } from "./query-helpers";
 
 const getAllArticles = gql`
   query allArticles {
@@ -36,6 +37,7 @@ const getHomepage = gql`
             metaDescription
             slug
           }
+          ${blocksListSubquery}
         }
       }
     }

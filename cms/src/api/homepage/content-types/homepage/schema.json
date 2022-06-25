@@ -21,6 +21,13 @@
       "repeatable": false,
       "component": "other-blocks.seo-block",
       "required": true
+    },
+    "blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "content-blocks.text-block",
+        "content-blocks.image-block"
+      ]
     }
   }
 }
