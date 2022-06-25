@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { blocksListSubquery } from "./query-helpers";
+import { blocksListSubquery, imagesSubquery } from "./query-helpers";
 
 const getAllArticles = gql`
   query allArticles {
