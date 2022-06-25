@@ -9,6 +9,7 @@ import { graphqlClient } from '../lib/graphql-api'
 import { getAllArticles, getHomepage } from '../graphql/queries';
 import { Blocks} from "../components/blocks";
 
+
 const Home = ({ homepage, articles }) => {
   const { globalAttributes: { siteName } } = useContext(GlobalContext);
 

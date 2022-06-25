@@ -1,11 +1,14 @@
-import React from "react";
+import ReactMarkdown from 'react-markdown';
 
-const TextBlock = ({_id, content}) => {
+const TextBlock = ({ _id, content }) => {
   return (
-    <div>
-      { content }
-    </div>
+    <>
+      <ReactMarkdown>
+        { content }
+      </ReactMarkdown>
+    </>
   );
 };
 
-export default TextBlock;
+// Can't use default export here because of the ReactMarkdown import
+export { TextBlock };

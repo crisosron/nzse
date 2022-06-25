@@ -1,4 +1,4 @@
-import { TextBlock } from './index';
+import { TextBlock } from './text-block';
 
 const blockTypeNameToComponentMapping = {
   'ComponentContentBlocksTextBlock': TextBlock
@@ -13,7 +13,7 @@ const Block = ({ blockRecord }) => {
 
   return (
     <div>
-      Don't know how to render the block '{blockType}'!
+      Don't know how to render the block '{blockType}'
     </div>
   );
 
