@@ -34,6 +34,7 @@ const getHomepage = gql`
           seo {
             metaTitle
             metaDescription
+            slug
           }
         }
       }

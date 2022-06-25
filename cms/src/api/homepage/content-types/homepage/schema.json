@@ -15,6 +15,12 @@
     "title": {
       "type": "string",
       "required": true
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "other-blocks.seo-block",
+      "required": true
     }
   }
 }

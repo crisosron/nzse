@@ -4,7 +4,6 @@ import { GlobalContext } from "../pages/_app";
 
 const Seo = ({ seo }) => {
   const { globalSeo, globalAttributes } = useContext(GlobalContext);
-  console.log('Global Seo: ', globalSeo);
   const seoWithDefaults = {
     ...globalSeo,
     ...seo,
