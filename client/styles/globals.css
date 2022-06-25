@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 
+  ================================== 
+  Fonts
+  ================================== 
+*/
 @font-face {
   font-family: 'Sansation';
   src: url('../public/fonts/sansation/SansationLight.woff') format('woff');
@@ -48,4 +53,33 @@
   font-weight: bold;
   font-style: italic;
   font-display: swap;
+}
+
+/* 
+  ================================== 
+  Setting defaults on CMSable rich text typography 
+  ================================== 
+*/
+
+/* 
+  .prose is the class name assigned by tailwind that is applied to elements that displays
+  CMSable HTML content
+
+  see: https://tailwindcss.com/docs/typography-plugin
+*/
+
+/* Defaults on rich text headers */
+.prose > h1,
+.prose > h2,
+.prose > h3,
+.prose > h4,
+.prose > h5, 
+.prose > h6 {
+  color: theme('colors.blue');
+}
+
+/* Defaults on rich text ul, and ol bullets and numbers */
+.prose :where(ul > li):not(:where([class~="not-prose"] *))::marker,
+.prose :where(ol > li):not(:where([class~="not-prose"] *))::marker {
+  color: theme('colors.blue');
 }

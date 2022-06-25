@@ -7,7 +7,12 @@ module.exports = {
     extend: {},
     fontFamily: {
       sansation: ['Sansation', 'serif']
+    },
+    colors: {
+      'blue': '#4cbedb'
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }

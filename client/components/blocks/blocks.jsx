@@ -5,7 +5,7 @@ const blockTypeNameToComponentMapping = {
 };
 
 const Block = ({ blockRecord }) => {
-  const blockType = blockRecord.__typename
+  const blockType = blockRecord.__typename;
   if (blockType in blockTypeNameToComponentMapping) {
     const Component = blockTypeNameToComponentMapping[blockType];
     return <Component {...blockRecord} />;
