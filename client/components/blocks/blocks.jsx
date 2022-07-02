@@ -1,7 +1,9 @@
 import { TextBlock } from './text-block';
+import { TextWithImageBlock } from './text-with-image-block';
 
 const blockTypeNameToComponentMapping = {
-  'ComponentContentBlocksTextBlock': TextBlock
+  'ComponentContentBlocksTextBlock': TextBlock,
+  'ComponentContentBlocksTextWithImageBlock': TextWithImageBlock
 };
 
 const Block = ({ blockRecord }) => {

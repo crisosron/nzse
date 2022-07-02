@@ -9,10 +9,10 @@ const imagesSubquery = `
         alternativeText
         name
         hash
+        ext
       }
     }
   }
-
 `;
 
 const blocksListSubquery = `

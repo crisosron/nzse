@@ -23,7 +23,7 @@ const MyApp = ({ Component, pageProps }) => {
         { globalAttributes.favicon &&
           <link
           rel="shortcut icon"
-          href={ getStrapiMedia(globalAttributes.favicon) }
+          href={ getStrapiMedia(globalAttributes.favicon).url }
           />
         }
       </Head>
