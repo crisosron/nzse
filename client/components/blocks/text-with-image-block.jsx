@@ -7,7 +7,7 @@ const TextWithImageBlock = ({ _id, content, image, leftAligned }) => {
       <ReactMarkdown>
         { content }
       </ReactMarkdown>
-      <CustomImage image={image} />
+      { image && <CustomImage image={image} /> }
     </div>
   );
 };
