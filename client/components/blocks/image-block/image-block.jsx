@@ -1,11 +1,15 @@
-import CustomImage from "./index";
+import CustomImage from "../../custom-image";
 
-const ImageBlock = ({ image }) => {
-  console.log('Got image for ImageBlock: ', image);
+const ImageBlock = ({ imageBlockImage: image }) => {
   return (
-    <>
-      <CustomImage image={image}/>
-    </>
+    <div className="my-8 flex flex-col">
+      <div className="flex flex-col mb-5">
+        <CustomImage image={image} />
+      </div>
+      <div>
+        <p>TODO: Optional CMSable caption goes here</p>
+      </div>
+    </div>
   );
 };
 

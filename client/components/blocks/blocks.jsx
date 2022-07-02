@@ -23,14 +23,14 @@ const Block = ({ blockRecord }) => {
 
 const Blocks = ({ blocks }) => {
   return (
-    <>
+    <div className="leading-normal flex flex-col lg:items-start">
       { blocks && blocks.map((block) => {
         const { id, __typename: blockType } = block;
         return (
           <Block key={`${blockType}-${id}`} blockRecord={block} />
         );
       })}
-    </>
+    </div>
   );
 };
 

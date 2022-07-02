@@ -5,6 +5,8 @@ import Image from 'next/image'
 const CustomImage = ({ image }) => {
   const imageData = getStrapiMedia(image);
   let renderedImage = null;
+
+  // These classNames assumes that the parent container has display: flex
   const className = "object-cover md:object-scale-down"
 
   if(!imageData) {

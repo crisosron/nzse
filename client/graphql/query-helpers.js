@@ -25,7 +25,11 @@ const blocksListSubquery = `
     ...on ComponentContentBlocksTextWithImageBlock {
       id
       content
-      ${imagesSubquery}
+      textWithImageBlockImage: ${imagesSubquery}
+    }
+    ...on ComponentContentBlocksImageBlock {
+      id
+      imageBlockImage: ${imagesSubquery}
     }
   }
 `;
