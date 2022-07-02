@@ -29,6 +29,7 @@ const blocksListSubquery = `
     }
     ...on ComponentContentBlocksImageBlock {
       id
+      caption
       imageBlockImage: ${imagesSubquery}
     }
   }
