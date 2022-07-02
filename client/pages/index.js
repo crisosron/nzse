@@ -7,7 +7,8 @@ import { useContext } from "react";
 import { GlobalContext } from "../pages/_app";
 import { graphqlClient } from '../lib/graphql-api'
 import { getAllArticles, getHomepage } from '../graphql/queries';
-import { Blocks} from "../components/blocks";
+// import { Blocks } from "../components/blocks";
+import { Blocks } from "../components/blocks";
 
 
 const Home = ({ homepage, articles }) => {

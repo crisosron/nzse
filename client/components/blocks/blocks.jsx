@@ -1,12 +1,12 @@
-import { TextBlock } from './text-block';
-import { TextWithImageBlock } from './text-with-image-block';
-
-const blockTypeNameToComponentMapping = {
-  'ComponentContentBlocksTextBlock': TextBlock,
-  'ComponentContentBlocksTextWithImageBlock': TextWithImageBlock
-};
+import { ImageBlock, TextBlock, TextWithImageBlock } from './index';
 
 const Block = ({ blockRecord }) => {
+  const blockTypeNameToComponentMapping = {
+    'ComponentContentBlocksTextBlock': TextBlock,
+    'ComponentContentBlocksTextWithImageBlock': TextWithImageBlock,
+    'ComponentContentBlocksImageBlock': ImageBlock
+  };
+
   const blockType = blockRecord.__typename;
   if (blockType in blockTypeNameToComponentMapping) {
     const Component = blockTypeNameToComponentMapping[blockType];
