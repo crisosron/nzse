@@ -5,6 +5,7 @@ import Image from 'next/image'
 const CustomImage = ({ image }) => {
   const imageData = getStrapiMedia(image);
   let renderedImage = null;
+  const className = "object-cover md:object-scale-down"
 
   if(!imageData) {
     return (
@@ -15,9 +16,17 @@ const CustomImage = ({ image }) => {
   }
   
   if(imageData.fileType === MEDIA_FILE_TYPES.SVG) {
-    renderedImage = <img src={imageData.url} title={imageData.name} alt={imageData.alternativeText} />
+    renderedImage = <img src={imageData.url} title={imageData.name} alt={imageData.alternativeText} className={className} />
   } else {
-    renderedImage = <Image src={imageData.url} title={imageData.name} alt={imageData.alternativeText} width={imageData.width} height={imageData.height}/>
+    renderedImage = 
+      <Image 
+        src={imageData.url} 
+        title={imageData.name} 
+        alt={imageData.alternativeText} 
+        width={imageData.width} 
+        height={imageData.height}
+        className={className}
+      />
   }
 
   return (
@@ -25,7 +34,6 @@ const CustomImage = ({ image }) => {
       { renderedImage }
     </>
   )
-
 };
 
 export default CustomImage;
