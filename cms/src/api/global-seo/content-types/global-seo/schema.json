@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "global_seos",
+  "info": {
+    "singularName": "global-seo",
+    "pluralName": "global-seos",
+    "displayName": "Global SEO"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string",
+      "required": true
+    },
+    "metaDescription": {
+      "type": "text"
+    }
+  }
+}
