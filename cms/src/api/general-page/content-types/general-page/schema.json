@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "general_pages",
+  "info": {
+    "singularName": "general-page",
+    "pluralName": "general-pages",
+    "displayName": "GeneralPage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

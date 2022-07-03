@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_content_blocks_card_blocks",
+  "info": {
+    "displayName": "CardBlock"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}
