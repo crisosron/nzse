@@ -10,9 +10,11 @@ module.exports = {
     },
     colors: {
       'light-blue': '#4cbedb',
+      'lightest-blue': '#54cceb',
       'dark-blue': '#25235c',
       'link-blue': '#0074cc',
-      'gray': '#7f8487'
+      'gray': '#7f8487',
+      'white': '#FFFFFF'
     }
   },
   plugins: [
