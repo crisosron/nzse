@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_content_blocks_button_blocks",
+  "info": {
+    "displayName": "ButtonBlock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    },
+    "alignment": {
+      "type": "enumeration",
+      "enum": [
+        "Left",
+        "Right",
+        "Center"
+      ],
+      "default": "Left"
+    }
+  }
+}

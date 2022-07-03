@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_content_blocks_text_with_image_blocks",
+  "info": {
+    "displayName": "TextWithImageBlock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "leftAligned": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

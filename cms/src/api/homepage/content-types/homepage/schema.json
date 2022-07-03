@@ -12,14 +12,24 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "seo": {
-      "type": "component",
-      "repeatable": false,
-      "component": "seo.default-seo"
-    },
     "title": {
       "type": "string",
       "required": true
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "other-blocks.seo-block",
+      "required": true
+    },
+    "blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "content-blocks.button-block",
+        "content-blocks.image-block",
+        "content-blocks.text-block",
+        "content-blocks.text-with-image-block"
+      ]
     }
   }
 }

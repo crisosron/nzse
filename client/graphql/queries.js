@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { blocksListSubquery, imagesSubquery } from "./query-helpers";
 
 const getAllArticles = gql`
   query allArticles {
@@ -34,7 +35,9 @@ const getHomepage = gql`
           seo {
             metaTitle
             metaDescription
+            slug
           }
+          ${blocksListSubquery}
         }
       }
     }
@@ -47,10 +50,6 @@ const getGlobalAttributes = gql`
       data {
         attributes {
           siteName
-          defaultSeo {
-            metaTitle
-            metaDescription
-          }
           favicon {
             data {
               attributes {
@@ -66,4 +65,17 @@ const getGlobalAttributes = gql`
   }
 `;
 
-export { getAllArticles, getHomepage, getGlobalAttributes }
+const getGlobalSeo = gql`
+  query globalSEO {
+    globalSeo {
+      data {
+        attributes {
+          metaTitle
+          metaDescription
+        }
+      }
+    }
+  }
+`;
+
+export { getAllArticles, getHomepage, getGlobalAttributes, getGlobalSeo }

@@ -1,9 +1,8 @@
 {
-  "collectionName": "components_seo_default_seos",
+  "collectionName": "components_other_blocks_seo_blocks",
   "info": {
-    "displayName": "Default Seo",
-    "icon": "search",
-    "description": ""
+    "displayName": "SeoBlock",
+    "icon": "ad"
   },
   "options": {},
   "attributes": {
@@ -13,6 +12,10 @@
     },
     "metaDescription": {
       "type": "text"
+    },
+    "slug": {
+      "type": "string",
+      "required": true
     }
   }
 }

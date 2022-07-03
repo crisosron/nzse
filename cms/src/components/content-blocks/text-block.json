@@ -8,10 +8,8 @@
   "options": {},
   "attributes": {
     "content": {
-      "type": "richtext"
-    },
-    "title": {
-      "type": "string"
+      "type": "richtext",
+      "required": true
     }
   }
 }

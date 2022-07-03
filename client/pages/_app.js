@@ -3,6 +3,11 @@ import Head from "next/head";
 import { createContext } from "react";
 import { fetchAPI } from "../lib/api";
 import { getStrapiMedia } from "../lib/media";
+import { graphqlClient } from '../lib/graphql-api'
+import { 
+  getGlobalAttributes,
+  getGlobalSeo
+} from '../graphql/queries';
 
 import "../styles/globals.css";
 
@@ -10,19 +15,19 @@ import "../styles/globals.css";
 export const GlobalContext = createContext({});
 
 const MyApp = ({ Component, pageProps }) => {
-  const { global } = pageProps;
+  const { globalAttributes, globalSeo } = pageProps;
 
   return (
     <>
       <Head>
-        { global.attributes.favicon &&
+        { globalAttributes.favicon &&
           <link
           rel="shortcut icon"
-          href={getStrapiMedia(global.attributes.favicon)}
+          href={ getStrapiMedia(globalAttributes.favicon).url }
           />
         }
       </Head>
-      <GlobalContext.Provider value={global.attributes}>
+      <GlobalContext.Provider value={{ globalAttributes, globalSeo }}>
         <Component {...pageProps} />
       </GlobalContext.Provider>
     </>
@@ -37,16 +42,19 @@ MyApp.getInitialProps = async (ctx) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
 
-  // Fetch global site settings from Strapi
-  const globalRes = await fetchAPI("/global", {
-    populate: {
-      siteName: "*",
-      favicon: { populate: { url: "*", name: "*" } },
-      defaultSeo: "*"
-    }
-  });
+  const { data: globalAttributesData } = await graphqlClient.query({ query: getGlobalAttributes });
+  const { data: globalSeoData } = await graphqlClient.query({ query: getGlobalSeo });
 
-  return { ...appProps, pageProps: { global: globalRes.data } };
+  const globalAttributes = globalAttributesData.global.data.attributes;
+  const globalSeo = globalSeoData.globalSeo.data.attributes;
+
+  return {
+    ...appProps,
+    pageProps: {
+      globalAttributes,
+      globalSeo,
+    }
+  }
 };
 
 export default MyApp;

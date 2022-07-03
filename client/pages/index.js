@@ -7,20 +7,18 @@ import { useContext } from "react";
 import { GlobalContext } from "../pages/_app";
 import { graphqlClient } from '../lib/graphql-api'
 import { getAllArticles, getHomepage } from '../graphql/queries';
+import { Blocks } from "../components/blocks";
+
 
 const Home = ({ homepage, articles }) => {
-  const { siteName } = useContext(GlobalContext);
+  const { globalAttributes: { siteName } } = useContext(GlobalContext);
+
+  const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
+
   return (
     <Layout>
-      { homepage.seo && 
-        <Seo seo={homepage.seo} />
-      }
-      <div>
-        <div>
-          <h1 className="text-3xl font-bold underline text-red-400">{siteName}</h1>
-        </div>
-        <Articles articles={articles} />
-      </div>
+      <Seo seo={homepageSeo}></Seo>
+      <Blocks blocks={homepageBlocks} />
     </Layout>
   );
 };
@@ -35,19 +33,6 @@ export async function getStaticProps() {
   );
   const articles = articlesData.articles.data?.map((article) => ({ ...article.attributes }));
   const homepage = homepageData.homepage.data?.attributes
-
-  // Example usage without graphql
-  // const [homepageRes, articlesRes] = await Promise.all(
-  //   [
-  //     fetchAPI("/homepage", {
-  //       populate: { seo: { populate: "*" }},
-  //     }),
-
-  //     fetchAPI("/articles", {
-  //       populate: { title: "*" },
-  //     }),
-  //   ]
-  // );
 
   return {
     props: {

@@ -1,3 +1,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 
+  ================================== 
+  Fonts
+  ================================== 
+*/
+@font-face {
+  font-family: 'Sansation';
+  src: url('../public/fonts/sansation/SansationLight.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sansation';
+  src: url('../public/fonts/sansation/SansationLightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sansation';
+  src: url('../public/fonts/sansation/SansationBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sansation';
+  src: url('../public/fonts/sansation/SansationItalic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sansation';
+  src: url('../public/fonts/sansation/SansationRegular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sansation';
+  src: url('../public/fonts/sansation/SansationBoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 
+  ================================== 
+  Setting defaults on CMSable rich text typography 
+  ================================== 
+*/
+
+/* 
+  .prose is the class name assigned by tailwind that is applied to elements that displays
+  CMSable HTML content
+
+  see: https://tailwindcss.com/docs/typography-plugin
+*/
+
+/* Defaults on rich text headers */
+.prose > h1,
+.prose > h2,
+.prose > h3,
+.prose > h4,
+.prose > h5, 
+.prose > h6 {
+  color: theme('colors.light-blue');
+  margin-top: 1em;
+}
+
+/* Defaults on rich text ul, and ol bullets and numbers */
+.prose :where(ul > li):not(:where([class~="not-prose"] *))::marker,
+.prose :where(ol > li):not(:where([class~="not-prose"] *))::marker {
+  color: theme('colors.light-blue');
+}
+
+.prose :where(a):not(:where([class~="not-prose"] *)) {
+  color: theme('colors.link-blue');
+  text-decoration: none;
+}
+
+/* See https://tailwindcss.com/docs/screens for breakpoint sizes */
+/* For md and above */
+@media only screen and (min-width: 768px) {
+}
+
+/* For lg and above */
+@media only screen and (min-width: 1024px) {
+}
