@@ -2,7 +2,9 @@ import {
   ImageBlock,
   TextBlock,
   TextWithImageBlock,
-  ButtonBlock
+  ButtonBlock,
+  CardBlocks,
+  CardBlock
 } from './index';
 
 const Block = ({ blockRecord }) => {
@@ -11,6 +13,8 @@ const Block = ({ blockRecord }) => {
     'ComponentContentBlocksTextWithImageBlock': TextWithImageBlock,
     'ComponentContentBlocksImageBlock': ImageBlock,
     'ComponentContentBlocksButtonBlock': ButtonBlock,
+    'ComponentContentBlocksCardBlocks': CardBlocks,
+    'ComponentContentBlocksCardBlock': CardBlock
   };
 
   const blockType = blockRecord.__typename;
