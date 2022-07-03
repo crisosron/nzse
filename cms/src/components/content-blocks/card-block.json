@@ -1,11 +1,32 @@
 {
   "collectionName": "components_content_blocks_card_blocks",
   "info": {
-    "displayName": "CardBlock"
+    "displayName": "CardBlock",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "title": {
+      "type": "string"
+    },
+    "generalPage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::general-page.general-page"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "content": {
+      "type": "text",
+      "required": false
+    },
+    "bottomLinkText": {
       "type": "string"
     }
   }
