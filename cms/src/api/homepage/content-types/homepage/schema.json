@@ -25,11 +25,10 @@
     "blocks": {
       "type": "dynamiczone",
       "components": [
+        "content-blocks.button-block",
         "content-blocks.image-block",
         "content-blocks.text-block",
-        "content-blocks.text-with-image-block",
-        "content-blocks.internal-link-button-block",
-        "content-blocks.external-link-button-block"
+        "content-blocks.text-with-image-block"
       ]
     }
   }

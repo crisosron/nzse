@@ -1,10 +1,16 @@
-import { ImageBlock, TextBlock, TextWithImageBlock } from './index';
+import { 
+  ImageBlock,
+  TextBlock,
+  TextWithImageBlock,
+  ButtonBlock
+} from './index';
 
 const Block = ({ blockRecord }) => {
   const blockTypeNameToComponentMapping = {
     'ComponentContentBlocksTextBlock': TextBlock,
     'ComponentContentBlocksTextWithImageBlock': TextWithImageBlock,
-    'ComponentContentBlocksImageBlock': ImageBlock
+    'ComponentContentBlocksImageBlock': ImageBlock,
+    'ComponentContentBlocksButtonBlock': ButtonBlock,
   };
 
   const blockType = blockRecord.__typename;
