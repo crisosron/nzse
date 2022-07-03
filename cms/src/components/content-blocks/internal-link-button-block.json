@@ -2,7 +2,8 @@
   "collectionName": "components_content_blocks_internal_link_button_blocks",
   "info": {
     "displayName": "InternalLinkButtonBlock",
-    "icon": "external-link-square-alt"
+    "icon": "link",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -21,7 +22,8 @@
         "Left",
         "Right",
         "Center"
-      ]
+      ],
+      "default": "Left"
     }
   }
 }
