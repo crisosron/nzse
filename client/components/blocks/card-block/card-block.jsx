@@ -1,6 +1,7 @@
+import { getStrapiMedia } from "../../../lib/media";
 import { unwrapEntityResponse, formatDate } from "../../../lib/utils";
 
-const CardBlock = ({ id, content, title, bottomLinkText, generalPage }) => {
+const CardBlock = ({ id, content, title, bottomLinkText, image, generalPage }) => {
   const {
     title: linkedPageTitle,
     slug: linkedPageSlug,
@@ -8,18 +9,34 @@ const CardBlock = ({ id, content, title, bottomLinkText, generalPage }) => {
     publishedAt: linkedPagePublishedAt
   } = unwrapEntityResponse(generalPage);
 
-  console.log('linkedPageTitle: ', linkedPageTitle);
-  console.log('linkedPageSlug: ', linkedPageSlug);
-  console.log('linkedPageCreatedAt: ', formatDate(linkedPageCreatedAt));
-  console.log('linkedPagePublishedAt: ', formatDate(linkedPagePublishedAt));
+  const imageData = getStrapiMedia(image);
+
+  const handleCardClicked = () => {
+    window.location.href = linkedPageSlug;
+  };
 
   return (
-    <div>
-      CardBlock
-      { title ||  linkedPageTitle }
-      { content }
-      { bottomLinkText }
-    </div>
+    <>
+      <div
+        className="w-full my-4 lg:my-0 md:max-w-lg lg:max-w-xs h-100 cursor-pointer overflow-hidden shadow-lg hover:shadow-xl transition-all self-center flex flex-col"
+        href={linkedPageSlug}
+        onClick={handleCardClicked}
+      >
+        <div className="flex-none w-full h-2/4">
+          <img src={imageData.url} className="w-full h-full object-cover" alt={imageData.alternativeText} />
+        </div>
+        <div className="flex-grow overflow-hidden px-6 py-4">
+          <div className="font-bold text-xl mb-2 text-light-blue">Title</div>
+          { linkedPagePublishedAt && <div className="text-md mb-2 text-light-blue">{formatDate(linkedPagePublishedAt)}</div> }
+          <p className="text-gray-700 text-base">
+            { content }
+          </p>
+        </div>
+        <div className="h-16 px-6 py-2 flex hover:underline self-end items-center text-link-blue">
+          <a href={linkedPageSlug}>{bottomLinkText}</a>
+        </div>
+      </div>
+    </>
   );
 };
 
