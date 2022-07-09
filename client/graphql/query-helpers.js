@@ -1,3 +1,16 @@
+const generalPageSubQuery = `
+  generalPage {
+    data {
+      attributes {
+        title
+        slug
+        createdAt
+        publishedAt
+      }
+    }
+  }
+`;
+
 const imagesSubquery = `
   image {
     data {
@@ -39,6 +52,16 @@ const blocksListSubquery = `
       title
       link
       alignment
+    }
+    ...on ComponentContentBlocksCardBlocks {
+      cardBlocks {
+        id
+        title
+        bottomLinkText
+        content
+        ${imagesSubquery}
+        ${generalPageSubQuery}
+      }
     }
   }
 `;
