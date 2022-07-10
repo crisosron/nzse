@@ -4,7 +4,8 @@ import {
   TextWithImageBlock,
   ButtonBlock,
   CardBlocks,
-  CardBlock
+  CardBlock,
+  FlipbookBlock
 } from './index';
 
 const Block = ({ blockRecord }) => {
@@ -14,7 +15,8 @@ const Block = ({ blockRecord }) => {
     'ComponentContentBlocksImageBlock': ImageBlock,
     'ComponentContentBlocksButtonBlock': ButtonBlock,
     'ComponentContentBlocksCardBlockList': CardBlocks,
-    'ComponentContentBlocksCardBlock': CardBlock
+    'ComponentContentBlocksCardBlock': CardBlock,
+    'ComponentContentBlocksFlipbookBlock': FlipbookBlock
   };
 
   const blockType = blockRecord.__typename;

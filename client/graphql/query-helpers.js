@@ -28,6 +28,20 @@ const imagesSubquery = `
   }
 `;
 
+const fileSubquery = `
+  file {
+    data {
+      attributes {
+        url
+        alternativeText
+        name
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
 // TODO: Investigate what happens if a text block, and a text with image block are both present with
 // the exact same value for their content field. Will there be a conflict?
 const blocksListSubquery = `
@@ -62,6 +76,12 @@ const blocksListSubquery = `
         ${imagesSubquery}
         ${generalPageSubQuery}
       }
+    }
+    ...on ComponentContentBlocksFlipbookBlock {
+      id
+      title
+      flipbookLink
+      ${fileSubquery}
     }
   }
 `;

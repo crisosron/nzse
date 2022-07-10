@@ -6,3 +6,4 @@ export { default as ImageBlock } from './image-block';
 export { default as ButtonBlock } from './button-block';
 export { default as CardBlocks } from './card-blocks';
 export { default as CardBlock } from './card-block';
+export { default as FlipbookBlock } from './flipbook-block';
