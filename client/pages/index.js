@@ -19,6 +19,7 @@ const Home = ({ homepage, articles }) => {
     <Layout>
       <Seo seo={homepageSeo}></Seo>
       <Blocks blocks={homepageBlocks} />
+      {/* <iframe style={{width: '1000px', height: '1000px'}} src="https://online.fliphtml5.com/dcbnt/jlpl/"  seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" ></iframe> */}
     </Layout>
   );
 };

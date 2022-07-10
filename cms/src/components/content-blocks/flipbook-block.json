@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_content_blocks_flipbook_blocks",
+  "info": {
+    "displayName": "FlipbookBlock",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "flipbookLink": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "file": {
+      "allowedTypes": [
+        "files"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}
