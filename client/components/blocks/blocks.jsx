@@ -13,7 +13,7 @@ const Block = ({ blockRecord }) => {
     'ComponentContentBlocksTextWithImageBlock': TextWithImageBlock,
     'ComponentContentBlocksImageBlock': ImageBlock,
     'ComponentContentBlocksButtonBlock': ButtonBlock,
-    'ComponentContentBlocksCardBlocks': CardBlocks,
+    'ComponentContentBlocksCardBlockList': CardBlocks,
     'ComponentContentBlocksCardBlock': CardBlock
   };
 
