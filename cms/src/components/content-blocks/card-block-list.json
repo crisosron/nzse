@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_content_blocks_card_blocks",
+  "collectionName": "components_content_blocks_card_block_lists",
   "info": {
-    "displayName": "CardBlocks"
+    "displayName": "CardBlockList"
   },
   "options": {},
   "attributes": {

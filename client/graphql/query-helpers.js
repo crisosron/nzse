@@ -53,7 +53,7 @@ const blocksListSubquery = `
       link
       alignment
     }
-    ...on ComponentContentBlocksCardBlocks {
+    ...on ComponentContentBlocksCardBlockList {
       cardBlocks {
         id
         title
