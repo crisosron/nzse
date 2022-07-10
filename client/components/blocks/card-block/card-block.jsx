@@ -18,11 +18,11 @@ const CardBlock = ({ id, content, title, bottomLinkText, image, generalPage }) =
   return (
     <>
       <div
-        className="w-full my-4 lg:my-0 md:max-w-lg lg:max-w-xs h-100 cursor-pointer overflow-hidden shadow-lg hover:shadow-xl transition-all self-center flex flex-col"
+        className="card-block w-full my-4 lg:my-0 md:max-w-lg lg:max-w-xs h-100 cursor-pointer overflow-hidden shadow-lg hover:shadow-xl transition-all self-center flex flex-col"
         href={linkedPageSlug}
         onClick={handleCardClicked}
       >
-        <div className="flex-none w-full h-2/4">
+        <div className="flex-none w-full h-2/4 overflow-hidden">
           <img src={imageData.url} className="w-full h-full object-cover" alt={imageData.alternativeText} />
         </div>
         <div className="flex-grow overflow-hidden px-6 py-4">

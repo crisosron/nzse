@@ -9,7 +9,7 @@ import {
   getGlobalSeo
 } from '../graphql/queries';
 
-import "../styles/globals.css";
+import "../styles/globals.scss";
 
 // Store Strapi Global object in context
 export const GlobalContext = createContext({});
