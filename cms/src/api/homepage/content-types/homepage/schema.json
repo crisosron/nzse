@@ -28,7 +28,8 @@
         "content-blocks.button-block",
         "content-blocks.image-block",
         "content-blocks.text-block",
-        "content-blocks.text-with-image-block"
+        "content-blocks.text-with-image-block",
+        "content-blocks.card-blocks"
       ]
     }
   }
