@@ -99,6 +99,13 @@
 @media only screen and (min-width: 1024px) {
 }
 
+a {
+  @apply text-link-blue;
+  &:hover {
+    @apply text-light-blue;
+  }
+}
+
 /* 
   ================================== 
   Class extensions

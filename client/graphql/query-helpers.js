@@ -33,10 +33,7 @@ const fileSubquery = `
     data {
       attributes {
         url
-        alternativeText
         name
-        createdAt
-        updatedAt
       }
     }
   }
