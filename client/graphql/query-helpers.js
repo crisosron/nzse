@@ -79,7 +79,7 @@ const blocksListSubquery = `
     }
     ...on ComponentContentBlocksFlipbookBlock {
       id
-      title
+      subjectTitle
       flipbookLink
       ${fileSubquery}
     }

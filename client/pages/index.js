@@ -15,6 +15,8 @@ const Home = ({ homepage, articles }) => {
 
   const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
 
+  console.log('homepageBlocks: ', homepageBlocks);
+
   return (
     <Layout>
       <Seo seo={homepageSeo}></Seo>
