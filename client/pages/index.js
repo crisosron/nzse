@@ -12,11 +12,7 @@ import { Blocks } from "../components/blocks";
 
 const Home = ({ homepage, articles }) => {
   const { globalAttributes: { siteName } } = useContext(GlobalContext);
-
   const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
-
-  console.log('homepageBlocks: ', homepageBlocks);
-
   return (
     <Layout>
       <Seo seo={homepageSeo}></Seo>
