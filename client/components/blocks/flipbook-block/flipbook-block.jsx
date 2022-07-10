@@ -1,7 +1,6 @@
 import { unwrapEntityResponse } from "../../../lib/utils";
 
 const FlipbookBlock = ({ subjectTitle, flipbookLink, file }) => {
-  console.log('subjectTitle: ', subjectTitle);
   const { url: fileUrl } = unwrapEntityResponse(file);
   return (
     <div className="my-8 prose self-center w-full h-screen">
