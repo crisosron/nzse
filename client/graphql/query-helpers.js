@@ -1,16 +1,3 @@
-const generalPageSubQuery = `
-  generalPage {
-    data {
-      attributes {
-        title
-        slug
-        createdAt
-        publishedAt
-      }
-    }
-  }
-`;
-
 const imagesSubquery = `
   image {
     data {
@@ -82,5 +69,35 @@ const blocksListSubquery = `
     }
   }
 `;
+
+
+const generalPageSubQuery = `
+  generalPage {
+    data {
+      attributes {
+        title
+        slug
+        audience
+        membersOnly
+        landingPage
+        createdAt
+        publihsedAt
+        childPages {
+          data {
+            attributes {
+              title
+              audience
+              slug
+              membersOnly
+            }
+          }
+        }
+        ${imagesSubquery}
+        ${blocksListSubquery}
+      }
+    }
+  }
+`;
+
 
 export { blocksListSubquery, imagesSubquery }

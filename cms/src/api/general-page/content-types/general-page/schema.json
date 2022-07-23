@@ -51,7 +51,7 @@
       "relation": "oneToMany",
       "target": "api::general-page.general-page"
     },
-    "content": {
+    "blocks": {
       "type": "dynamiczone",
       "components": [
         "content-blocks.button-block",
