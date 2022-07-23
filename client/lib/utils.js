@@ -26,10 +26,20 @@ const unwrapEntityResponse = (response) => {
   return response.data.attributes;
 }
 
+const unwrapCollectionEntityResponse = (response, collectionName) => {
+  return response.data[collectionName].data?.map((obj) => ({ ...obj.attributes }));
+  
+}
+
 const formatDate = (dateString) => {
   if(typeof dateString !== 'string') throw new Exception('Expected date argument to be a string');
   const date = new Date(dateString);
   return date.toLocaleDateString('en-us', DATE_OPTIONS).replace(',', '');
 }
 
-export { MEDIA_FILE_TYPES, unwrapEntityResponse, formatDate };
+export { 
+  MEDIA_FILE_TYPES, 
+  unwrapEntityResponse, 
+  unwrapCollectionEntityResponse,
+  formatDate
+};

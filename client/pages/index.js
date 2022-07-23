@@ -31,8 +31,6 @@ export async function getStaticProps() {
   const homepage = homepageData.homepage.data?.attributes;
   const generalPages = generalPagesData.generalPages.data?.map((generalPage) => ({ ...generalPage.attributes }));
 
-  console.log('Got generalPages: ', generalPages);
-
   return {
     props: {
       homepage,

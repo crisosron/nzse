@@ -69,4 +69,31 @@ const blocksListSubquery = `
   }
 `;
 
-export { blocksListSubquery, imagesSubquery }
+const generalPageDataSubquery = `
+  data {
+    attributes {
+      title
+      slug
+      audience
+      membersOnly
+      landingPage
+      createdAt
+      publishedAt
+      childPages {
+        data {
+          attributes {
+            title
+            audience
+            slug
+            membersOnly
+            landingPage
+          }
+        }
+      }
+      ${imagesSubquery}
+      ${blocksListSubquery}
+    }
+  }
+`;
+
+export { blocksListSubquery, imagesSubquery, generalPageDataSubquery }
