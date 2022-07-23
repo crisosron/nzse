@@ -62,7 +62,7 @@
         "content-blocks.text-block",
         "content-blocks.text-with-image-block"
       ],
-      "min": 1
+      "required": true
     }
   }
 }
