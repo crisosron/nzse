@@ -90,7 +90,6 @@ const generalPageDataSubquery = `
           }
         }
       }
-      ${imagesSubquery}
       ${blocksListSubquery}
     }
   }

@@ -1,6 +1,9 @@
 import { graphqlClient } from "../../lib/graphql-api";
 import { buildGeneralPageBySlugQuery, getAllGeneralPageSlugs } from "../../graphql/queries";
-import { unwrapCollectionEntityResponse } from "../../lib/utils";
+import { formatDate, unwrapCollectionEntityResponse } from "../../lib/utils";
+
+import Layout from "../../components/layout";
+import { Blocks } from "../../components/blocks";
 
 export const getStaticPaths = async () => {
   const slugs = unwrapCollectionEntityResponse(
@@ -16,17 +19,12 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   const { slug } = params;
   const generalPageBySlugQuery = buildGeneralPageBySlugQuery(slug);
-
   const queryResponse = await graphqlClient.query({ query: generalPageBySlugQuery });
   const generalPages = unwrapCollectionEntityResponse(queryResponse, 'generalPages');
-
-  // TODO: need to redirect to 404 if generalPage is null
   const generalPage = generalPages.length ? generalPages[0] : null;
-
   return {
     props: generalPage
   }
-
 };
 
 const GeneralPage = ({
@@ -37,13 +35,17 @@ const GeneralPage = ({
   landingPage,
   createdAt,
   publishedAt,
-  image,
   blocks
 }) => {
+  const publishedDate = formatDate(publishedAt);
   return (
-    <div>
-      { title }
-    </div>
+    <Layout>
+      <div className="prose">
+        <h1 className="mb-2">{ title }</h1>
+        <span>{publishedDate}</span>
+        <Blocks blocks={blocks} />
+      </div>
+    </Layout>
   );
 
 };
