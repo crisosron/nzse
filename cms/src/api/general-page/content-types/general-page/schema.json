@@ -36,7 +36,7 @@
       ],
       "required": true
     },
-    "memberOnly": {
+    "membersOnly": {
       "type": "boolean",
       "required": true,
       "default": false
