@@ -1,11 +1,15 @@
 import { graphqlClient } from "../../lib/graphql-api";
-import { buildGeneralPageBySlugQuery } from "../../graphql/queries";
+import { buildGeneralPageBySlugQuery, getAllGeneralPageSlugs } from "../../graphql/queries";
 import { unwrapCollectionEntityResponse } from "../../lib/utils";
 
 export const getStaticPaths = async () => {
+  const slugs = unwrapCollectionEntityResponse(
+    await graphqlClient.query({ query: getAllGeneralPageSlugs }), 'generalPages'
+  ).map(entry => `/${entry.slug}`);
+
   return {
-    paths: ["/test"],
-    fallback: "blocking"
+    paths: slugs,
+    fallback: false // Return 404 if the path is not in slugs/paths
   }
 };
 

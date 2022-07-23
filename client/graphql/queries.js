@@ -86,6 +86,18 @@ const getGlobalSeo = gql`
   }
 `;
 
+const getAllGeneralPageSlugs = gql`
+  query allGeneralPageSlugs {
+    generalPages {
+      data {
+        attributes {
+          slug
+        }
+      }
+    }
+  }
+`
+
 const buildGeneralPageBySlugQuery = (slug) => {
   return gql`
     query generalPageBySlug {
@@ -102,5 +114,6 @@ export {
   getGlobalAttributes,
   getGlobalSeo,
   getAllGeneralPages,
-  buildGeneralPageBySlugQuery
+  getAllGeneralPageSlugs,
+  buildGeneralPageBySlugQuery,
 }
