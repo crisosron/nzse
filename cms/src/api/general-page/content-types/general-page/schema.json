@@ -19,6 +19,48 @@
     "slug": {
       "type": "string",
       "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "audience": {
+      "type": "enumeration",
+      "enum": [
+        "Patients",
+        "Professionals"
+      ],
+      "required": true
+    },
+    "memberOnly": {
+      "type": "boolean",
+      "required": true
+    },
+    "landingPage": {
+      "type": "boolean",
+      "required": true
+    },
+    "childPages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::general-page.general-page"
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "content-blocks.button-block",
+        "content-blocks.card-block-list",
+        "content-blocks.card-block",
+        "content-blocks.flipbook-block",
+        "content-blocks.image-block",
+        "content-blocks.text-block",
+        "content-blocks.text-with-image-block"
+      ],
+      "min": 1
     }
   }
 }
