@@ -38,11 +38,13 @@
     },
     "memberOnly": {
       "type": "boolean",
-      "required": true
+      "required": true,
+      "default": false
     },
     "landingPage": {
       "type": "boolean",
-      "required": true
+      "required": true,
+      "default": false
     },
     "childPages": {
       "type": "relation",
@@ -53,8 +55,8 @@
       "type": "dynamiczone",
       "components": [
         "content-blocks.button-block",
-        "content-blocks.card-block-list",
         "content-blocks.card-block",
+        "content-blocks.card-block-list",
         "content-blocks.flipbook-block",
         "content-blocks.image-block",
         "content-blocks.text-block",
