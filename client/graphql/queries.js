@@ -27,6 +27,37 @@ const getAllArticles = gql`
   }
 `;
 
+const getAllGeneralPages = gql`
+  query allGeneralPages {
+    generalPages {
+      data {
+        attributes {
+          title
+          slug
+          audience
+          membersOnly
+          landingPage
+          createdAt
+          publishedAt
+          childPages {
+            data {
+              attributes {
+                title
+                audience
+                slug
+                membersOnly
+                landingPage
+              }
+            }
+          }
+          ${imagesSubquery}
+          ${blocksListSubquery}
+        }
+      }
+    }
+  }
+`;
+
 const getHomepage = gql`
   query homepage {
     homepage {
@@ -78,4 +109,10 @@ const getGlobalSeo = gql`
   }
 `;
 
-export { getAllArticles, getHomepage, getGlobalAttributes, getGlobalSeo }
+export { 
+  getAllArticles,
+  getHomepage,
+  getGlobalAttributes,
+  getGlobalSeo,
+  getAllGeneralPages
+}

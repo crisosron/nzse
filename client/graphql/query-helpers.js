@@ -58,7 +58,6 @@ const blocksListSubquery = `
         bottomLinkText
         content
         ${imagesSubquery}
-        ${generalPageSubQuery}
       }
     }
     ...on ComponentContentBlocksFlipbookBlock {
@@ -69,35 +68,5 @@ const blocksListSubquery = `
     }
   }
 `;
-
-
-const generalPageSubQuery = `
-  generalPage {
-    data {
-      attributes {
-        title
-        slug
-        audience
-        membersOnly
-        landingPage
-        createdAt
-        publihsedAt
-        childPages {
-          data {
-            attributes {
-              title
-              audience
-              slug
-              membersOnly
-            }
-          }
-        }
-        ${imagesSubquery}
-        ${blocksListSubquery}
-      }
-    }
-  }
-`;
-
 
 export { blocksListSubquery, imagesSubquery }

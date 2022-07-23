@@ -6,11 +6,11 @@ import { fetchAPI } from "../lib/api";
 import { useContext } from "react";
 import { GlobalContext } from "../pages/_app";
 import { graphqlClient } from '../lib/graphql-api'
-import { getAllArticles, getHomepage } from '../graphql/queries';
+import { getAllArticles, getAllGeneralPages, getHomepage } from '../graphql/queries';
 import { Blocks } from "../components/blocks";
 
 
-const Home = ({ homepage, articles }) => {
+const Home = ({ homepage, generalPages }) => {
   const { globalAttributes: { siteName } } = useContext(GlobalContext);
   const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
   return (
@@ -22,20 +22,21 @@ const Home = ({ homepage, articles }) => {
 };
 
 export async function getStaticProps() {
-
-  const [ { data: articlesData }, { data: homepageData } ] = await Promise.all(
+  const [ { data: generalPagesData }, { data: homepageData } ] = await Promise.all(
     [
-      graphqlClient.query({ query: getAllArticles }),
+      graphqlClient.query({ query: getAllGeneralPages }),
       graphqlClient.query({ query: getHomepage })
     ]
   );
-  const articles = articlesData.articles.data?.map((article) => ({ ...article.attributes }));
-  const homepage = homepageData.homepage.data?.attributes
+  const homepage = homepageData.homepage.data?.attributes;
+  const generalPages = generalPagesData.generalPages.data?.map((generalPage) => ({ ...generalPage.attributes }));
+
+  console.log('Got generalPages: ', generalPages);
 
   return {
     props: {
       homepage,
-      articles
+      generalPages
     },
     revalidate: 1
   };
