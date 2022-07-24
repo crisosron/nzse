@@ -1,12 +1,10 @@
 import React from "react";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import Articles from "../components/articles";
-import { fetchAPI } from "../lib/api";
 import { useContext } from "react";
 import { GlobalContext } from "../pages/_app";
 import { graphqlClient } from '../lib/graphql-api'
-import { getAllArticles, getAllGeneralPages, getHomepage } from '../graphql/queries';
+import { getAllGeneralPages, getHomepage } from '../graphql/queries';
 import { Blocks } from "../components/blocks";
 
 

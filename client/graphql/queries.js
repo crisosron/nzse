@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { blocksListSubquery, generalPageDataSubquery, imagesSubquery } from "./query-helpers";
+import { blocksListSubquery, generalPageDataSubquery } from "./query-helpers";
 
 const getAllArticles = gql`
   query allArticles {
@@ -108,6 +108,34 @@ const buildGeneralPageBySlugQuery = (slug) => {
   `;
 };
 
+const buildGeneralPageBySlugAndAudienceQuery = (slug, audience) => {
+  return gql`
+    query generalPageBySlugAndAudience {
+      generalPages(filters: { 
+        and: [
+          { slug: { eq: "${slug}" } }, 
+          { audience: { eq: "${audience}" } } 
+        ]}) {
+        ${generalPageDataSubquery}
+      }
+    }
+  `
+}
+
+const buildGeneralPageSlugsByAudienceQuery = (audience) => {
+  return gql`
+    query generalPageSlugsByAudience {
+      generalPages(filters: { audience: { eq: "${audience}" } } ) {
+        data {
+          attributes {
+            slug
+          }
+        }
+      }
+    }
+  `;
+}
+
 export { 
   getAllArticles,
   getHomepage,
@@ -115,5 +143,7 @@ export {
   getGlobalSeo,
   getAllGeneralPages,
   getAllGeneralPageSlugs,
+  buildGeneralPageBySlugAndAudienceQuery,
+  buildGeneralPageSlugsByAudienceQuery,
   buildGeneralPageBySlugQuery,
 }

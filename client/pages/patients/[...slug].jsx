@@ -1,16 +1,17 @@
 import { graphqlClient } from "../../lib/graphql-api";
-import { buildGeneralPageBySlugQuery, getAllGeneralPageSlugs } from "../../graphql/queries";
-import { formatDate, unwrapCollectionEntityResponse } from "../../lib/utils";
-
-import Layout from "../../components/layout";
-import { Blocks } from "../../components/blocks";
+import {
+  buildGeneralPageBySlugAndAudienceQuery,
+  buildGeneralPageSlugsByAudienceQuery
+} from "../../graphql/queries";import { unwrapCollectionEntityResponse } from "../../lib/utils";
+import { GeneralPage } from "../../components";
 
 // TODO: Should this apply only for non member-only pages? Because with member only pages, we need
 // to do some client side checks to determine if the user is logged in or not?
 export const getStaticPaths = async () => {
+  const slugQuery = buildGeneralPageSlugsByAudienceQuery('Patients');
   const slugs = unwrapCollectionEntityResponse(
-    await graphqlClient.query({ query: getAllGeneralPageSlugs }), 'generalPages'
-  ).map(entry => `/${entry.slug}`);
+    await graphqlClient.query({ query: slugQuery }), 'generalPages'
+  ).map(entry => `/patients/${entry.slug}`);
 
   return {
     paths: slugs,
@@ -23,8 +24,8 @@ export const getStaticPaths = async () => {
 // component code is below), and render the error page manually.
 export const getStaticProps = async ({ params }) => {
   const { slug } = params;
-  const generalPageBySlugQuery = buildGeneralPageBySlugQuery(slug);
-  const queryResponse = await graphqlClient.query({ query: generalPageBySlugQuery });
+  const query = buildGeneralPageBySlugAndAudienceQuery(slug, 'Patients');
+  const queryResponse = await graphqlClient.query({ query });
   const generalPages = unwrapCollectionEntityResponse(queryResponse, 'generalPages');
   const generalPage = generalPages.length ? generalPages[0] : null;
 
@@ -33,27 +34,10 @@ export const getStaticProps = async ({ params }) => {
   }
 };
 
-const GeneralPage = ({
-  title,
-  slug,
-  audience,
-  membersOnly,
-  landingPage,
-  createdAt,
-  publishedAt,
-  blocks
-}) => {
-  const publishedDate = formatDate(publishedAt);
+const PatientsGeneralPage = (props) => {
   return (
-    <Layout>
-      <div className="prose">
-        <h1 className="mb-2">{ title }</h1>
-        <span>{publishedDate}</span>
-        <Blocks blocks={blocks} />
-      </div>
-    </Layout>
+    <GeneralPage { ...props } />
   );
-
 };
 
-export default GeneralPage;
+export default PatientsGeneralPage;
