@@ -1,6 +1,13 @@
 import { gql } from "@apollo/client";
 import { blocksListSubquery, generalPageDataSubquery } from "./query-helpers";
 
+// ================================ FIXED QUERIES ================================ //
+/**
+ * In this project, a 'fixed' query is a query that doesn't change. If you want to use a query with
+ * changing values (e.g. a query that filters for a given value), see the query builders towards 
+ * the bottom of this file for a pattern on how to achieve this.
+ */
+
 const getAllArticles = gql`
   query allArticles {
     articles {
@@ -97,6 +104,20 @@ const getAllGeneralPageSlugs = gql`
     }
   }
 `
+
+// ================================ QUERY BUILDERS ================================ //
+/**
+ * In this project, query builders are used for queries that can take in values from a client, 
+ * which is then used in the query. This is useful for filtering the queries by given values.
+ */
+
+/**
+ * Note on general pages:
+ * 
+ * General pages have an 'audience' field that dictates whether the page belongs to the
+ * '/professionals/<slug>' route, or '/patients/<slug>' route. Some of the query builders below
+ * takes this into account by taking in a value for 'audience'.
+ */
 
 const buildGeneralPageBySlugQuery = (slug) => {
   return gql`
