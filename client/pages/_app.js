@@ -1,7 +1,6 @@
 import App from "next/app";
 import Head from "next/head";
 import { createContext } from "react";
-import { fetchAPI } from "../lib/api";
 import { getStrapiMedia } from "../lib/media";
 import { graphqlClient } from '../lib/graphql-api'
 import { 
@@ -15,7 +14,7 @@ import "../styles/globals.scss";
 export const GlobalContext = createContext({});
 
 const MyApp = ({ Component, pageProps }) => {
-  const { globalAttributes, globalSeo } = pageProps;
+  const { globalAttributes, globalSeo, user } = pageProps;
 
   return (
     <>
@@ -27,7 +26,7 @@ const MyApp = ({ Component, pageProps }) => {
           />
         }
       </Head>
-      <GlobalContext.Provider value={{ globalAttributes, globalSeo }}>
+      <GlobalContext.Provider value={{ globalAttributes, globalSeo, user }}>
         <Component {...pageProps} />
       </GlobalContext.Provider>
     </>
@@ -48,11 +47,18 @@ MyApp.getInitialProps = async (ctx) => {
   const globalAttributes = globalAttributesData.global.data.attributes;
   const globalSeo = globalSeoData.globalSeo.data.attributes;
 
+  // TODO: Pending implementation of login mechanism
+  const user = {
+    loggedIn: true
+    
+  }
+
   return {
     ...appProps,
     pageProps: {
       globalAttributes,
       globalSeo,
+      user,
     }
   }
 };
