@@ -31,5 +31,10 @@ The staging deployment of the Strapi CMS can be found at https://nzse.herokuapp.
 TBD: 
 The Next.js frontend deploys on Vercel. To deploy your changes, simply push your changes to the remote branch. This will trigger a branch deploy, and Vercel will deploy that branch which can be previewed with the Vercel generated URL.
 
-### Other artifacts
+## Other artifacts
 - Project Board: https://trello.com/b/vqvjCxlD/nzse-website-rebuild (you must request permission to gain access to the project board)
+
+## About this project
+
+### Bootstrapped via template project
+This repository was created from the [strapi-nextjs](https://github.com/crisosron/strapi-nextjs) dockerized template project to minimize the amount of setup required to create web applications that uses the same next.js-strapi stack. See the [repo](https://github.com/crisosron/strapi-nextjs) for more information.
