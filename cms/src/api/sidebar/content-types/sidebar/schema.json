@@ -4,7 +4,8 @@
   "info": {
     "singularName": "sidebar",
     "pluralName": "sidebars",
-    "displayName": "Sidebar"
+    "displayName": "Sidebar",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -16,14 +17,16 @@
       "components": [
         "navigation-blocks.sidebar-dropdown",
         "navigation-blocks.sidebar-link"
-      ]
+      ],
+      "required": true
     },
     "professionalsSidebar": {
       "type": "dynamiczone",
       "components": [
         "navigation-blocks.sidebar-dropdown",
         "navigation-blocks.sidebar-link"
-      ]
+      ],
+      "required": true
     }
   }
 }
