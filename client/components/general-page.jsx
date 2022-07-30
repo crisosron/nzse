@@ -10,9 +10,11 @@ const GeneralPage = ({
   landingPage,
   createdAt,
   publishedAt,
-  blocks
+  blocks,
+  sidebar
 }) => {
   const publishedDate = formatDate(publishedAt);
+  console.log('Sidebar in general page: ', sidebar);
   return (
     <Layout>
       <div className="prose md:mx-4 lg:py-4">

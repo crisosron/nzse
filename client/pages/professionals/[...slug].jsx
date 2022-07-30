@@ -7,7 +7,6 @@ import { unwrapCollectionEntityResponse } from "../../lib/utils";
 import { GeneralPage } from "../../components";
 import Error404 from "../404";
 
-
 // TODO: Should this apply only for non member-only pages? Because with member only pages, we need
 // to do some client side checks to determine if the user is logged in or not?
 export const getStaticPaths = async () => {
@@ -35,13 +34,13 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const ProfessionalsGeneralPage = (props) => {
-  const { membersOnly, user } = props;
+  const { membersOnly, user, sidebar: { professionalsSidebar} } = props;
   if(membersOnly && !user.loggedIn) {
     return <Error404 />
   }
 
   return (
-    <GeneralPage { ...props } />
+    <GeneralPage { ...props } sidebar={ professionalsSidebar } />
   );
 };
 
