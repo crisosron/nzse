@@ -1,7 +1,7 @@
 import Nav from "./nav";
 
 const Layout = ({ children, categories, seo }) => (
-  <div className="font-sansation m-5 lg:mx-32 border">
+  <div className="font-sansation mx-5 lg:mx-80 xl:mx-96 border">
     <Nav categories={categories} />
     {children}
   </div>
