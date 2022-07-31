@@ -14,7 +14,6 @@ const GeneralPage = ({
   sidebarNavBlocks
 }) => {
   const publishedDate = formatDate(publishedAt);
-  // console.log('Sidebar in general page: ', sidebarNavBlocks);
   return (
     <Layout>
       <Sidebar navBlocks={sidebarNavBlocks} />
