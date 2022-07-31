@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "sidebars",
+  "info": {
+    "singularName": "sidebar",
+    "pluralName": "sidebars",
+    "displayName": "Sidebar",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "patientsSidebar": {
+      "type": "dynamiczone",
+      "components": [
+        "navigation-blocks.sidebar-dropdown",
+        "navigation-blocks.sidebar-link"
+      ],
+      "required": true
+    },
+    "professionalsSidebar": {
+      "type": "dynamiczone",
+      "components": [
+        "navigation-blocks.sidebar-dropdown",
+        "navigation-blocks.sidebar-link"
+      ],
+      "required": true
+    }
+  }
+}
