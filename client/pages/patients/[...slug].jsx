@@ -38,7 +38,7 @@ const PatientsGeneralPage = (props) => {
     return <Error404 />
   }
   return (
-    <GeneralPage { ...props } sidebar={ patientsSidebar } />
+    <GeneralPage { ...props } sidebarNavBlocks={ patientsSidebar } />
   );
 };
 

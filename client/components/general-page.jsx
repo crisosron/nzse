@@ -1,5 +1,5 @@
 import { formatDate } from "../lib/utils";
-import { Layout } from '.';
+import { Layout, Sidebar } from '.';
 import { Blocks } from './blocks';
 
 const GeneralPage = ({
@@ -11,12 +11,13 @@ const GeneralPage = ({
   createdAt,
   publishedAt,
   blocks,
-  sidebar
+  sidebarNavBlocks
 }) => {
   const publishedDate = formatDate(publishedAt);
-  console.log('Sidebar in general page: ', sidebar);
+  // console.log('Sidebar in general page: ', sidebarNavBlocks);
   return (
     <Layout>
+      <Sidebar navBlocks={sidebarNavBlocks} />
       <div className="prose md:mx-4 lg:py-4">
         <h1 className="mb-2">{ title }</h1>
         <span>{publishedDate}</span>
