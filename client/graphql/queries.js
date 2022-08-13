@@ -1,5 +1,9 @@
 import { gql } from "@apollo/client";
-import { blocksListSubquery, generalPageDataSubquery } from "./query-helpers";
+import {
+  blocksListSubquery,
+  generalPageDataSubquery,
+  navigationBlocksListSubquery
+} from "./query-helpers";
 
 // ================================ FIXED QUERIES ================================ //
 /**
@@ -105,6 +109,23 @@ const getAllGeneralPageSlugs = gql`
   }
 `
 
+const getSidebar = gql`
+  query sidebar {
+    sidebar {
+      data {
+        attributes {
+          patientsSidebar {
+            ${navigationBlocksListSubquery}
+          }
+          professionalsSidebar {
+            ${navigationBlocksListSubquery}
+          }
+        }
+      }
+    }
+  }
+`;
+
 // ================================ QUERY BUILDERS ================================ //
 /**
  * In this project, query builders are used for queries that can take in values from a client, 
@@ -164,6 +185,7 @@ export {
   getGlobalSeo,
   getAllGeneralPages,
   getAllGeneralPageSlugs,
+  getSidebar,
   buildGeneralPageBySlugAndAudienceQuery,
   buildGeneralPageSlugsByAudienceQuery,
   buildGeneralPageBySlugQuery,

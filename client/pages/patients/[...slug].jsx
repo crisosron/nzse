@@ -33,12 +33,12 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const PatientsGeneralPage = (props) => {
-  const { membersOnly, user } = props;
+  const { membersOnly, user, sidebar: { patientsSidebar } } = props;
   if(membersOnly && !user.loggedIn) {
     return <Error404 />
   }
   return (
-    <GeneralPage { ...props } />
+    <GeneralPage { ...props } sidebarNavBlocks={ patientsSidebar } />
   );
 };
 

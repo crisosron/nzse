@@ -95,4 +95,25 @@ const generalPageDataSubquery = `
   }
 `;
 
-export { blocksListSubquery, imagesSubquery, generalPageDataSubquery }
+const navigationBlocksListSubquery = `
+  __typename,
+  ...on ComponentNavigationBlocksSidebarLink {
+    sidebarLinkTitle: title
+    page {
+      ${generalPageDataSubquery}
+    }
+  }
+  ...on ComponentNavigationBlocksSidebarDropdown {
+    sidebarDropdownTitle: title
+    pages {
+      ${generalPageDataSubquery}
+    }
+  }
+`;
+
+export { 
+  blocksListSubquery,
+  imagesSubquery,
+  generalPageDataSubquery,
+  navigationBlocksListSubquery
+}
