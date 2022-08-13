@@ -2,7 +2,12 @@ import {
   ImageBlock,
   TextBlock,
   TextWithImageBlock,
-  ButtonBlock
+  ButtonBlock,
+  CardBlocks,
+  CardBlock,
+  FlipbookBlock,
+  SidebarLinkBlock,
+  SidebarDropdownBlock
 } from './index';
 
 const Block = ({ blockRecord }) => {
@@ -11,6 +16,11 @@ const Block = ({ blockRecord }) => {
     'ComponentContentBlocksTextWithImageBlock': TextWithImageBlock,
     'ComponentContentBlocksImageBlock': ImageBlock,
     'ComponentContentBlocksButtonBlock': ButtonBlock,
+    'ComponentContentBlocksCardBlockList': CardBlocks,
+    'ComponentContentBlocksCardBlock': CardBlock,
+    'ComponentContentBlocksFlipbookBlock': FlipbookBlock,
+    'ComponentNavigationBlocksSidebarLink': SidebarLinkBlock,
+    'ComponentNavigationBlocksSidebarDropdown': SidebarDropdownBlock
   };
 
   const blockType = blockRecord.__typename;

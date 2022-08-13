@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_content_blocks_card_block_lists",
+  "info": {
+    "displayName": "CardBlockList"
+  },
+  "options": {},
+  "attributes": {
+    "cardBlocks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content-blocks.card-block",
+      "required": true,
+      "min": 1,
+      "max": 4
+    }
+  }
+}

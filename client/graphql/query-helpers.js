@@ -15,6 +15,17 @@ const imagesSubquery = `
   }
 `;
 
+const fileSubquery = `
+  file {
+    data {
+      attributes {
+        url
+        name
+      }
+    }
+  }
+`;
+
 // TODO: Investigate what happens if a text block, and a text with image block are both present with
 // the exact same value for their content field. Will there be a conflict?
 const blocksListSubquery = `
@@ -40,7 +51,69 @@ const blocksListSubquery = `
       link
       alignment
     }
+    ...on ComponentContentBlocksCardBlockList {
+      cardBlocks {
+        id
+        title
+        bottomLinkText
+        content
+        ${imagesSubquery}
+      }
+    }
+    ...on ComponentContentBlocksFlipbookBlock {
+      id
+      subjectTitle
+      flipbookLink
+      ${fileSubquery}
+    }
   }
 `;
 
-export { blocksListSubquery, imagesSubquery }
+const generalPageDataSubquery = `
+  data {
+    attributes {
+      title
+      slug
+      audience
+      membersOnly
+      landingPage
+      createdAt
+      publishedAt
+      childPages {
+        data {
+          attributes {
+            title
+            audience
+            slug
+            membersOnly
+            landingPage
+          }
+        }
+      }
+      ${blocksListSubquery}
+    }
+  }
+`;
+
+const navigationBlocksListSubquery = `
+  __typename,
+  ...on ComponentNavigationBlocksSidebarLink {
+    sidebarLinkTitle: title
+    page {
+      ${generalPageDataSubquery}
+    }
+  }
+  ...on ComponentNavigationBlocksSidebarDropdown {
+    sidebarDropdownTitle: title
+    pages {
+      ${generalPageDataSubquery}
+    }
+  }
+`;
+
+export { 
+  blocksListSubquery,
+  imagesSubquery,
+  generalPageDataSubquery,
+  navigationBlocksListSubquery
+}

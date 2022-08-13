@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_navigation_blocks_sidebar_dropdowns",
+  "info": {
+    "displayName": "sidebarDropdown",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "pages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::general-page.general-page"
+    }
+  }
+}

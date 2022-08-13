@@ -41,6 +41,8 @@ export async function fetchAPI(path, urlParamsObject = {}, options = {}) {
     console.error(response.statusText);
     throw new Error(`An error occured please try again`);
   }
-  const data = await response.json();
+
+  let data = await response.json();
+  // TODO: call unwrapEntityResponse here?
   return data;
 }

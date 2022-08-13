@@ -4,7 +4,11 @@ module.exports = {
     "./components/**/*.{js,jsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        100: '33rem'
+      }
+    },
     fontFamily: {
       sansation: ['Sansation', 'serif']
     },

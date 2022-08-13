@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "general_pages",
+  "info": {
+    "singularName": "general-page",
+    "pluralName": "general-pages",
+    "displayName": "GeneralPage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "required": true
+    },
+    "audience": {
+      "type": "enumeration",
+      "enum": [
+        "Patients",
+        "Professionals"
+      ],
+      "required": true
+    },
+    "membersOnly": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "landingPage": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "childPages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::general-page.general-page"
+    },
+    "blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "content-blocks.button-block",
+        "content-blocks.card-block",
+        "content-blocks.card-block-list",
+        "content-blocks.flipbook-block",
+        "content-blocks.image-block",
+        "content-blocks.text-block",
+        "content-blocks.text-with-image-block"
+      ],
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_navigation_blocks_sidebar_links",
+  "info": {
+    "displayName": "sidebarLink",
+    "icon": "external-link-square-alt"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::general-page.general-page"
+    }
+  }
+}

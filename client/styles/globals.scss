@@ -8,48 +8,48 @@
   ================================== 
 */
 @font-face {
-  font-family: 'Sansation';
-  src: url('../public/fonts/sansation/SansationLight.woff') format('woff');
+  font-family: "Sansation";
+  src: url("../public/fonts/sansation/SansationLight.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Sansation';
-  src: url('../public/fonts/sansation/SansationLightItalic.woff') format('woff');
+  font-family: "Sansation";
+  src: url("../public/fonts/sansation/SansationLightItalic.woff") format("woff");
   font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Sansation';
-  src: url('../public/fonts/sansation/SansationBold.woff') format('woff');
+  font-family: "Sansation";
+  src: url("../public/fonts/sansation/SansationBold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Sansation';
-  src: url('../public/fonts/sansation/SansationItalic.woff') format('woff');
+  font-family: "Sansation";
+  src: url("../public/fonts/sansation/SansationItalic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Sansation';
-  src: url('../public/fonts/sansation/SansationRegular.woff') format('woff');
+  font-family: "Sansation";
+  src: url("../public/fonts/sansation/SansationRegular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Sansation';
-  src: url('../public/fonts/sansation/SansationBoldItalic.woff') format('woff');
+  font-family: "Sansation";
+  src: url("../public/fonts/sansation/SansationBoldItalic.woff") format("woff");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
@@ -73,20 +73,20 @@
 .prose > h2,
 .prose > h3,
 .prose > h4,
-.prose > h5, 
+.prose > h5,
 .prose > h6 {
-  color: theme('colors.light-blue');
+  color: theme("colors.light-blue");
   margin-top: 1em;
 }
 
 /* Defaults on rich text ul, and ol bullets and numbers */
 .prose :where(ul > li):not(:where([class~="not-prose"] *))::marker,
 .prose :where(ol > li):not(:where([class~="not-prose"] *))::marker {
-  color: theme('colors.light-blue');
+  color: theme("colors.light-blue");
 }
 
 .prose :where(a):not(:where([class~="not-prose"] *)) {
-  color: theme('colors.link-blue');
+  color: theme("colors.link-blue");
   text-decoration: none;
 }
 
@@ -97,4 +97,27 @@
 
 /* For lg and above */
 @media only screen and (min-width: 1024px) {
+}
+
+a {
+  @apply text-link-blue;
+  &:hover {
+    @apply text-light-blue;
+  }
+}
+
+/* 
+  ================================== 
+  Class extensions
+  ================================== 
+*/
+.card-block {
+  img {
+    @apply transition-all ease-in-out duration-200;
+  }
+  &:hover {
+    img {
+      @apply scale-125;
+    }
+  }
 }
