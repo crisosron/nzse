@@ -53,7 +53,7 @@ MyApp.getInitialProps = async (ctx) => {
 
   const globalAttributes = globalAttributesData.global.data.attributes;
   const globalSeo = globalSeoData.globalSeo.data.attributes;
-  const sidebar = sidebarData.sidebar.data.attributes;
+  const sidebar = sidebarData.sidebar.data?.attributes;
 
   // TODO: Pending implementation of login mechanism
   const user = {

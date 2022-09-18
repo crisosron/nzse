@@ -34,7 +34,9 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const ProfessionalsGeneralPage = (props) => {
-  const { membersOnly, user, sidebar: { professionalsSidebar } } = props;
+  const { membersOnly, user, sidebar } = props;
+  const professionalsSidebar = sidebar?.professionalsSidebar
+
   if(membersOnly && !user.loggedIn) {
     return <Error404 />
   }
