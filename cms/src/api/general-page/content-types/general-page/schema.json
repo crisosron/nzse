@@ -16,10 +16,6 @@
       "type": "string",
       "required": true
     },
-    "slug": {
-      "type": "string",
-      "required": true
-    },
     "audience": {
       "type": "enumeration",
       "enum": [
@@ -54,6 +50,11 @@
         "content-blocks.text-block",
         "content-blocks.text-with-image-block"
       ],
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
       "required": true
     }
   }
