@@ -16,7 +16,7 @@ const GeneralPage = ({
   const publishedDate = formatDate(publishedAt);
   return (
     <Layout>
-      <div className="GeneralPage flex">
+      <div className="GeneralPage md:flex">
         <Sidebar className="hidden md:block" navBlocks={sidebarNavBlocks} />
 
         {/* 'prose' className required by tailwind to apply tailwindcss to CMSable rich text content */}
@@ -25,6 +25,8 @@ const GeneralPage = ({
           <span>{publishedDate}</span>
           <Blocks blocks={blocks} />
         </div>
+
+        <Sidebar className="block my-5 md:hidden" navBlocks={sidebarNavBlocks} />
       </div>
     </Layout>
   );
