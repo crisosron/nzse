@@ -28,7 +28,8 @@ export const getStaticProps = async ({ params }) => {
   const generalPage = generalPages.length ? generalPages[0] : null;
 
   return {
-    props: generalPage
+    props: generalPage,
+    revalidate: 10
   }
 };
 
