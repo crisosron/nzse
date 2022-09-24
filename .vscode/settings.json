@@ -3,5 +3,7 @@
   "eslint.workingDirectories": [
     "./client"
   ],
-  "files.associations": { "*.scss": "postcss" }
+  "files.associations": {
+    "*.scss": "scss"
+  }
 }
