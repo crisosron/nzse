@@ -1,7 +1,6 @@
 import { formatDate } from "../lib/utils";
 import { Layout, Sidebar } from '.';
 import { Blocks } from './blocks';
-import { useRouter } from 'next/router'
 
 const GeneralPage = ({
   title,
@@ -15,10 +14,8 @@ const GeneralPage = ({
   sidebarNavBlocks
 }) => {
   const publishedDate = formatDate(publishedAt);
-  const router = useRouter();
-  let sidebarTitle = router.pathname.split('/')[1]
-  sidebarTitle = sidebarTitle.charAt(0).toUpperCase() + sidebarTitle.slice(1);
-  
+  const sidebarTitle = audience.charAt(0).toUpperCase() + audience.slice(1);
+
   return (
     <Layout>
       <div className="GeneralPage md:flex">
