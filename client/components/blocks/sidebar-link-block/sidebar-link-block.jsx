@@ -1,8 +1,8 @@
 import { unwrapEntityResponse } from "../../../lib/utils";
+import Link from 'next/link'
 
 const SidebarLinkBlock = (props) => {
   // TODO: Get users logged in status somehow...
-  // TODO: use NextLink
   const { sidebarLinkTitle: title, page, user } = props;
   const { 
     title: pageTitle,
@@ -11,12 +11,12 @@ const SidebarLinkBlock = (props) => {
     membersOnly: pageMembersOnly
   } = unwrapEntityResponse(page);
 
-  console.log('user: ', user);
-
   const audienceRoute = pageAudience === "Patients" ? "patients" : "professionals";
 
   return (
-    <a href={`/${audienceRoute}/${pageSlug}`} className="inline-block text-gray mb-4">{ title || pageTitle }</a>
+    <Link href={`/${audienceRoute}/${pageSlug}`}>
+      <a className="inline-block text-gray mb-4"> {title || pageTitle} </a>
+    </Link>
   )
 };
 
