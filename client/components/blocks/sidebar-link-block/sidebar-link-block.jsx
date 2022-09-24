@@ -2,6 +2,7 @@ import { unwrapEntityResponse } from "../../../lib/utils";
 
 const SidebarLinkBlock = (props) => {
   // TODO: Get users logged in status somehow...
+  // TODO: use NextLink
   console.log('SidebarLinkBlock props: ', props);
   const { sidebarLinkTitle: title, page, user } = props;
   const { 
