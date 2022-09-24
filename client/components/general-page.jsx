@@ -22,7 +22,7 @@ const GeneralPage = ({
         <Sidebar className="hidden md:block" navBlocks={sidebarNavBlocks} title={sidebarTitle} />
 
         {/* 'prose' className required by tailwind to apply tailwindcss to CMSable rich text content */}
-        <div className="content prose md:prose-md md:px-8 lg:prose-lg lg:py-4 lg:mx-8 lg:max-w-full md:flex md:flex-col md:justify-center">
+        <div className="content prose md:prose-md md:px-8 lg:prose-lg lg:p-4 lg:mx-8 lg:max-w-full md:flex md:flex-col md:justify-center">
           <h1 className="mb-2">{ title }</h1>
           <span>{publishedDate}</span>
           <Blocks blocks={blocks} />
