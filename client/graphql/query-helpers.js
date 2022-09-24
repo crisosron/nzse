@@ -99,12 +99,14 @@ const navigationBlocksListSubquery = `
   __typename,
   ...on ComponentNavigationBlocksSidebarLink {
     sidebarLinkTitle: title
+    id
     page {
       ${generalPageDataSubquery}
     }
   }
   ...on ComponentNavigationBlocksSidebarDropdown {
     sidebarDropdownTitle: title
+    id
     pages {
       ${generalPageDataSubquery}
     }
