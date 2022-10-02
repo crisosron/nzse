@@ -19,7 +19,7 @@ const SidebarLinkBlock = (props) => {
 
   return (
     <Link href={`/${audienceRoute}/${pageSlug}`}>
-      <a className={`inline-block mb-4 ${representsCurrentRoute ? 'text-light-blue-700' : 'text-gray'} ${className}`}>{title || pageTitle}</a>
+      <a className={`block mb-4 ${representsCurrentRoute ? 'text-light-blue-700' : 'text-gray'} ${className}`}>{title || pageTitle}</a>
     </Link>
   )
 };
