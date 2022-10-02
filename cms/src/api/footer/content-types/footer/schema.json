@@ -26,6 +26,9 @@
       "type": "component",
       "repeatable": false,
       "component": "other-blocks.social-links"
+    },
+    "address": {
+      "type": "string"
     }
   }
 }
