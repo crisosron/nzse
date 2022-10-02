@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const SidebarLinkBlock = (props) => {
   // TODO: Get users logged in status somehow...
-  const { sidebarLinkTitle: title, page, user } = props;
+  const { sidebarLinkTitle: title, page, user, className } = props;
   const { 
     title: pageTitle,
     slug: pageSlug,
@@ -19,7 +19,7 @@ const SidebarLinkBlock = (props) => {
 
   return (
     <Link href={`/${audienceRoute}/${pageSlug}`}>
-      <a className={`inline-block mb-4 ${representsCurrentRoute ? 'text-light-blue-700' : 'text-gray'}`}>{title || pageTitle}</a>
+      <a className={`inline-block mb-4 ${representsCurrentRoute ? 'text-light-blue-700' : 'text-gray'} ${className}`}>{title || pageTitle}</a>
     </Link>
   )
 };
