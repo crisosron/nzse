@@ -1,7 +1,8 @@
 {
   "collectionName": "components_other_blocks_social_links",
   "info": {
-    "displayName": "SocialLinks"
+    "displayName": "SocialLinks",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -11,7 +12,7 @@
     "linkedInLink": {
       "type": "string"
     },
-    "twiiterLink": {
+    "twitterLink": {
       "type": "string"
     },
     "instagramLink": {
