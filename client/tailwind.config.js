@@ -11,6 +11,9 @@ module.exports = {
       minWidth: {
         '40': '10rem',
         '48': '12rem'
+      },
+      minHeight: {
+        '48': '12rem'
       }
     },
     fontFamily: {
