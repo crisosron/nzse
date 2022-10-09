@@ -126,6 +126,33 @@ const getSidebar = gql`
   }
 `;
 
+const getFooter = gql`
+  query footer {
+    footer {
+      data {
+        attributes {
+          socialLinks {
+            twitterLink
+            facebookLink
+            linkedInLink
+            instagramLink
+          }
+          contactFields {
+            emailAddress
+            organizationName
+            phoneNumber
+            poBox
+          }
+          address
+          links {
+            ${generalPageDataSubquery}
+          }
+        }
+      }
+    }
+  }
+`
+
 // ================================ QUERY BUILDERS ================================ //
 /**
  * In this project, query builders are used for queries that can take in values from a client, 
@@ -186,6 +213,7 @@ export {
   getAllGeneralPages,
   getAllGeneralPageSlugs,
   getSidebar,
+  getFooter,
   buildGeneralPageBySlugAndAudienceQuery,
   buildGeneralPageSlugsByAudienceQuery,
   buildGeneralPageBySlugQuery,

@@ -6,7 +6,8 @@ import { graphqlClient } from '../lib/graphql-api'
 import { 
   getGlobalAttributes,
   getGlobalSeo,
-  getSidebar
+  getSidebar,
+  getFooter
 } from '../graphql/queries';
 
 import "../styles/globals.scss";
@@ -15,7 +16,7 @@ import "../styles/globals.scss";
 export const GlobalContext = createContext({});
 
 const MyApp = ({ Component, pageProps }) => {
-  const { globalAttributes, globalSeo, user, sidebar } = pageProps;
+  const { globalAttributes } = pageProps;
 
   return (
     <>
@@ -27,7 +28,7 @@ const MyApp = ({ Component, pageProps }) => {
           />
         }
       </Head>
-      <GlobalContext.Provider value={{ globalAttributes, globalSeo, user, sidebar }}>
+      <GlobalContext.Provider value={pageProps}>
         <Component {...pageProps} />
       </GlobalContext.Provider>
     </>
@@ -44,16 +45,19 @@ MyApp.getInitialProps = async (ctx) => {
   const [
     { data: globalAttributesData },
     { data: globalSeoData },
-    { data: sidebarData }
+    { data: sidebarData },
+    { data: footerData }
   ] = await Promise.all([
     graphqlClient.query({ query: getGlobalAttributes }),
     graphqlClient.query({ query: getGlobalSeo }),
-    graphqlClient.query({ query: getSidebar })
+    graphqlClient.query({ query: getSidebar }),
+    graphqlClient.query({ query: getFooter })
   ])
 
   const globalAttributes = globalAttributesData.global.data.attributes;
   const globalSeo = globalSeoData.globalSeo.data.attributes;
   const sidebar = sidebarData.sidebar.data?.attributes;
+  const footer = footerData.footer.data?.attributes
 
   // TODO: Pending implementation of login mechanism
   const user = {
@@ -66,7 +70,8 @@ MyApp.getInitialProps = async (ctx) => {
       globalAttributes,
       globalSeo,
       user,
-      sidebar
+      sidebar,
+      footer
     }
   }
 };
