@@ -1,4 +1,10 @@
 import Image from 'next/image';
+import { 
+  FaLinkedinIn as LinkedInIcon,
+  FaFacebookF as FacebookIcon,
+  FaTwitter as TwitterIcon,
+  FaInstagram as InstagramIcon
+} from 'react-icons/fa'
 const Footer = () => {
   return (
     <footer className={`Footer bg-gray-100 p-5 lg:px-80 mt-10 min-h-48`}>
@@ -14,8 +20,13 @@ const Footer = () => {
           <li>Field 3</li>
         </ul>
       </div>
-      <div className="mt-5 text-center">
-        Social Links
+      <div className="mt-5 flex flex-col items-center">
+        <div className="flex space-x-6">
+          <LinkedInIcon size="1.5em" color="#4cbedb" />
+          <FacebookIcon size="1.5em" color="#4cbedb" />
+          <TwitterIcon size="1.5em" color="#4cbedb" />
+          <InstagramIcon size="1.5em" color="#4cbedb" />
+        </div>
       </div>
       <div className="mt-5">
         <ul className="list-none text-center">
