@@ -1,9 +1,8 @@
 // The following is required to properly configure eslint in nextjs to work in a monorepo setting
 {
-  "eslint.workingDirectories": [
-    "./client"
-  ],
+  "eslint.workingDirectories": ["./client"],
   "files.associations": {
     "*.scss": "scss"
-  }
+  },
+  "svg.preview.background": "editor"
 }
