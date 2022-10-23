@@ -19,6 +19,7 @@ const Footer = ({ footerData }) => {
   const { emailAddress, organizationName, phoneNumber, poBox } = footerData.contactFields;
   const links = footerData.links.data;
   const socialLinks = footerData.socialLinks;
+  const address = footerData.address;
 
   return (
     <footer className={`Footer bg-gray-100 p-5 lg:px-80 mt-10 min-h-48 font-sansation text-sm md:text-base lg:text-sm`}>
@@ -68,7 +69,7 @@ const Footer = ({ footerData }) => {
             </ul>
           </div>
           <div className="text-center lg:text-none mt-5">
-            11 Sample Road, Wellington, New Zealand
+            { address }
           </div>
         </div>
       </div>
