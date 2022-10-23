@@ -38,9 +38,19 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString('en-us', DATE_OPTIONS).replace(',', '');
 }
 
+/**
+ * Builds the direct URL of a page link object from Strapi
+ * @param page A strapi link object to a page 
+ */
+const buildPageUrl = (page) => {
+  const { audience, slug } = page.attributes;
+  return `${audience.toLowerCase()}/${slug}`
+}
+
 export { 
   MEDIA_FILE_TYPES, 
   unwrapEntityResponse, 
   unwrapCollectionEntityResponse,
-  formatDate
+  formatDate,
+  buildPageUrl
 };

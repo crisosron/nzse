@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { buildPageUrl } from '../lib/utils';
 import { 
   FaLinkedinIn as LinkedInIcon,
   FaFacebookF as FacebookIcon,
@@ -14,8 +16,10 @@ const SOCIAL_NETWORK_ICONS = {
 }
 
 const Footer = ({ footerData }) => {
-  console.log('footerData: ', footerData);
   const { emailAddress, organizationName, phoneNumber, poBox } = footerData.contactFields;
+  const links = footerData.links.data;
+  const socialLinks = footerData.socialLinks;
+
   return (
     <footer className={`Footer bg-gray-100 p-5 lg:px-80 mt-10 min-h-48 font-sansation text-sm md:text-base lg:text-sm`}>
       <div className="lg:flex lg:items-center lg:justify-around mb-10 lg:mb-0">
@@ -40,20 +44,25 @@ const Footer = ({ footerData }) => {
               {
                 Object.keys(SOCIAL_NETWORK_ICONS).map((networkName, index) => {
                   const IconComponent = SOCIAL_NETWORK_ICONS[networkName];
-                  return (
-                    <a key={`social-link-${index}`} href="www.google.com">
-                      <IconComponent className="hover:fill-lightest-blue" size="1.5em" color="#4cbedb" />
-                    </a>
-                  )
+                  const url = socialLinks[`${networkName}Link`];
+                  if (url) {
+                    return (
+                      <a key={`social-link-${index}`} href={url}>
+                        <IconComponent className="hover:fill-lightest-blue" size="1.5em" color="#4cbedb" />
+                      </a>
+                    )
+                  }
                 })
               }
             </div>
           </div>
           <div className="mt-5 lg:ml-10">
             <ul className="list-none text-center">
-              {[1, 2, 3].map((elem, index) => {
+              {links.map((elem, index) => {
                 return (
-                  <li key={index} className="cursor-pointer mb-5 last:mb-0 lg:inline lg:ml-5 "><a>Link {elem}</a></li>
+                  <li key={index} className="cursor-pointer mb-5la st:mb-0 lg:inline lg:ml-5 ">
+                    <Link href={`/${buildPageUrl(elem)}`}>{elem.attributes.title}</Link>
+                  </li>
                 )
               })}
             </ul>
