@@ -15,10 +15,10 @@ const SOCIAL_NETWORK_ICONS = {
 const Footer = () => {
   return (
     <footer className={`Footer bg-gray-100 p-5 lg:px-80 mt-10 min-h-48`}>
-      <div className="lg:flex lg:items-center lg:justify-around">
+      <div className="lg:flex lg:items-center lg:justify-around mb-10">
         <div className="lg:flex items-center">
           <div className="flex flex-col items-center">
-            <div className="w-[80%] lg:w-[20rem] min-h-[10rem] relative">
+            <div className="w-[80%] md:w-[20rem] min-h-[10rem] relative">
               <Image src="/nzse-logo.svg" alt="nzse-logo" layout="fill" objectFit="contain" />
             </div>
           </div>
@@ -55,7 +55,7 @@ const Footer = () => {
               })}
             </ul>
           </div>
-          <div className="text-center mt-5">
+          <div className="text-center lg:text-none mt-5">
             11 Sample Road, Wellington, New Zealand
           </div>
         </div>
