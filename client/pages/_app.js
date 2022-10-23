@@ -17,6 +17,7 @@ export const GlobalContext = createContext({});
 
 const MyApp = ({ Component, pageProps }) => {
   const { globalAttributes } = pageProps;
+  console.log('pageProps: ', pageProps);
 
   return (
     <>

@@ -12,9 +12,12 @@ const SOCIAL_NETWORK_ICONS = {
   twitter: TwitterIcon,
   instagram: InstagramIcon
 }
-const Footer = () => {
+
+const Footer = ({ footerData }) => {
+  console.log('footerData: ', footerData);
+  const { emailAddress, organizationName, phoneNumber, poBox } = footerData.contactFields;
   return (
-    <footer className={`Footer bg-gray-100 p-5 lg:px-80 mt-10 min-h-48`}>
+    <footer className={`Footer bg-gray-100 p-5 lg:px-80 mt-10 min-h-48 font-sansation text-sm md:text-base lg:text-sm`}>
       <div className="lg:flex lg:items-center lg:justify-around mb-10 lg:mb-0">
         <div className="lg:flex items-center">
           <div className="flex flex-col items-center">
@@ -24,10 +27,10 @@ const Footer = () => {
           </div>
           <div className="lg:ml-10">
             <ul className="list-none text-center lg:text-left">
-              <li>Field 1</li>
-              <li>Field 2</li>
-              <li>Field 3</li>
-              <li>Field 4</li>
+              <li>{ emailAddress }</li>
+              <li>{ phoneNumber }</li>
+              <li>{ poBox }</li>
+              <li>{ organizationName }</li>
             </ul>
           </div>
         </div>

@@ -9,10 +9,10 @@ import { Blocks } from "../components/blocks";
 
 
 const Home = ({ homepage, generalPages }) => {
-  const { globalAttributes: { siteName } } = useContext(GlobalContext);
+  const { globalAttributes: { siteName }, footer: footerData } = useContext(GlobalContext);
   const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
   return (
-    <Layout>
+    <Layout footerData={footerData}>
       <Seo seo={homepageSeo}></Seo>
       <Blocks blocks={homepageBlocks} />
     </Layout>
