@@ -12,9 +12,9 @@ const ChevronDown = ({ className }) => {
   )
 }
 
-const NavLink = ({ link }) => {
+const NavLink = ({ link, className }) => {
   return (
-    <div className="group">
+    <div className={`group ${className}`}>
       <div className="flex items-center select-none cursor-pointer p-2 rounded transition duration-75 group-hover:bg-light-blue-100">
         <Link href={link.url}>
           <a className="transition duration-75 text-dark-blue group-hover:text-lightest-blue">{link.title}</a>
@@ -31,8 +31,8 @@ const NavButton = (({ item }) => {
       <a 
         className={classNames( 
           'transition duration-75 p-3 text-dark-blue',
-          { 'rounded-full bg-light-blue-300 hover:bg-light-blue hover:text-dark-blue': item.applyAccent },
-          { 'rounded-full hover:bg-light-blue-100 hover:text-lightest-blue': !item.applyAccent }
+          { 'rounded-full drop-shadow-md bg-light-blue-300 hover:bg-light-blue hover:text-dark-blue hover:drop-shadow-xl': item.applyAccent },
+          { 'rounded-full hover:bg-light-blue-100 hover:text-lightest-blue hover:drop-shadow-md': !item.applyAccent }
         )}>{item.title}
       </a>
     </div>
@@ -79,18 +79,21 @@ const Nav = () => {
     }
   ]
 
-
   return (
     <nav className="Nav h-24 w-full border-2 border-gray-200 flex justify-around items-center font-sansation">
-      <Image src="/nzse-logo.svg" alt="nzse-logo" width={180} height={60} />
-      <div className="flex flex-row justify-between w-1/4 font-semibold">
-        {
-          linkItems.map((item, index) => {
-            return (
-              <NavLink key={`nav-link-${index}`} link={item} />
-            );
-          })
-        }
+      <div className="flex flex-row items-center">
+        <div className="mr-14">
+          <Image src="/nzse-logo.svg" alt="nzse-logo" width={180} height={60} />
+        </div>
+        <div className="flex flex-row justify-between font-semibold">
+          {
+            linkItems.map((item, index) => {
+              return (
+                <NavLink key={`nav-link-${index}`} link={item} className="mr-4 last:mr-0" />
+              );
+            })
+          }
+        </div>
       </div>
       <div className="flex flex-row justify-between w-1/6 font-semibold">
         {
