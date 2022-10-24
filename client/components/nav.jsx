@@ -15,9 +15,9 @@ const ChevronDown = ({ className }) => {
 const NavLink = ({ link, className }) => {
   return (
     <div className={`group ${className}`}>
-      <div className="flex items-center select-none cursor-pointer p-2 rounded transition duration-75 group-hover:bg-light-blue-100">
+      <div className="flex items-center select-none cursor-pointer px-2 py-1 rounded transition duration-75 group-hover:bg-light-blue-100">
         <Link href={link.url}>
-          <a className="transition duration-75 text-dark-blue group-hover:text-lightest-blue">{link.title}</a>
+          <a className="transition duration-75 text-dark-blue group-hover:text-dark-blue">{link.title}</a> 
         </Link>
         { link.children && link.children.length > 0 && <ChevronDown className={`group-hover:fill-lightest-blue transition duration-75`} /> }
       </div>
@@ -32,7 +32,7 @@ const NavButton = (({ item }) => {
         className={classNames( 
           'transition duration-75 p-3 text-dark-blue',
           { 'rounded-full drop-shadow-md bg-light-blue-300 hover:bg-light-blue hover:text-dark-blue hover:drop-shadow-xl': item.applyAccent },
-          { 'rounded-full hover:bg-light-blue-100 hover:text-lightest-blue hover:drop-shadow-md': !item.applyAccent }
+          { 'rounded-full hover:bg-light-blue-100 hover:text-dark-blue hover:drop-shadow-md': !item.applyAccent }
         )}>{item.title}
       </a>
     </div>
