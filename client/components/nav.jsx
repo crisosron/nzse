@@ -37,9 +37,9 @@ const NavLink = ({ link, className }) => {
   );
 }
 
-const NavButton = (({ item }) => {
+const NavButton = (({ item, className }) => {
   return (
-    <div className="select-none cursor-pointer">
+    <div className={`select-none cursor-pointer ${className}`}>
       <a 
         className={classNames( 
           'transition duration-75 p-3 text-dark-blue',
@@ -117,22 +117,6 @@ const Nav = () => {
     }
   ]
 
-  // const [hoveredLinkItem, setHoveredLinkItem] = useState(null);
-  // const [dropdownItems, setDropdownItems] = useState(null)
-
-  // const handleLinkHover = (item) => { 
-  //   setHoveredLinkItem(item);
-  //   if (item.children && item.children.length > 0) { 
-  //     setDropdownItems(item.children)
-  //   }
-  // }
-
-  // const handleNoLinkHover = () => { 
-  //   console.log('No link is being hovered');
-  //   setHoveredLinkItem(null);
-  //   setDropdownItems(null);
-  // }
-
   return (
     <nav className="Nav h-24 w-full border-2 border-gray-200 flex justify-around items-center font-poppins">
       <div className="flex flex-row items-center">
@@ -143,7 +127,6 @@ const Nav = () => {
           {
             linkItems.map((item, index) => {
               return (
-                // <NavLink onMouseEnter={() => { handleLinkHover(item) }} onMouseLeave={() => { handleNoLinkHover() }} key={`nav-link-${index}`} link={item} className="mr-4 last:mr-0" />
                 <NavLink key={`nav-link-${index}`} link={item} className="mr-4 last:mr-0" />
               );
             })
@@ -153,11 +136,11 @@ const Nav = () => {
           <Dropdown items={dropdownItems} />
         } */}
       </div>
-      <div className="flex flex-row justify-between w-1/5 font-semibold justify-around">
+      <div className="flex flex-row w-1/3 font-semibold justify-end">
         {
           linkButtons.map((item, index) => {
             return (
-              <NavButton key={`nav-button-${index}`} item={item} />
+              <NavButton key={`nav-button-${index}`} item={item} className="mr-6 last:mr-0"/>
             )
           })
         }
