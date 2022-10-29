@@ -12,7 +12,7 @@ const PopoverTransitionWrapper = ({ children, show }) => {
       leave="transition ease-in duration-150"
       leaveFrom="opacity-100 translate-y-0"
       leaveTo="opacity-0 translate-y-1"
-      // show={show}
+      show={show}
     >
       {children}
     </Transition>

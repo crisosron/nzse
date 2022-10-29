@@ -49,7 +49,6 @@ const NavLink = ({ link, className }) => {
   const hasChildLinks = link.children && link.children.length > 0;
 
   const handleOnMouseEnter = () => {
-    console.log("Handling on mouse enter");
     if (hasChildLinks) setShowDropdown(true);
   };
 
@@ -116,6 +115,7 @@ const NavButton = ({ item, className }) => {
 const DropdownItem = ({ item }) => {
   return (
     <div className="select-none cursor-pointer w-full text-center p-2 font-normal text-sm text-charcoal transition duration-75 hover:bg-gray-100">
+      {/* TODO: Convert to <Link> that wraps a styled <a> elem */}
       <span>{item.title}</span>
     </div>
   );
@@ -126,7 +126,7 @@ const Dropdown = ({ items }) => {
     <div
       id="dropdown"
       className={classNames(
-        "w-60 absolute border p-2 border-light-blue-300 rounded-md drop-shadow-lg bg-white"
+        "Dropdown w-60 absolute border p-2 border-light-blue-300 rounded-md drop-shadow-lg bg-white"
       )}
     >
       {items.map((item, index) => {
@@ -179,8 +179,6 @@ const Nav = ({ isMobileDevice }) => {
       applyAccent: true,
     },
   ];
-
-  console.log("isMobileDevice: ", isMobileDevice);
 
   return (
     <nav>
