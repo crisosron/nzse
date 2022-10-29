@@ -16,12 +16,14 @@ const ChevronDown = ({ className }) => {
 
 const NavLink = ({ link, className }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const hasChildLinks = link.children && link.children.length > 0
+
   const handleOnMouseEnter = () => { 
-    if (link.children) setShowDropdown(true);
+    if (hasChildLinks) setShowDropdown(true);
   }
 
   const handleOnMouseLeave = () => {
-    if (link.children) setShowDropdown(false);
+    if (hasChildLinks) setShowDropdown(false);
   }
 
   return (
@@ -30,7 +32,7 @@ const NavLink = ({ link, className }) => {
         <Link href={link.url}>
           <a className="transition duration-75 text-dark-blue group-hover:text-dark-blue">{link.title}</a> 
         </Link>
-        { link.children && link.children.length > 0 && <ChevronDown className={`group-hover:fill-lightest-blue transition duration-75`} /> }
+        { hasChildLinks && <ChevronDown className={`group-hover:fill-lightest-blue transition duration-75`} /> }
       </div>
       { showDropdown && <Dropdown items={link.children} /> }
     </div>
