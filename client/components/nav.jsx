@@ -3,15 +3,14 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from 'classnames';
-import { Popover, Transition } from '@headlessui/react'
+import { Popover } from '@headlessui/react'
 import _ from "lodash";
-import { Fragment } from 'react'
-
+import PopoverTransitionWrapper from "./popover-transition-wrapper";
 
 const ChevronDown = ({ className }) => {
   return (
     // rotate-90 class is used because this is the ChevronRight component
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className={`rotate-90 h-6 w-6 ${className}`}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className={`h-6 w-6 ${className}`}>
       <path d="m18.75 36-2.15-2.15 9.9-9.9-9.9-9.9 2.15-2.15L30.8 23.95Z" />
     </svg>
   )
@@ -32,7 +31,7 @@ const NavLink = ({ link, className }) => {
 
   return (
     <div className={`group ${className}`}>
-      <Popover className="">
+      <Popover>
         {() => (
           <>
             <div onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
@@ -40,23 +39,13 @@ const NavLink = ({ link, className }) => {
                 <Link href={link.url}>
                   <a className="transition duration-75 text-dark-blue group-hover:text-dark-blue">{link.title}</a> 
                 </Link>
-                { hasChildLinks && <ChevronDown className={`group-hover:fill-lightest-blue transition duration-75`} /> }
+                { hasChildLinks && <ChevronDown className={`group-hover:fill-lightest-blue group-hover:rotate-90 transition duration-75`} /> }
               </Popover.Button>
-              
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-                show={hasChildLinks && showDropdown}
-              >
+              <PopoverTransitionWrapper show={hasChildLinks && showDropdown}>
                 <Popover.Panel>
                   <Dropdown items={link.children} />
                 </Popover.Panel>
-              </Transition>
+              </PopoverTransitionWrapper>
             </div>
           </>
         )}
