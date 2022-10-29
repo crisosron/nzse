@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
 import Nav from "./nav";
 import Footer from "./footer";
-import { useMediaQuery } from "@material-ui/core";
 
 const LAYOUT_CLASSES = "font-sansation mx-5 lg:mx-80";
 const Layout = ({ children, categories, seo, footerData }) => {
-  // useMediaQuery hook used to obtain the correct screen size on initial render
-  const initialScreenIsTabletOrMobile = useMediaQuery("(max-width: 1024px)");
-  const [screenWidth, setScreenWidth] = useState(
-    initialScreenIsTabletOrMobile ? 0 : 1025
-  );
+  // The initial state should be derived from the `window` object, but NextJS SSR means that this
+  // object is not available during the pre-render as `window` is a client-side only construct.
+  //
+  // Set a default of 0, but a useEffect (which are called client-side exclusively) will set the
+  // correct value here during the hydration render as the useEffect will have access to the window
+  // object
+  const [screenWidth, setScreenWidth] = useState(0);
 
   const handleWindowResize = () => {
     setScreenWidth(window.innerWidth);
   };
 
-  // Set the screen width on window resize so we can determine if we're on a mobile device
+  // Populate the screen width state with the correct value, and add a listener for window resizes
+  // so we can determine if we're on a mobile device
   useEffect(() => {
+    setScreenWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
     return () => {
       window.removeEventListener("resize", handleWindowResize);
