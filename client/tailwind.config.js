@@ -18,7 +18,8 @@ module.exports = {
       }
     },
     fontFamily: {
-      sansation: ['Sansation', 'serif']
+      sansation: ['Sansation', 'serif'],
+      poppins: ['Poppins', 'serif']
     },
     colors: {
       'light-blue': '#4cbedb',

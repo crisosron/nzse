@@ -134,7 +134,7 @@ const Nav = () => {
   // }
 
   return (
-    <nav className="Nav h-24 w-full border-2 border-gray-200 flex justify-around items-center font-sansation">
+    <nav className="Nav h-24 w-full border-2 border-gray-200 flex justify-around items-center font-poppins">
       <div className="flex flex-row items-center">
         <div className="mr-14">
           <Image src="/nzse-logo.svg" alt="nzse-logo" width={180} height={60} />
