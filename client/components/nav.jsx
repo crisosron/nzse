@@ -14,15 +14,25 @@ const ChevronDown = ({ className }) => {
   )
 }
 
-const NavLink = ({ link, className, onMouseEnter, onMouseLeave }) => {
+const NavLink = ({ link, className }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const handleOnMouseEnter = () => { 
+    if (link.children) setShowDropdown(true);
+  }
+
+  const handleOnMouseLeave = () => {
+    if (link.children) setShowDropdown(false);
+  }
+
   return (
-    <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={`group ${className}`}>
+    <div onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} className={`group ${className}`}>
       <div className="flex items-center select-none cursor-pointer px-2 py-1 rounded transition duration-75 group-hover:bg-light-blue-100">
         <Link href={link.url}>
           <a className="transition duration-75 text-dark-blue group-hover:text-dark-blue">{link.title}</a> 
         </Link>
         { link.children && link.children.length > 0 && <ChevronDown className={`group-hover:fill-lightest-blue transition duration-75`} /> }
       </div>
+      { showDropdown && <Dropdown items={link.children} /> }
     </div>
   );
 }
@@ -47,6 +57,20 @@ const DropdownItem = ({ item }) => {
       <span>{item.title}</span>
     </div>
   );
+}
+
+const Dropdown = ({ items }) => {
+  return (
+    <div id="dropdown" className={classNames(
+      "absolute w-44 h-44 border-2 border-light-blue-300 rounded-md drop-shadow-md bg-white"
+    )}>
+      {
+        items.map((item, index) => { 
+          return <DropdownItem key={`dropdown-item-${index}`} item={item} />
+        })
+      }
+    </div>
+  )
 }
 
 const Nav = () => {
@@ -93,21 +117,21 @@ const Nav = () => {
     }
   ]
 
-  const [hoveredLinkItem, setHoveredLinkItem] = useState(null);
-  const [dropdownItems, setDropdownItems] = useState(null)
+  // const [hoveredLinkItem, setHoveredLinkItem] = useState(null);
+  // const [dropdownItems, setDropdownItems] = useState(null)
 
-  const handleLinkHover = (item) => { 
-    setHoveredLinkItem(item);
-    if (item.children && item.children.length > 0) { 
-      setDropdownItems(item.children)
-    }
-  }
+  // const handleLinkHover = (item) => { 
+  //   setHoveredLinkItem(item);
+  //   if (item.children && item.children.length > 0) { 
+  //     setDropdownItems(item.children)
+  //   }
+  // }
 
-  const handleNoLinkHover = () => { 
-    console.log('No link is being hovered');
-    setHoveredLinkItem(null);
-    setDropdownItems(null);
-  }
+  // const handleNoLinkHover = () => { 
+  //   console.log('No link is being hovered');
+  //   setHoveredLinkItem(null);
+  //   setDropdownItems(null);
+  // }
 
   return (
     <nav className="Nav h-24 w-full border-2 border-gray-200 flex justify-around items-center font-sansation">
@@ -119,24 +143,17 @@ const Nav = () => {
           {
             linkItems.map((item, index) => {
               return (
-                <NavLink onMouseEnter={() => { handleLinkHover(item) }} onMouseLeave={() => { handleNoLinkHover() }} key={`nav-link-${index}`} link={item} className="mr-4 last:mr-0" />
+                // <NavLink onMouseEnter={() => { handleLinkHover(item) }} onMouseLeave={() => { handleNoLinkHover() }} key={`nav-link-${index}`} link={item} className="mr-4 last:mr-0" />
+                <NavLink key={`nav-link-${index}`} link={item} className="mr-4 last:mr-0" />
               );
             })
           }
         </div>
-        { dropdownItems && dropdownItems.length &&
-          <div id="dropdown" className={classNames(
-            "absolute w-44 h-44 border-2 border-light-blue-300 bottom-[100px] rounded-md drop-shadow-md"
-          )}>
-            {
-              dropdownItems.map((item, index) => { 
-                return <DropdownItem key={`dropdown-item-${index}`} item={item} />
-              })
-            }
-          </div>
-        }
+        {/* { dropdownItems && dropdownItems.length &&
+          <Dropdown items={dropdownItems} />
+        } */}
       </div>
-      <div className="flex flex-row justify-between w-1/5 font-semibold">
+      <div className="flex flex-row justify-between w-1/5 font-semibold justify-around">
         {
           linkButtons.map((item, index) => {
             return (
