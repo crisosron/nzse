@@ -39,6 +39,8 @@ module.exports = {
 
       'link-blue': '#0074cc',
 
+      'charcoal': '#121212',
+
       'gray': '#7f8487',
       'gray-900': '#8c9093',
       'gray-800': '#999d9f',

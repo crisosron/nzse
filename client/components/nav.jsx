@@ -55,7 +55,7 @@ const NavButton = (({ item, className }) => {
 
 const DropdownItem = ({ item }) => { 
   return (
-    <div className="select-none cursor-pointer w-full text-center p-2 hover:bg-light-blue-300 text-gray-800 hover:text-gray">
+    <div className="select-none cursor-pointer w-full text-center p-2 font-normal text-sm text-charcoal transition duration-75 hover:bg-gray-100">
       <span>{item.title}</span>
     </div>
   );
@@ -64,7 +64,7 @@ const DropdownItem = ({ item }) => {
 const Dropdown = ({ items }) => {
   return (
     <div id="dropdown" className={classNames(
-      "absolute w-44 h-44 border-2 border-light-blue-300 rounded-md drop-shadow-md bg-white"
+      "absolute border p-2 border-light-blue-300 rounded-md drop-shadow-lg bg-white"
     )}>
       {
         items.map((item, index) => { 
@@ -120,12 +120,12 @@ const Nav = () => {
   ]
 
   return (
-    <nav className="Nav h-24 w-full border-2 border-gray-200 flex justify-around items-center font-poppins">
+    <nav className="Nav h-24 w-full border-2 border-gray-200 flex justify-around items-center font-poppins font-medium">
       <div className="flex flex-row items-center">
         <div className="mr-14">
           <Image src="/nzse-logo.svg" alt="nzse-logo" width={180} height={60} />
         </div>
-        <div className="flex flex-row justify-between font-semibold">
+        <div className="flex flex-row justify-between">
           {
             linkItems.map((item, index) => {
               return (
@@ -134,11 +134,8 @@ const Nav = () => {
             })
           }
         </div>
-        {/* { dropdownItems && dropdownItems.length &&
-          <Dropdown items={dropdownItems} />
-        } */}
       </div>
-      <div className="flex flex-row w-1/3 font-semibold justify-end">
+      <div className="flex flex-row w-1/3 justify-end">
         {
           linkButtons.map((item, index) => {
             return (
