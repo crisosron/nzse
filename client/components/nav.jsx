@@ -1,9 +1,12 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from 'classnames';
+import { Popover, Transition } from '@headlessui/react'
 import _ from "lodash";
+import { Fragment } from 'react'
+
 
 const ChevronDown = ({ className }) => {
   return (
@@ -19,6 +22,7 @@ const NavLink = ({ link, className }) => {
   const hasChildLinks = link.children && link.children.length > 0
 
   const handleOnMouseEnter = () => { 
+    console.log('Handling on mouse enter');
     if (hasChildLinks) setShowDropdown(true);
   }
 
@@ -27,14 +31,36 @@ const NavLink = ({ link, className }) => {
   }
 
   return (
-    <div onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} className={`group ${className}`}>
-      <div className="flex items-center select-none cursor-pointer px-2 py-1 rounded transition duration-75 group-hover:bg-light-blue-100">
-        <Link href={link.url}>
-          <a className="transition duration-75 text-dark-blue group-hover:text-dark-blue">{link.title}</a> 
-        </Link>
-        { hasChildLinks && <ChevronDown className={`group-hover:fill-lightest-blue transition duration-75`} /> }
-      </div>
-      { showDropdown && <Dropdown items={link.children} /> }
+    <div className={`group ${className}`}>
+      <Popover className="">
+        {() => (
+          <>
+            <div onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
+              <Popover.Button className="flex focus:outline-none items-center select-none cursor-pointed px-2 py1 rounded transition duration-75 group-hover:bg-light-blue-100">
+                <Link href={link.url}>
+                  <a className="transition duration-75 text-dark-blue group-hover:text-dark-blue">{link.title}</a> 
+                </Link>
+                { hasChildLinks && <ChevronDown className={`group-hover:fill-lightest-blue transition duration-75`} /> }
+              </Popover.Button>
+              
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
+                show={hasChildLinks && showDropdown}
+              >
+                <Popover.Panel>
+                  <Dropdown items={link.children} />
+                </Popover.Panel>
+              </Transition>
+            </div>
+          </>
+        )}
+      </Popover>
     </div>
   );
 }
@@ -64,7 +90,7 @@ const DropdownItem = ({ item }) => {
 const Dropdown = ({ items }) => {
   return (
     <div id="dropdown" className={classNames(
-      "absolute border p-2 border-light-blue-300 rounded-md drop-shadow-lg bg-white"
+      "w-60 absolute border p-2 border-light-blue-300 rounded-md drop-shadow-lg bg-white"
     )}>
       {
         items.map((item, index) => { 
