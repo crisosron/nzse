@@ -180,6 +180,8 @@ const Nav = ({ isMobileDevice }) => {
     },
   ];
 
+  console.log("isMobileDevice: ", isMobileDevice);
+
   return (
     <nav>
       {isMobileDevice ? (

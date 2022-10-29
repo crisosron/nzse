@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Nav from "./nav";
-import Footer from './footer';
+import Footer from "./footer";
+import { useMediaQuery } from "@material-ui/core";
 
-const LAYOUT_CLASSES = 'font-sansation mx-5 lg:mx-80'
+const LAYOUT_CLASSES = "font-sansation mx-5 lg:mx-80";
 const Layout = ({ children, categories, seo, footerData }) => {
-
-  // 0 initially because of SSR and therefore not having access to 'window' object on init. 
-  // This is populated with the right value in the useEffect executed on mount
-  const [screenWidth, setScreenWidth] = useState(0);
+  // useMediaQuery hook used to obtain the correct screen size on initial render
+  const initialScreenIsTabletOrMobile = useMediaQuery("(max-width: 1024px)");
+  const [screenWidth, setScreenWidth] = useState(
+    initialScreenIsTabletOrMobile ? 0 : 1025
+  );
 
   const handleWindowResize = () => {
     setScreenWidth(window.innerWidth);
@@ -15,15 +17,15 @@ const Layout = ({ children, categories, seo, footerData }) => {
 
   // Set the screen width on window resize so we can determine if we're on a mobile device
   useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
+    window.addEventListener("resize", handleWindowResize);
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    }
-  }, [])
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
-  const isTabletBreakpoint = screenWidth <= 1024
+  const isTabletBreakpoint = screenWidth <= 1024;
   const isMobileBreakpoint = screenWidth <= 768;
-  
+
   return (
     <div className="Layout">
       <header>
@@ -34,7 +36,7 @@ const Layout = ({ children, categories, seo, footerData }) => {
       </div>
       <Footer footerData={footerData} />
     </div>
-  )
+  );
 };
 
 export default Layout;
