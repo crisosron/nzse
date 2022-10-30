@@ -7,42 +7,7 @@ import { Popover } from "@headlessui/react";
 import _ from "lodash";
 import PopoverTransitionWrapper from "./popover-transition-wrapper";
 
-// TODO: Duplicated
-const ChevronRight = ({ className }) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 48 48"
-      className={`h-6 w-6 ${className}`}
-    >
-      <path d="m18.75 36-2.15-2.15 9.9-9.9-9.9-9.9 2.15-2.15L30.8 23.95Z" />
-    </svg>
-  );
-};
-
-const HamburgerIcon = ({ className }) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 48 48"
-      className={`h-[30px] w-[30px] md:h-[40px] md:w-[40px] ${className}`}
-    >
-      <path d="M6 36v-3h36v3Zm0-10.5v-3h36v3ZM6 15v-3h36v3Z" />
-    </svg>
-  );
-};
-
-const CloseIcon = ({ className }) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 48 48"
-      className={`h-[30px] w-[30px] md:h-[40px] md:w-[40px] ${className}`}
-    >
-      <path d="m12.45 37.65-2.1-2.1L21.9 24 10.35 12.45l2.1-2.1L24 21.9l11.55-11.55 2.1 2.1L26.1 24l11.55 11.55-2.1 2.1L24 26.1Z" />
-    </svg>
-  );
-};
+import { ChevronRightIcon, HamburgerIcon, CloseIcon } from "./svg-components";
 
 const NavLink = ({ link, className }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -72,7 +37,7 @@ const NavLink = ({ link, className }) => {
                   </a>
                 </Link>
                 {hasChildLinks && (
-                  <ChevronRight
+                  <ChevronRightIcon
                     className={`group-hover:fill-lightest-blue group-hover:rotate-90 transition duration-75`}
                   />
                 )}
