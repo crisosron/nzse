@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_navigation_blocks_nav_buttons",
+  "info": {
+    "displayName": "NavButton"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::general-page.general-page"
+    }
+  }
+}
