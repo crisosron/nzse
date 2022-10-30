@@ -153,6 +153,33 @@ const getFooter = gql`
   }
 `
 
+const getNavigation = gql`
+  query navigation {
+    navigation {
+      data {
+        attributes {
+          navLinkItems {
+            label
+            page {
+              ${generalPageDataSubquery}
+            }
+            childPages {
+              ${generalPageDataSubquery}
+            }
+          }
+          navButtons {
+            label
+            applyAccent
+            page {
+              ${generalPageDataSubquery}
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 // ================================ QUERY BUILDERS ================================ //
 /**
  * In this project, query builders are used for queries that can take in values from a client, 
@@ -214,6 +241,7 @@ export {
   getAllGeneralPageSlugs,
   getSidebar,
   getFooter,
+  getNavigation,
   buildGeneralPageBySlugAndAudienceQuery,
   buildGeneralPageSlugsByAudienceQuery,
   buildGeneralPageBySlugQuery,

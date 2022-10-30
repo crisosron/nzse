@@ -2,34 +2,60 @@ import { useState } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRightIcon, HamburgerIcon, CloseIcon } from "./svg-components";
+import { HamburgerIcon, CloseIcon } from "./svg-components";
+import { buildPageUrl, unwrapEntityResponse } from "../lib/utils";
 
 const MenuItem = ({ item, className }) => {
-  return (
-    <Link href={item.url}>
-      <a className={`text-dark-blue text-lg ${className}`}>{item.title}</a>
-    </Link>
-  );
+  const page = unwrapEntityResponse(item.page);
+
+  const linkedPage = {
+    title: page.title,
+    url: buildPageUrl(page)
+  }
+
+  const renderLinkedItem = () => {
+    return (
+      <Link href={`/${linkedPage.url}`}>
+        <a className={`text-dark-blue text-lg ${className}`}>{item.label || linkedPage.title}</a>
+      </Link>
+    );
+  }
+
+  const renderUnlinkedItem = () => {
+    return (
+      <a className={`text-dark-blue text-lg ${className}`}>{item.label || linkedPage.title}</a>
+    )
+  }
+  
+  return linkedPage.url ? renderLinkedItem() : renderUnlinkedItem();
 };
 
 const MenuButton = ({ item, className }) => {
+  const page = unwrapEntityResponse(item.page);
+  const linkedPage = {
+    title: page.title,
+    url: buildPageUrl(page)
+  }
+
   return (
     <div className={`${className}`}>
-      <a
-        className={classNames(
-          `p-3`,
-          {
-            "rounded-md drop-shadow-md bg-light-blue text-white":
-              item.applyAccent,
-          },
-          {
-            "rounded-md drop-shadow-md bg-light-blue-500 text-dark-blue":
-              !item.applyAccent,
-          }
-        )}
-      >
-        {item.title}
-      </a>
+      <Link href={`/${linkedPage.url}` || '/'}>
+        <a
+          className={classNames(
+            `p-3`,
+            {
+              "rounded-md drop-shadow-md bg-light-blue text-white":
+                item.applyAccent,
+            },
+            {
+              "rounded-md drop-shadow-md bg-light-blue-500 text-dark-blue":
+                !item.applyAccent,
+            }
+          )}
+        >
+          {item.label}
+        </a>
+      </Link>
     </div>
   );
 };

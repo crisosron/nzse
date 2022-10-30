@@ -3,7 +3,7 @@ import Nav from "./nav";
 import Footer from "./footer";
 
 const LAYOUT_CLASSES = "font-sansation mx-5 lg:mx-80";
-const Layout = ({ children, categories, seo, footerData }) => {
+const Layout = ({ children, categories, seo, footerData, navigationData }) => {
   // The initial state should be derived from the `window` object, but NextJS SSR means that this
   // object is not available during the pre-render as `window` is a client-side only construct.
   //
@@ -32,7 +32,7 @@ const Layout = ({ children, categories, seo, footerData }) => {
   return (
     <div className="Layout">
       <header>
-        <Nav isMobileDevice={isTabletBreakpoint || isMobileBreakpoint} />
+        <Nav navigationData={navigationData} isMobileDevice={isTabletBreakpoint || isMobileBreakpoint} />
       </header>
       <div className={`page-body ${LAYOUT_CLASSES} flex justify-center`}>
         {children}

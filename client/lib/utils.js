@@ -43,7 +43,14 @@ const formatDate = (dateString) => {
  * @param page A strapi link object to a page 
  */
 const buildPageUrl = (page) => {
-  const { audience, slug } = page.attributes;
+  if(!page) return null;
+
+  // Check if the page object has already been unwrapped, and if so, use it instead (the unwrapped
+  // object is just page, wrapperd means the details are only accessible through page.attributes)
+  let pageObj = page.attributes ? page.attributes : page;
+ 
+  const { audience, slug } = pageObj;
+  if(!audience || !slug) return null;
   return `${audience.toLowerCase()}/${slug}`
 }
 
