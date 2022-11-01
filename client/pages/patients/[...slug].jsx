@@ -34,7 +34,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const PatientsGeneralPage = (props) => {
-  const { membersOnly, user, sidebar, footer } = props;
+  const { membersOnly, user, sidebar } = props;
   const patientsSidebar = sidebar?.patientsSidebar
 
   if(membersOnly && !user.loggedIn) {
@@ -42,7 +42,7 @@ const PatientsGeneralPage = (props) => {
   }
 
   return (
-    <GeneralPage { ...props } sidebarNavBlocks={ patientsSidebar } />
+    <GeneralPage sidebarNavBlocks={ patientsSidebar } { ...props } />
   );
 };
 

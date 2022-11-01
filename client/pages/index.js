@@ -9,10 +9,10 @@ import { Blocks } from "../components/blocks";
 
 
 const Home = ({ homepage, generalPages }) => {
-  const { globalAttributes: { siteName }, footer: footerData } = useContext(GlobalContext);
+  const { globalAttributes: { siteName }, footer: footerData, navigation: navigationData } = useContext(GlobalContext);
   const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
   return (
-    <Layout footerData={footerData}>
+    <Layout footerData={footerData} navigationData={navigationData}>
       <Seo seo={homepageSeo}></Seo>
       <Blocks blocks={homepageBlocks} />
     </Layout>
@@ -34,7 +34,7 @@ export async function getStaticProps() {
       homepage,
       generalPages
     },
-    revalidate: 1
+    revalidate: 10
   };
 }
 

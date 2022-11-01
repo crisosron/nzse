@@ -2,14 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { unwrapEntityResponse } from "../../../lib/utils";
 import SidebarLinkBlock from '../sidebar-link-block/sidebar-link-block.jsx'
-
-const ChevronRight = ({ className }) => {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className={`h-6 w-6 ${className}`}>
-      <path d="m18.75 36-2.15-2.15 9.9-9.9-9.9-9.9 2.15-2.15L30.8 23.95Z" />
-    </svg>
-  )
-}
+import { ChevronRightIcon } from "../../svg-components";
 
 const Dropdown = ({ title, items }) => {
   return (
@@ -46,7 +39,7 @@ const SidebarDropdownBlock = ({ sidebarDropdownTitle: title, pages: pagesData })
     <div className="SidebarDropdownBlock mb-4">
       <div className="flex items-center cursor-pointer group select-none" onClick={toggleDropdown}>
         <span className={`inline-block group-hover:text-lightest-blue ${hasCurrentRoute ? 'text-light-blue-700' : 'text-gray'}`}>{title}</span>
-        <ChevronRight className={`${open ? 'rotate-90' : ''} ${hasCurrentRoute ? 'fill-light-blue-700' : 'fill-gray'} group-hover:fill-lightest-blue`} />
+        <ChevronRightIcon className={`${open ? 'rotate-90' : ''} ${hasCurrentRoute ? 'fill-light-blue-700' : 'fill-gray'} group-hover:fill-lightest-blue`} />
       </div>
       { open && <Dropdown items={pages} /> }
     </div>

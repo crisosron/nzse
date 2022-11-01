@@ -1,12 +1,16 @@
-import React from "react";
-import Link from "next/link";
+import _ from "lodash";
+import { NavMobile, NavDesktop } from './'
 
-const Nav = () => {
+const Nav = ({ isMobileDevice, navigationData }) => {
+  const { navLinkItems, navButtons } = navigationData;
   return (
-    <div>
-      <nav>
-      </nav>
-    </div>
+    <nav>
+      {isMobileDevice ? (
+        <NavMobile linkItems={navLinkItems} linkButtons={navButtons} />
+      ) : (
+        <NavDesktop linkItems={navLinkItems} linkButtons={navButtons} />
+      )}
+    </nav>
   );
 };
 

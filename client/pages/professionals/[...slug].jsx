@@ -43,7 +43,7 @@ const ProfessionalsGeneralPage = (props) => {
   }
 
   return (
-    <GeneralPage { ...props } sidebarNavBlocks={ professionalsSidebar } />
+    <GeneralPage sidebarNavBlocks={ professionalsSidebar } { ...props } />
   );
 };
 

@@ -10,14 +10,16 @@ module.exports = {
       },
       minWidth: {
         '40': '10rem',
-        '48': '12rem'
+        '48': '12rem',
+        '24': '6rem'
       },
       minHeight: {
-        '48': '12rem'
+        '48': '12rem',
       }
     },
     fontFamily: {
-      sansation: ['Sansation', 'serif']
+      sansation: ['Sansation', 'serif'],
+      poppins: ['Poppins', 'serif']
     },
     colors: {
       'light-blue': '#4cbedb',
@@ -36,6 +38,8 @@ module.exports = {
       'dark-blue': '#25235c',
 
       'link-blue': '#0074cc',
+
+      'charcoal': '#121212',
 
       'gray': '#7f8487',
       'gray-900': '#8c9093',

@@ -12,13 +12,14 @@ const GeneralPage = ({
   publishedAt,
   blocks,
   sidebarNavBlocks,
-  footer: footerData
+  footer: footerData,
+  navigation: navigationData
 }) => {
   const publishedDate = formatDate(publishedAt);
   const sidebarTitle = audience.charAt(0).toUpperCase() + audience.slice(1);
 
   return (
-    <Layout footerData={footerData}>
+    <Layout navigationData={navigationData} footerData={footerData}>
       <div className="GeneralPage md:flex">
         <Sidebar className="hidden md:block" navBlocks={sidebarNavBlocks} title={sidebarTitle} />
 
