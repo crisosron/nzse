@@ -20,7 +20,8 @@
       "type": "enumeration",
       "enum": [
         "Patients",
-        "Professionals"
+        "Professionals",
+        "Root"
       ],
       "required": true
     },
