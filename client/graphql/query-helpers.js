@@ -74,7 +74,7 @@ const generalPageDataSubquery = `
     attributes {
       title
       slug
-      audience
+      type
       membersOnly
       landingPage
       createdAt
@@ -83,7 +83,7 @@ const generalPageDataSubquery = `
         data {
           attributes {
             title
-            audience
+            type
             slug
             membersOnly
             landingPage

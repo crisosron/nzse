@@ -49,9 +49,9 @@ const buildPageUrl = (page) => {
   // object is just page, wrapperd means the details are only accessible through page.attributes)
   let pageObj = page.attributes ? page.attributes : page;
  
-  const { audience, slug } = pageObj;
-  if(!audience || !slug) return null;
-  return `${audience.toLowerCase()}/${slug}`
+  const { type, slug } = pageObj;
+  if(!type || !slug) return null;
+  return `${type.toLowerCase()}/${slug}`
 }
 
 export { 

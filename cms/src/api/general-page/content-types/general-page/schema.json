@@ -16,14 +16,15 @@
       "type": "string",
       "required": true
     },
-    "audience": {
+    "type": {
       "type": "enumeration",
       "enum": [
         "Patients",
         "Professionals",
         "Root"
       ],
-      "required": true
+      "required": true,
+      "default": "Root"
     },
     "membersOnly": {
       "type": "boolean",

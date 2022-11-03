@@ -1,12 +1,12 @@
 import { graphqlClient } from "./graphql-api";
 import { 
-  buildGeneralPageBySlugAndAudienceQuery,
-  buildGeneralPageSlugsByAudienceQuery
+  buildGeneralPageBySlugAndTypeQuery,
+  buildGeneralPageSlugsByTypeQuery
 } from "../graphql/queries";
 import { unwrapCollectionEntityResponse } from "./utils";
 
 const buildGeneralPageSlugs = async (pageType) => {
-  const slugQuery = buildGeneralPageSlugsByAudienceQuery(pageType);
+  const slugQuery = buildGeneralPageSlugsByTypeQuery(pageType);
   const slugs = unwrapCollectionEntityResponse(
     await graphqlClient.query({ query: slugQuery }), 'generalPages'
   ).map(entry => {
@@ -19,7 +19,7 @@ const buildGeneralPageSlugs = async (pageType) => {
 
 const buildGeneralPageProps = async (params, pageType) => {
   const { slug } = params;
-  const query = buildGeneralPageBySlugAndAudienceQuery(slug, pageType);
+  const query = buildGeneralPageBySlugAndTypeQuery(slug, pageType);
   const queryResponse = await graphqlClient.query({ query });
   const generalPages = unwrapCollectionEntityResponse(queryResponse, 'generalPages');
   return generalPages.length ? generalPages[0] : null;
