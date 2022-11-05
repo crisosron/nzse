@@ -12,6 +12,8 @@
     "@apollo/client": "^3.6.6",
     "@headlessui/react": "^1.7.3",
     "@tailwindcss/typography": "^0.5.2",
+    "apollo-link": "^1.2.14",
+    "apollo-link-error": "^1.1.13",
     "autoprefixer": "^10.4.7",
     "classnames": "^2.3.2",
     "graphql": "^16.5.0",

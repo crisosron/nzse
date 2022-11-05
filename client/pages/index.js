@@ -25,6 +25,7 @@ export async function getStaticProps() {
       graphqlClient.query({ query: getHomepage })
     ]
   );
+
   const homepage = homepageData.homepage.data?.attributes;
   const generalPages = generalPagesData.generalPages.data?.map((generalPage) => ({ ...generalPage.attributes }));
 

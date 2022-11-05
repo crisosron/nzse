@@ -31,6 +31,20 @@ const fileSubquery = `
 const blocksListSubquery = `
   blocks {
     __typename
+    ...on 
+    ComponentContentBlocksHeroBannerBlock {
+      id
+      preTitle
+      heroBannerBlockTitle: title
+      subtitle
+      callToAction {
+        id
+        title
+        link
+        alignment
+      }
+      ${imagesSubquery}
+    }
     ...on ComponentContentBlocksTextBlock {
       id
       content
