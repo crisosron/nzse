@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { unwrapEntityResponse } from "../../../lib/utils";
+import ButtonBlock from "../button-block";
 
 // Note: heroBannerBlockTitle is the gql alias assigned to title to prevent field name conflicts
 // with the field 'title'
 const HeroBannerBlock = ({ id, preTitle, heroBannerBlockTitle: title, subtitle, callToAction, image, className }) => {
   const { url: imageUrl, alternativeText } = unwrapEntityResponse(image);
+  const ctaButtonProps = callToAction?.[0];
   return (
     // Notes:
     //
@@ -22,9 +24,10 @@ const HeroBannerBlock = ({ id, preTitle, heroBannerBlockTitle: title, subtitle, 
         <Image src={imageUrl} alt={alternativeText} layout="fill" objectFit="cover" priority />
       </div>
       <div className="absolute top-0 w-[80%] h-full flex leading-snug flex-col justify-end p-5 text-white z-10 md:justify-center lg:px-80">
-        <span className="text-h3 md:text-h3-xl lg:text-h3-2xl">{ preTitle }</span>
-        <span className="text-h1 text-light-blue md:text-h1-xl lg:text-h1-2xl">{ title }</span>
-        <span className="text-h5 md:text-h5-xl lg:text-h5-2xl">{ subtitle }</span>
+        { preTitle && <span className="text-h3 md:text-h3-xl lg:text-h3-2xl">{ preTitle }</span> }
+        { title && <span className="text-h1 text-light-blue md:text-h1-xl lg:text-h1-2xl">{ title }</span> }
+        { subtitle && <span className="text-h5 md:text-h5-xl lg:text-h5-2xl">{ subtitle }</span> }
+        { ctaButtonProps && <ButtonBlock {...ctaButtonProps} className="max-w-[80%] text-center" /> }
       </div>
     </div>
   )

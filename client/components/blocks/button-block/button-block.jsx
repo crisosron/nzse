@@ -6,12 +6,12 @@ const buildPropDependentClassNames = (props) => {
   return classNames;
 }
 
-const ButtonBlock = ({ id, title, link, alignment }) => {
+const ButtonBlock = ({ title, link, alignment, className }) => {
   const dynamicClassNames = buildPropDependentClassNames({ alignment });
   
   return (
-    <div className={`my-8 flex flex-col md:flex-row ${dynamicClassNames}`}>
-      <a className="bg-light-blue hover:bg-lightest-blue shadow text-white py-2 px-4 rounded transition-colors" href={link}>
+    <div className={`my-8 flex flex-col md:flex-row ${dynamicClassNames} ${className}`}>
+      <a className="bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors" href={link}>
         {title}
       </a>
     </div>
