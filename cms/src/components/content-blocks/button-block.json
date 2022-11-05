@@ -8,11 +8,13 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "default": "Button title"
     },
     "link": {
       "type": "string",
-      "required": true
+      "required": true,
+      "default": "https://www.nzse.org.nz"
     },
     "alignment": {
       "type": "enumeration",
