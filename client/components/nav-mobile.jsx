@@ -64,7 +64,7 @@ const Menu = ({ linkItems, linkButtons, handleMenuIconClicked, className }) => {
   return (
     // Note this root div's padding is meant to be similar to NavMobile component dimensions
     <div
-      className={`Menu fixed left-0 top-0 w-full h-screen bg-light-blue-300 z-50 flex flex-col px-4 py-2 md:px-10 md:py-5 font-poppins ${className}`}
+      className={`Menu z-max fixed left-0 top-0 w-full h-screen bg-light-blue-300 z-50 flex flex-col px-4 py-2 md:px-10 md:py-5 font-poppins ${className}`}
     >
       {/* Meant to imitate the NavMobile component dimensions closely */}
       <div

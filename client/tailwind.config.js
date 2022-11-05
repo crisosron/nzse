@@ -17,6 +17,33 @@ module.exports = {
         '48': '12rem',
       }
     },
+    fontSize: {
+      'h1': '2em',
+      'h2': '1.5em',
+      'h3': '1.17em',
+      'h4': '1em',
+      'h5': '0.83em',
+      'h6': '0.67em',
+
+      // xl = original + (50% of original)
+      'h1-xl': '3em',
+      'h2-xl': '2.45em',
+      'h3-xl': '1.76em',
+      'h4-xl': '1.5em',
+      'h5-xl': '1.245em',
+      'h6-xl': '1em',
+
+      // 2xl = original * 2
+      'h1-2xl': '4em',
+      'h2-2xl': '3em',
+      'h3-2xl': '2.34em',
+      'h4-2xl': '2em',
+      'h5-2xl': '1.66em',
+      'h6-2xl': '1.34em',
+    },
+    zIndex: {
+      max: '9999'
+    },
     fontFamily: {
       sansation: ['Sansation', 'serif'],
       poppins: ['Poppins', 'serif']
