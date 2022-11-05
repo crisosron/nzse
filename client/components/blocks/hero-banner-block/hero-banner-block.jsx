@@ -27,7 +27,7 @@ const HeroBannerBlock = ({ id, preTitle, heroBannerBlockTitle: title, subtitle, 
         { preTitle && <span className="text-h3 md:text-h3-xl lg:text-h3-2xl">{ preTitle }</span> }
         { title && <span className="text-h1 text-light-blue md:text-h1-xl lg:text-h1-2xl">{ title }</span> }
         { subtitle && <span className="text-h5 md:text-h5-xl lg:text-h5-2xl">{ subtitle }</span> }
-        { ctaButtonProps && <ButtonBlock {...ctaButtonProps} className="max-w-[80%] text-center" /> }
+        { ctaButtonProps && <ButtonBlock {...ctaButtonProps} className="max-w-[80%] text-center mb-0" /> }
       </div>
     </div>
   )
