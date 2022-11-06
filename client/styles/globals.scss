@@ -270,7 +270,7 @@ a {
 */
 .card-block {
   img {
-    @apply transition-all ease-in-out duration-200;
+    @apply transition-all ease-in-out duration-500;
   }
   &:hover {
     img {
