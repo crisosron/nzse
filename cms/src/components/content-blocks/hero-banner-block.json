@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_content_blocks_hero_banner_blocks",
+  "info": {
+    "displayName": "HeroBannerBlock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "preTitle": {
+      "type": "string",
+      "default": "Hero  banner pre title"
+    },
+    "title": {
+      "type": "string",
+      "default": "Hero banner title"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Hero banner subtitle"
+    },
+    "callToAction": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content-blocks.button-block"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

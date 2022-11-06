@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_other_blocks_contact_fields",
+  "info": {
+    "displayName": "ContactFields",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "phoneNumber": {
+      "type": "string"
+    },
+    "poBox": {
+      "type": "string"
+    },
+    "emailAddress": {
+      "type": "string"
+    },
+    "organizationName": {
+      "type": "string",
+      "default": "New Zealand Society of Endodontics"
+    }
+  }
+}

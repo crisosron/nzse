@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_navigation_blocks_nav_link_items",
+  "info": {
+    "displayName": "NavLinkItem"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::general-page.general-page"
+    },
+    "childPages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::general-page.general-page"
+    }
+  }
+}

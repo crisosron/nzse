@@ -1,42 +1,36 @@
-import { getStrapiMedia } from "../../../lib/media";
-import { unwrapEntityResponse, formatDate } from "../../../lib/utils";
+import { unwrapEntityResponse, formatDate, buildPageUrl } from "../../../lib/utils";
+import Link from "next/link";
+import Image from "next/image";
 
-const CardBlock = ({ id, content, title, bottomLinkText, image, generalPage }) => {
-  const {
-    title: linkedPageTitle,
-    slug: linkedPageSlug,
-    createdAt: linkedPageCreatedAt,
-    publishedAt: linkedPagePublishedAt
-  } = unwrapEntityResponse(generalPage);
+const CardBlock = (props) => {
+  const { content, title, bottomLinkText, image, generalPage } = props;
 
-  const imageData = getStrapiMedia(image);
+  const page = unwrapEntityResponse(generalPage.data);
+  const pageUrl = buildPageUrl(page);
 
-  const handleCardClicked = () => {
-    window.location.href = linkedPageSlug;
-  };
+  const { title: pageTitle } = page;
+  const { url: imageUrl, alternativeText: imageAlt } = unwrapEntityResponse(image);
 
   return (
-    <>
-      <div
-        className="card-block w-full my-4 lg:my-0 md:max-w-lg lg:max-w-xs h-100 cursor-pointer overflow-hidden shadow-lg hover:shadow-xl transition-all self-center flex flex-col"
-        href={linkedPageSlug}
-        onClick={handleCardClicked}
+    <Link href={`/${pageUrl}`}>
+      <a
+        className="card-block w-full my-4 mr-4 last:mr-0 lg:my-0 md:max-w-lg lg:max-w-xs h-100 cursor-pointer overflow-hidden shadow-lg hover:shadow-xl transition-all self-center flex flex-col"
       >
-        <div className="flex-none w-full h-2/4 overflow-hidden">
-          <img src={imageData.url} className="w-full h-full object-cover" alt={imageData.alternativeText} />
+        <div className="flex-none w-full h-2/4 overflow-hidden relative">
+          <Image src={imageUrl} layout="fill" objectFit="cover" alt={imageAlt} />
         </div>
         <div className="flex-grow overflow-hidden px-6 py-4">
-          <div className="font-bold text-xl mb-2 text-light-blue">Title</div>
-          { linkedPagePublishedAt && <div className="text-md mb-2 text-light-blue">{formatDate(linkedPagePublishedAt)}</div> }
-          <p className="text-gray-700 text-base">
+          <div className="font-medium text-h3 mb-2 text-light-blue">{title || pageTitle}</div>
+          <p className="text-dark-blue text-base">
             { content }
           </p>
         </div>
-        <div className="h-16 px-6 py-2 flex hover:underline self-end items-center text-link-blue">
-          <a href={linkedPageSlug}>{bottomLinkText}</a>
+        <div className="h-16 px-6 py-2 flex self-end items-center text-link-blue">
+          {/* Fake link with a hover effect*/}
+          <span className="hover:text-lightest-blue">{ bottomLinkText }</span>
         </div>
-      </div>
-    </>
+      </a>
+    </Link>
   );
 };
 

@@ -27,6 +27,13 @@
         "navigation-blocks.sidebar-link"
       ],
       "required": true
+    },
+    "rootSidebar": {
+      "type": "dynamiczone",
+      "components": [
+        "navigation-blocks.sidebar-link",
+        "navigation-blocks.sidebar-dropdown"
+      ]
     }
   }
 }

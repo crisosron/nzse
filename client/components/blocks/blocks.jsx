@@ -7,7 +7,9 @@ import {
   CardBlock,
   FlipbookBlock,
   SidebarLinkBlock,
-  SidebarDropdownBlock
+  SidebarDropdownBlock,
+  HeroBannerBlock,
+  LargeCardsBlock
 } from './index';
 
 const Block = ({ blockRecord }) => {
@@ -19,6 +21,8 @@ const Block = ({ blockRecord }) => {
     'ComponentContentBlocksCardBlockList': CardBlocks,
     'ComponentContentBlocksCardBlock': CardBlock,
     'ComponentContentBlocksFlipbookBlock': FlipbookBlock,
+    'ComponentContentBlocksHeroBannerBlock': HeroBannerBlock,
+    'ComponentContentBlocksLargeCardsBlock': LargeCardsBlock,
     'ComponentNavigationBlocksSidebarLink': SidebarLinkBlock,
     'ComponentNavigationBlocksSidebarDropdown': SidebarDropdownBlock
   };
@@ -31,10 +35,9 @@ const Block = ({ blockRecord }) => {
 
   return (
     <div>
-      Don't know how to render the block '{blockType}'
+      Don&apos;t know how to render the block &apos;{blockType}&apos;
     </div>
   );
-
 };
 
 const Blocks = ({ blocks }) => {

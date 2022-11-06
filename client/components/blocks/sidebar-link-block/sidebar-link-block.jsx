@@ -1,23 +1,34 @@
 import { unwrapEntityResponse } from "../../../lib/utils";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const SidebarLinkBlock = (props) => {
   // TODO: Get users logged in status somehow...
-  console.log('SidebarLinkBlock props: ', props);
-  const { sidebarLinkTitle: title, page, user } = props;
-  const { 
+  const { sidebarLinkTitle: title, page, user, className } = props;
+  const {
     title: pageTitle,
     slug: pageSlug,
-    audience: pageAudience,
-    membersOnly: pageMembersOnly
+    type: pageType,
+    membersOnly: pageMembersOnly,
   } = unwrapEntityResponse(page);
 
-  console.log('user: ', user);
-
-  const audienceRoute = pageAudience === "Patients" ? "patients" : "professionals";
+  const router = useRouter();
+  const typeRoute = pageType === "Patients" ? "patients" : "professionals";
+  const pathComponents = router.asPath.split("/");
+  const representsCurrentRoute =
+    pathComponents[pathComponents.length - 1] === pageSlug;
 
   return (
-    <a href={`/${audienceRoute}/${pageSlug}`} className="inline-block text-gray mb-4">{ title || pageTitle }</a>
-  )
+    <Link href={`/${typeRoute}/${pageSlug}`}>
+      <a
+        className={`block mb-4 ${
+          representsCurrentRoute ? "text-light-blue-700" : "text-gray"
+        } ${className}`}
+      >
+        {title || pageTitle}
+      </a>
+    </Link>
+  );
 };
 
 export default SidebarLinkBlock;

@@ -31,6 +31,36 @@ const fileSubquery = `
 const blocksListSubquery = `
   blocks {
     __typename
+    ...on ComponentContentBlocksHeroBannerBlock {
+      id
+      preTitle
+      heroBannerBlockTitle: title
+      subtitle
+      callToAction {
+        id
+        title
+        link
+        alignment
+      }
+      ${imagesSubquery}
+    }
+    ...on ComponentContentBlocksLargeCardsBlock {
+      cards {
+        id
+        title
+        subtitle
+        link {
+          data {
+            attributes {
+              slug
+              type
+              membersOnly
+            }
+          }
+        }
+        ${imagesSubquery}
+      }
+    }
     ...on ComponentContentBlocksTextBlock {
       id
       content
@@ -57,6 +87,16 @@ const blocksListSubquery = `
         title
         bottomLinkText
         content
+        generalPage {
+          data {
+            attributes {
+              slug
+              title
+              type
+              membersOnly
+            }
+          }
+        }
         ${imagesSubquery}
       }
     }
@@ -74,7 +114,7 @@ const generalPageDataSubquery = `
     attributes {
       title
       slug
-      audience
+      type
       membersOnly
       landingPage
       createdAt
@@ -83,7 +123,7 @@ const generalPageDataSubquery = `
         data {
           attributes {
             title
-            audience
+            type
             slug
             membersOnly
             landingPage
@@ -99,12 +139,14 @@ const navigationBlocksListSubquery = `
   __typename,
   ...on ComponentNavigationBlocksSidebarLink {
     sidebarLinkTitle: title
+    id
     page {
       ${generalPageDataSubquery}
     }
   }
   ...on ComponentNavigationBlocksSidebarDropdown {
     sidebarDropdownTitle: title
+    id
     pages {
       ${generalPageDataSubquery}
     }

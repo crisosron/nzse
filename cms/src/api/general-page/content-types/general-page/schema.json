@@ -16,17 +16,15 @@
       "type": "string",
       "required": true
     },
-    "slug": {
-      "type": "string",
-      "required": true
-    },
-    "audience": {
+    "type": {
       "type": "enumeration",
       "enum": [
         "Patients",
-        "Professionals"
+        "Professionals",
+        "Root"
       ],
-      "required": true
+      "required": true,
+      "default": "Root"
     },
     "membersOnly": {
       "type": "boolean",
@@ -52,8 +50,16 @@
         "content-blocks.flipbook-block",
         "content-blocks.image-block",
         "content-blocks.text-block",
-        "content-blocks.text-with-image-block"
+        "content-blocks.text-with-image-block",
+        "content-blocks.hero-banner-block",
+        "content-blocks.large-cards-block",
+        "content-blocks.large-card-block"
       ],
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
       "required": true
     }
   }

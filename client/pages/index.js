@@ -7,12 +7,11 @@ import { graphqlClient } from '../lib/graphql-api'
 import { getAllGeneralPages, getHomepage } from '../graphql/queries';
 import { Blocks } from "../components/blocks";
 
-
 const Home = ({ homepage, generalPages }) => {
-  const { globalAttributes: { siteName } } = useContext(GlobalContext);
+  const { globalAttributes: { siteName }, footer: footerData, navigation: navigationData } = useContext(GlobalContext);
   const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
   return (
-    <Layout>
+    <Layout footerData={footerData} navigationData={navigationData}>
       <Seo seo={homepageSeo}></Seo>
       <Blocks blocks={homepageBlocks} />
     </Layout>
@@ -26,6 +25,7 @@ export async function getStaticProps() {
       graphqlClient.query({ query: getHomepage })
     ]
   );
+
   const homepage = homepageData.homepage.data?.attributes;
   const generalPages = generalPagesData.generalPages.data?.map((generalPage) => ({ ...generalPage.attributes }));
 
@@ -34,7 +34,7 @@ export async function getStaticProps() {
       homepage,
       generalPages
     },
-    revalidate: 1
+    revalidate: 10
   };
 }
 

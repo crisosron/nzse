@@ -126,6 +126,60 @@ const getSidebar = gql`
   }
 `;
 
+const getFooter = gql`
+  query footer {
+    footer {
+      data {
+        attributes {
+          socialLinks {
+            twitterLink
+            facebookLink
+            linkedInLink
+            instagramLink
+          }
+          contactFields {
+            emailAddress
+            organizationName
+            phoneNumber
+            poBox
+          }
+          address
+          links {
+            ${generalPageDataSubquery}
+          }
+        }
+      }
+    }
+  }
+`
+
+const getNavigation = gql`
+  query navigation {
+    navigation {
+      data {
+        attributes {
+          navLinkItems {
+            label
+            page {
+              ${generalPageDataSubquery}
+            }
+            childPages {
+              ${generalPageDataSubquery}
+            }
+          }
+          navButtons {
+            label
+            applyAccent
+            page {
+              ${generalPageDataSubquery}
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 // ================================ QUERY BUILDERS ================================ //
 /**
  * In this project, query builders are used for queries that can take in values from a client, 
@@ -135,9 +189,9 @@ const getSidebar = gql`
 /**
  * Note on general pages:
  * 
- * General pages have an 'audience' field that dictates whether the page belongs to the
+ * General pages have a 'type' field that dictates whether the page belongs to the
  * '/professionals/<slug>' route, or '/patients/<slug>' route. Some of the query builders below
- * takes this into account by taking in a value for 'audience'.
+ * takes this into account by taking in a value for 'type'.
  */
 
 const buildGeneralPageBySlugQuery = (slug) => {
@@ -150,13 +204,13 @@ const buildGeneralPageBySlugQuery = (slug) => {
   `;
 };
 
-const buildGeneralPageBySlugAndAudienceQuery = (slug, audience) => {
+const buildGeneralPageBySlugAndTypeQuery = (slug, type) => {
   return gql`
-    query generalPageBySlugAndAudience {
+    query generalPageBySlugAndType {
       generalPages(filters: { 
         and: [
           { slug: { eq: "${slug}" } }, 
-          { audience: { eq: "${audience}" } } 
+          { type: { eq: "${type}" } } 
         ]}) {
         ${generalPageDataSubquery}
       }
@@ -164,10 +218,10 @@ const buildGeneralPageBySlugAndAudienceQuery = (slug, audience) => {
   `
 }
 
-const buildGeneralPageSlugsByAudienceQuery = (audience) => {
+const buildGeneralPageSlugsByTypeQuery = (type) => {
   return gql`
-    query generalPageSlugsByAudience {
-      generalPages(filters: { audience: { eq: "${audience}" } } ) {
+    query generalPageSlugsByType {
+      generalPages(filters: { type: { eq: "${type}" } } ) {
         data {
           attributes {
             slug
@@ -186,7 +240,9 @@ export {
   getAllGeneralPages,
   getAllGeneralPageSlugs,
   getSidebar,
-  buildGeneralPageBySlugAndAudienceQuery,
-  buildGeneralPageSlugsByAudienceQuery,
+  getFooter,
+  getNavigation,
+  buildGeneralPageBySlugAndTypeQuery,
+  buildGeneralPageSlugsByTypeQuery,
   buildGeneralPageBySlugQuery,
 }

@@ -6,7 +6,9 @@ import { graphqlClient } from '../lib/graphql-api'
 import { 
   getGlobalAttributes,
   getGlobalSeo,
-  getSidebar
+  getSidebar,
+  getFooter,
+  getNavigation
 } from '../graphql/queries';
 
 import "../styles/globals.scss";
@@ -15,19 +17,19 @@ import "../styles/globals.scss";
 export const GlobalContext = createContext({});
 
 const MyApp = ({ Component, pageProps }) => {
-  const { globalAttributes, globalSeo, user, sidebar } = pageProps;
+  const { globalAttributes } = pageProps;
 
   return (
     <>
       <Head>
-        { globalAttributes.favicon &&
+        { globalAttributes.favicon.data &&
           <link
           rel="shortcut icon"
           href={ getStrapiMedia(globalAttributes.favicon).url }
           />
         }
       </Head>
-      <GlobalContext.Provider value={{ globalAttributes, globalSeo, user, sidebar }}>
+      <GlobalContext.Provider value={pageProps}>
         <Component {...pageProps} />
       </GlobalContext.Provider>
     </>
@@ -44,16 +46,22 @@ MyApp.getInitialProps = async (ctx) => {
   const [
     { data: globalAttributesData },
     { data: globalSeoData },
-    { data: sidebarData }
+    { data: sidebarData },
+    { data: footerData },
+    { data: navigationData },
   ] = await Promise.all([
     graphqlClient.query({ query: getGlobalAttributes }),
     graphqlClient.query({ query: getGlobalSeo }),
-    graphqlClient.query({ query: getSidebar })
+    graphqlClient.query({ query: getSidebar }),
+    graphqlClient.query({ query: getFooter }),
+    graphqlClient.query({query: getNavigation })
   ])
 
   const globalAttributes = globalAttributesData.global.data.attributes;
   const globalSeo = globalSeoData.globalSeo.data.attributes;
-  const sidebar = sidebarData.sidebar.data.attributes;
+  const sidebar = sidebarData.sidebar.data?.attributes;
+  const footer = footerData.footer.data?.attributes
+  const navigation = navigationData.navigation.data?.attributes;
 
   // TODO: Pending implementation of login mechanism
   const user = {
@@ -66,7 +74,9 @@ MyApp.getInitialProps = async (ctx) => {
       globalAttributes,
       globalSeo,
       user,
-      sidebar
+      sidebar,
+      footer,
+      navigation
     }
   }
 };
