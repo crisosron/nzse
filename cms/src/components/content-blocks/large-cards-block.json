@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_content_blocks_large_cards_blocks",
+  "info": {
+    "displayName": "LargeCardsBlock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "cards": {
+      "displayName": "LargeCardBlock",
+      "type": "component",
+      "repeatable": true,
+      "component": "content-blocks.large-card-block",
+      "max": 2
+    }
+  }
+}

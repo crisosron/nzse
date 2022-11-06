@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_content_blocks_large_card_blocks",
+  "info": {
+    "displayName": "LargeCardBlock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Large card title"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Large card subtitle"
+    },
+    "text": {
+      "type": "string",
+      "required": false,
+      "default": "text"
+    },
+    "link": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::general-page.general-page"
+    }
+  }
+}
