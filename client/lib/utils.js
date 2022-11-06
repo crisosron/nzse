@@ -51,6 +51,7 @@ const buildPageUrl = (page) => {
  
   const { type, slug } = pageObj;
   if(!type || !slug) return null;
+  if(type === 'Root') return `${slug}`
   return `${type.toLowerCase()}/${slug}`
 }
 

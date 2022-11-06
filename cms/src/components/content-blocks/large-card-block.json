@@ -8,16 +8,13 @@
   "attributes": {
     "title": {
       "type": "string",
-      "default": "Large card title"
+      "default": "Large card title",
+      "maxLength": 40
     },
     "subtitle": {
-      "type": "string",
-      "default": "Large card subtitle"
-    },
-    "text": {
-      "type": "string",
-      "required": false,
-      "default": "text"
+      "type": "text",
+      "default": "Large card subtitle",
+      "maxLength": 100
     },
     "link": {
       "type": "relation",
@@ -25,11 +22,12 @@
       "target": "api::general-page.general-page"
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     }
   }
 }

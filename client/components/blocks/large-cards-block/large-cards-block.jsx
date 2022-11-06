@@ -1,9 +1,13 @@
 import LargeCardBlock from './large-card-block';
+import classNames from 'classnames';
 
 const LargeCardsBlock = ({ cards }) => {
-  // console.log('LargeCardsBlock props: ', props);
   return (
-    <div>
+    <div className={classNames(
+      "flex w-full my-8 flex-col md:flex-row",
+      { 'justify-center': cards.length === 1 },
+      { 'justify-between': cards.length > 1 }
+    )}>
       { 
         cards && cards.length > 0 && cards.map((card) => {
           return (
