@@ -87,6 +87,16 @@ const blocksListSubquery = `
         title
         bottomLinkText
         content
+        generalPage {
+          data {
+            attributes {
+              slug
+              title
+              type
+              membersOnly
+            }
+          }
+        }
         ${imagesSubquery}
       }
     }

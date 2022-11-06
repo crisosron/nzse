@@ -7,7 +7,9 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "default": "Card Block Title",
+      "maxLength": 30
     },
     "generalPage": {
       "type": "relation",
@@ -24,10 +26,14 @@
     },
     "content": {
       "type": "text",
-      "required": false
+      "required": false,
+      "maxLength": 150,
+      "default": "Card Block Content"
     },
     "bottomLinkText": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 30,
+      "default": "Link text"
     }
   }
 }

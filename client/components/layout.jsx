@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Nav from "./nav";
 import Footer from "./footer";
 
-const LAYOUT_CLASSES = "font-sansation mx-5 lg:mx-80";
+const LAYOUT_CLASSES = "font-poppins mx-5 lg:mx-80";
 const Layout = ({ children, categories, seo, footerData, navigationData }) => {
   // The initial state should be derived from the `window` object, but NextJS SSR means that this
   // object is not available during the pre-render as `window` is a client-side only construct.
