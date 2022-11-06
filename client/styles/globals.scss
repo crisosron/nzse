@@ -201,15 +201,14 @@
 
 .menuFadeIn {
   opacity: 1;
-  height: 100vh;
-  transition: height 0.1s, opacity 0.2s;
+  transition: opacity 0.2s;
 }
 
 .menuFadeOut {
   opacity: 0;
   width: 100vw;
-  height: 0;
-  transition: height 0.2s, opacity 0.1s;
+  height: 100vh;
+  transition: opacity 0.2s;
 }
 
 /* 
