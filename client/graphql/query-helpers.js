@@ -31,8 +31,7 @@ const fileSubquery = `
 const blocksListSubquery = `
   blocks {
     __typename
-    ...on 
-    ComponentContentBlocksHeroBannerBlock {
+    ...on ComponentContentBlocksHeroBannerBlock {
       id
       preTitle
       heroBannerBlockTitle: title
@@ -44,6 +43,23 @@ const blocksListSubquery = `
         alignment
       }
       ${imagesSubquery}
+    }
+    ...on ComponentContentBlocksLargeCardsBlock {
+      cards {
+        id
+        title
+        subtitle
+        link {
+          data {
+            attributes {
+              slug
+              type
+              membersOnly
+            }
+          }
+        }
+        ${imagesSubquery}
+      }
     }
     ...on ComponentContentBlocksTextBlock {
       id

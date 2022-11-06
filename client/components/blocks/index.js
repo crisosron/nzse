@@ -10,3 +10,4 @@ export { default as FlipbookBlock } from './flipbook-block';
 export { default as SidebarLinkBlock } from './sidebar-link-block';
 export { default as SidebarDropdownBlock } from './sidebar-dropdown-block';
 export { default as HeroBannerBlock } from './hero-banner-block';
+export { default as LargeCardsBlock } from './large-cards-block';

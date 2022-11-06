@@ -8,7 +8,8 @@ import {
   FlipbookBlock,
   SidebarLinkBlock,
   SidebarDropdownBlock,
-  HeroBannerBlock
+  HeroBannerBlock,
+  LargeCardsBlock
 } from './index';
 
 const Block = ({ blockRecord }) => {
@@ -21,6 +22,7 @@ const Block = ({ blockRecord }) => {
     'ComponentContentBlocksCardBlock': CardBlock,
     'ComponentContentBlocksFlipbookBlock': FlipbookBlock,
     'ComponentContentBlocksHeroBannerBlock': HeroBannerBlock,
+    'ComponentContentBlocksLargeCardsBlock': LargeCardsBlock,
     'ComponentNavigationBlocksSidebarLink': SidebarLinkBlock,
     'ComponentNavigationBlocksSidebarDropdown': SidebarDropdownBlock
   };

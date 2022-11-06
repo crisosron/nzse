@@ -51,7 +51,9 @@
         "content-blocks.image-block",
         "content-blocks.text-block",
         "content-blocks.text-with-image-block",
-        "content-blocks.hero-banner-block"
+        "content-blocks.hero-banner-block",
+        "content-blocks.large-cards-block",
+        "content-blocks.large-card-block"
       ],
       "required": true
     },
