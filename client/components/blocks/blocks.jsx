@@ -42,7 +42,8 @@ const Block = ({ blockRecord }) => {
 
 const Blocks = ({ blocks }) => {
   return (
-    <div className="leading-normal flex flex-col lg:items-start">
+    // <div className="leading-normal flex flex-col lg:items-start">leading-normal flex flex-col lg:items-start
+    <div>
       { blocks && blocks.map((block) => {
         const { id, __typename: blockType } = block;
         return (

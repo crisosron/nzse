@@ -19,7 +19,7 @@ const HeroBannerBlock = ({ id, preTitle, heroBannerBlockTitle: title, subtitle, 
     // mechanisms implemented by NextJS (which is especially important in this case because its
     // a hero image). A mixture of absolute and relative positioning on divs are used to load the
     // image as a background image, without actually using css background image rules.
-    <div className="w-[100vw] h-[80vh] mx-[-1.25rem] lg:mx-[-20rem] relative font-poppins">
+    <div className="w-[100vw] h-[80vh] relative font-poppins">
       <div className="relative w-full h-full">
         <Image src={imageUrl} alt={alternativeText} layout="fill" objectFit="cover" priority />
       </div>
