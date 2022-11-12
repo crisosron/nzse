@@ -117,7 +117,7 @@ const NavMobile = ({ linkItems, linkButtons }) => {
   
   return (
     <>
-      <div className="NavMobile flex flex-row justify-between items-center px-4 py-2 md:px-10 md:py-5 z-50">
+      <div className="NavMobile border-b border-gray-200 flex flex-row justify-between items-center px-4 py-2 md:px-10 md:py-5 z-50">
         {/* TODO: Apply tailwind classes to make this resize properly? */}
         <Image src="/nzse-logo.svg" alt="nzse-logo" width={150} height={60} />
         <div onClick={handleMenuIconClicked}>

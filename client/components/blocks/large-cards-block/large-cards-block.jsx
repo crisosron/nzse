@@ -4,7 +4,7 @@ import Container from '../../container';
 
 const LargeCardsBlock = ({ cards }) => {
   return (
-    <Container>
+    // <Container>
       <div className={classNames(
         "flex w-full my-8 flex-col md:flex-row",
         { 'justify-center': cards.length === 1 },
@@ -18,7 +18,7 @@ const LargeCardsBlock = ({ cards }) => {
           }) 
         }
       </div>
-    </Container>
+    // </Container>
   )
 }
 

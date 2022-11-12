@@ -8,12 +8,12 @@ const TextWithImageBlock = ({
   leftAligned,
 }) => {
   return (
-    <Container>
+    // <Container>
       <div className="prose md:prose-lg lg:prose-lg leading-normal flex flex-col lg:items-start">
         <ReactMarkdown>{content}</ReactMarkdown>
         {image && <CustomImage image={image} />}
       </div>
-    </Container>
+    // </Container>
   );
 };
 
