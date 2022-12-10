@@ -14,6 +14,6 @@ module.exports = ({ env }) => ({
         ca: env('DATABASE_CA')
       }
     },
-    debug: true
+    debug: false
   }
 });
