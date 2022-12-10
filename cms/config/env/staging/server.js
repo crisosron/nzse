@@ -4,8 +4,5 @@ module.exports = ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS')
   },
-
-  // Note that STRAPI_PORT will not work here because heroku will try to look for a PORT env var
-  // instead
-  port: env.int('PORT'),
+  port: env.int('STRAPI_PORT'),
 });
