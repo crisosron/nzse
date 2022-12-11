@@ -21,7 +21,7 @@ module.exports = ({ env }) => ({
       },
       actionOptions: {
         uploadStream: {
-          folder: env("CLOUDINARY_FOLDER", "nzse-production")
+          folder: env("CLOUDINARY_FOLDER", "")
         },
         delete: {},
       },
