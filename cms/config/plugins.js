@@ -9,7 +9,7 @@ module.exports = ({ env }) => ({
       },
       actionOptions: {
         uploadStream: {
-          folder: env("CLOUDINARY_FOLDER", "")
+          folder: env("CLOUDINARY_FOLDER", "nzse-development")
         },
         delete: {},
       },
