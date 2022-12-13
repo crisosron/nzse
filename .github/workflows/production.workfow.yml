@@ -1,0 +1,13 @@
+name: Deploy cms to Digital Ocean
+on:
+  push:
+    branches:
+      - "deploy-production"
+jobs:
+  deploy-cms:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: digitalocean/app_action@main
+        with:
+          app_name: nzse-admin
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
