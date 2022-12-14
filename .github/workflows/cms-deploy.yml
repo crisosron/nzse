@@ -1,11 +1,15 @@
 name: Deploy cms to Digital Ocean
 on:
+  workflow_run:
+    workflows:
+      - "Lint Client"
+    types:
+      - "completed"
   push:
     branches:
       - "deploy-production"
 jobs:
   deploy-cms:
-    needs: lint-client
     runs-on: ubuntu-18.04
     steps:
       - uses: digitalocean/app_action@main
