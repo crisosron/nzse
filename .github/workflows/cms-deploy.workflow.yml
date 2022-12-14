@@ -1,4 +1,4 @@
-name: Deploy CMS to Digital Ocean
+name: Deploy CMS
 on:
   push:
     branches:
@@ -7,8 +7,8 @@ on:
 jobs:
   lint-client:
     uses: ./.github/workflows/lint-client.workflow.yml
-  deploy-cms:
-    runs-on: ubuntu-18.04
+  deploy:
+    runs-on: ubuntu-18.04 # Matches the machine used by Digital Ocean App Platform
     steps:
       - uses: digitalocean/app_action@main
         with:
