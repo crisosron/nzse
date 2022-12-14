@@ -5,9 +5,9 @@ on:
       - "Lint Client"
     types:
       - "completed"
-  push:
     branches:
       - "deploy-production"
+
 jobs:
   deploy-cms:
     runs-on: ubuntu-18.04
