@@ -1,4 +1,4 @@
-name: Deploy cms to Digital Ocean
+name: Deploy CMS to Digital Ocean
 on:
   workflow_run:
     workflows: [Lint Client]
