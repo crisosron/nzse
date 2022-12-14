@@ -1,14 +1,12 @@
 name: Deploy CMS to Digital Ocean
 on:
-  workflow_run:
-    workflows: 
-      - "Lint Client"
-    types:
-      - "completed"
+  push:
     branches:
       - "deploy-production"
 
 jobs:
+  lint-client:
+    uses: ./.gituhb/workflows/reusables/lint-client.workflow.yml
   deploy-cms:
     runs-on: ubuntu-18.04
     steps:

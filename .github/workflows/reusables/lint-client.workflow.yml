@@ -1,14 +1,17 @@
 name: Lint Client
 
+# on:
+#   push:
+#     branches:
+#       - main
+#       - deploy-production
+#   pull_request:
+#     branches:
+#       - main
+#       - deploy-production
+
 on:
-  push:
-    branches:
-      - main
-      - deploy-production
-  pull_request:
-    branches:
-      - main
-      - deploy-production    
+  workflow_call:
 
 jobs:
   lint-client:
