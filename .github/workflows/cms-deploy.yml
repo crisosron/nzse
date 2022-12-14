@@ -1,11 +1,12 @@
 name: Deploy CMS to Digital Ocean
 on:
   workflow_run:
-    workflows: [Lint Client]
+    workflows: 
+      - "Lint Client"
     types:
-      - completed
+      - "completed"
     branches:
-      - 'deploy-production'
+      - "deploy-production"
 
 jobs:
   deploy-cms:
