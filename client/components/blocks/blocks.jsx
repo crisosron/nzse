@@ -1,4 +1,4 @@
-import { 
+import {
   ImageBlock,
   TextBlock,
   TextWithImageBlock,
@@ -14,17 +14,17 @@ import {
 
 const Block = ({ blockRecord }) => {
   const blockTypeNameToComponentMapping = {
-    'ComponentContentBlocksTextBlock': TextBlock,
-    'ComponentContentBlocksTextWithImageBlock': TextWithImageBlock,
-    'ComponentContentBlocksImageBlock': ImageBlock,
-    'ComponentContentBlocksButtonBlock': ButtonBlock,
-    'ComponentContentBlocksCardBlockList': CardBlocks,
-    'ComponentContentBlocksCardBlock': CardBlock,
-    'ComponentContentBlocksFlipbookBlock': FlipbookBlock,
-    'ComponentContentBlocksHeroBannerBlock': HeroBannerBlock,
-    'ComponentContentBlocksLargeCardsBlock': LargeCardsBlock,
-    'ComponentNavigationBlocksSidebarLink': SidebarLinkBlock,
-    'ComponentNavigationBlocksSidebarDropdown': SidebarDropdownBlock
+    ComponentContentBlocksTextBlock: TextBlock,
+    ComponentContentBlocksTextWithImageBlock: TextWithImageBlock,
+    ComponentContentBlocksImageBlock: ImageBlock,
+    ComponentContentBlocksButtonBlock: ButtonBlock,
+    ComponentContentBlocksCardBlockList: CardBlocks,
+    ComponentContentBlocksCardBlock: CardBlock,
+    ComponentContentBlocksFlipbookBlock: FlipbookBlock,
+    ComponentContentBlocksHeroBannerBlock: HeroBannerBlock,
+    ComponentContentBlocksLargeCardsBlock: LargeCardsBlock,
+    ComponentNavigationBlocksSidebarLink: SidebarLinkBlock,
+    ComponentNavigationBlocksSidebarDropdown: SidebarDropdownBlock
   };
 
   const blockType = blockRecord.__typename;
@@ -33,22 +33,17 @@ const Block = ({ blockRecord }) => {
     return <Component {...blockRecord} />;
   }
 
-  return (
-    <div>
-      Don&apos;t know how to render the block &apos;{blockType}&apos;
-    </div>
-  );
+  return <div>Don&apos;t know how to render the block &apos;{blockType}&apos;</div>;
 };
 
 const Blocks = ({ blocks }) => {
   return (
-    <div className="leading-normal flex flex-col lg:items-start">
-      { blocks && blocks.map((block) => {
-        const { id, __typename: blockType } = block;
-        return (
-          <Block key={`${blockType}-${id}`} blockRecord={block} />
-        );
-      })}
+    <div className='leading-normal flex flex-col lg:items-start'>
+      {blocks &&
+        blocks.map((block) => {
+          const { id, __typename: blockType } = block;
+          return <Block key={`${blockType}-${id}`} blockRecord={block} />;
+        })}
     </div>
   );
 };

@@ -1,3 +1,3 @@
-import SidebarLinkBlock from "./sidebar-link-block";
+import SidebarLinkBlock from './sidebar-link-block';
 
 export default SidebarLinkBlock;

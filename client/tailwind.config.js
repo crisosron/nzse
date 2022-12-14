@@ -1,34 +1,31 @@
 module.exports = {
-  content: [
-    "./pages/**/*.{js,jsx}",
-    "./components/**/*.{js,jsx}"
-  ],
+  content: ['./pages/**/*.{js,jsx}', './components/**/*.{js,jsx}'],
   theme: {
     extend: {
       height: {
         100: '33rem'
       },
       minWidth: {
-        '40': '10rem',
-        '48': '12rem',
-        '24': '6rem'
+        40: '10rem',
+        48: '12rem',
+        24: '6rem'
       },
       minHeight: {
-        '48': '12rem',
+        48: '12rem'
       },
       flex: {
-        '3': '3 3 0%',
-        '4': '4 4 0%',
-        '5': '5 5 0%'
+        3: '3 3 0%',
+        4: '4 4 0%',
+        5: '5 5 0%'
       }
     },
     fontSize: {
-      'h1': '2em',
-      'h2': '1.5em',
-      'h3': '1.17em',
-      'h4': '1em',
-      'h5': '0.83em',
-      'h6': '0.67em',
+      h1: '2em',
+      h2: '1.5em',
+      h3: '1.17em',
+      h4: '1em',
+      h5: '0.83em',
+      h6: '0.67em',
 
       // xl = original + (50% of original)
       'h1-xl': '3em',
@@ -44,7 +41,7 @@ module.exports = {
       'h3-2xl': '2.34em',
       'h4-2xl': '2em',
       'h5-2xl': '1.66em',
-      'h6-2xl': '1.34em',
+      'h6-2xl': '1.34em'
     },
     zIndex: {
       max: '9999'
@@ -71,9 +68,9 @@ module.exports = {
 
       'link-blue': '#0074cc',
 
-      'charcoal': '#121212',
+      charcoal: '#121212',
 
-      'gray': '#7f8487',
+      gray: '#7f8487',
       'gray-900': '#8c9093',
       'gray-800': '#999d9f',
       'gray-700': '#a5a9ab',
@@ -83,11 +80,9 @@ module.exports = {
       'gray-300': '#d9dadb',
       'gray-200': '#e5e6e7',
       'gray-100': '#f2f3f3',
-      
-      'white': '#FFFFFF'
+
+      white: '#FFFFFF'
     }
   },
-  plugins: [
-    require('@tailwindcss/typography')
-  ],
-}
+  plugins: [require('@tailwindcss/typography')]
+};

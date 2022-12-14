@@ -1,6 +1,6 @@
-import { unwrapEntityResponse } from "../../../lib/utils";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import { unwrapEntityResponse } from '../../../lib/utils';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const SidebarLinkBlock = (props) => {
   // TODO: Get users logged in status somehow...
@@ -9,20 +9,19 @@ const SidebarLinkBlock = (props) => {
     title: pageTitle,
     slug: pageSlug,
     type: pageType,
-    membersOnly: pageMembersOnly,
+    membersOnly: pageMembersOnly
   } = unwrapEntityResponse(page);
 
   const router = useRouter();
-  const typeRoute = pageType === "Patients" ? "patients" : "professionals";
-  const pathComponents = router.asPath.split("/");
-  const representsCurrentRoute =
-    pathComponents[pathComponents.length - 1] === pageSlug;
+  const typeRoute = pageType === 'Patients' ? 'patients' : 'professionals';
+  const pathComponents = router.asPath.split('/');
+  const representsCurrentRoute = pathComponents[pathComponents.length - 1] === pageSlug;
 
   return (
     <Link href={`/${typeRoute}/${pageSlug}`}>
       <a
         className={`block mb-4 ${
-          representsCurrentRoute ? "text-light-blue-700" : "text-gray"
+          representsCurrentRoute ? 'text-light-blue-700' : 'text-gray'
         } ${className}`}
       >
         {title || pageTitle}

@@ -1,9 +1,9 @@
-import App from "next/app";
-import Head from "next/head";
-import { createContext } from "react";
-import { getStrapiMedia } from "../lib/media";
-import { graphqlClient } from '../lib/graphql-api'
-import { 
+import App from 'next/app';
+import Head from 'next/head';
+import { createContext } from 'react';
+import { getStrapiMedia } from '../lib/media';
+import { graphqlClient } from '../lib/graphql-api';
+import {
   getGlobalAttributes,
   getGlobalSeo,
   getSidebar,
@@ -11,7 +11,7 @@ import {
   getNavigation
 } from '../graphql/queries';
 
-import "../styles/globals.scss";
+import '../styles/globals.scss';
 
 // Store Strapi Global object in context
 export const GlobalContext = createContext({});
@@ -22,12 +22,9 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        { globalAttributes.favicon.data &&
-          <link
-          rel="shortcut icon"
-          href={ getStrapiMedia(globalAttributes.favicon).url }
-          />
-        }
+        {globalAttributes.favicon.data && (
+          <link rel='shortcut icon' href={getStrapiMedia(globalAttributes.favicon).url} />
+        )}
       </Head>
       <GlobalContext.Provider value={pageProps}>
         <Component {...pageProps} />
@@ -48,25 +45,25 @@ MyApp.getInitialProps = async (ctx) => {
     { data: globalSeoData },
     { data: sidebarData },
     { data: footerData },
-    { data: navigationData },
+    { data: navigationData }
   ] = await Promise.all([
     graphqlClient.query({ query: getGlobalAttributes }),
     graphqlClient.query({ query: getGlobalSeo }),
     graphqlClient.query({ query: getSidebar }),
     graphqlClient.query({ query: getFooter }),
-    graphqlClient.query({query: getNavigation })
-  ])
+    graphqlClient.query({ query: getNavigation })
+  ]);
 
   const globalAttributes = globalAttributesData.global.data.attributes;
   const globalSeo = globalSeoData.globalSeo.data.attributes;
   const sidebar = sidebarData.sidebar.data?.attributes;
-  const footer = footerData.footer.data?.attributes
+  const footer = footerData.footer.data?.attributes;
   const navigation = navigationData.navigation.data?.attributes;
 
   // TODO: Pending implementation of login mechanism
   const user = {
     loggedIn: true
-  }
+  };
 
   return {
     ...appProps,
@@ -78,7 +75,7 @@ MyApp.getInitialProps = async (ctx) => {
       footer,
       navigation
     }
-  }
+  };
 };
 
 export default MyApp;

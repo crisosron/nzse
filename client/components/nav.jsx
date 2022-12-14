@@ -1,5 +1,4 @@
-import _ from "lodash";
-import { NavMobile, NavDesktop } from './'
+import { NavMobile, NavDesktop } from './';
 
 const Nav = ({ isMobileDevice, navigationData }) => {
   const { navLinkItems, navButtons } = navigationData;
