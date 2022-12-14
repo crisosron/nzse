@@ -7,7 +7,7 @@ name: Deploy CMS
 
 on:
   workflow_run:
-    worklows:
+    workflows:
       - "Lint Client"
     types:
       - "completed"
