@@ -15,8 +15,8 @@ on:
       - "deploy-production"
 
 jobs:
-  lint-client:
-    uses: ./.github/workflows/lint-client.workflow.yml
+  # lint-client:
+  #   uses: ./.github/workflows/lint-client.workflow.yml
   deploy:
     runs-on: ubuntu-18.04 # Matches the machine used by Digital Ocean App Platform
     steps:
