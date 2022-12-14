@@ -1,10 +1,5 @@
 name: Deploy CMS
 
-# on:
-#   push:
-#     branches:
-#       - "deploy-production"
-
 on:
   workflow_run:
     workflows:
@@ -15,8 +10,6 @@ on:
       - "deploy-production"
 
 jobs:
-  # lint-client:
-  #   uses: ./.github/workflows/lint-client.workflow.yml
   deploy:
     runs-on: ubuntu-18.04 # Matches the machine used by Digital Ocean App Platform
     steps:
