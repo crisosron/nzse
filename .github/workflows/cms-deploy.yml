@@ -5,7 +5,7 @@ on:
       - "deploy-production"
 jobs:
   deploy-cms:
-    needs: lint
+    needs: lint-client
     runs-on: ubuntu-18.04
     steps:
       - uses: digitalocean/app_action@main
