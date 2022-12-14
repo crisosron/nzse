@@ -1,6 +1,16 @@
 name: Deploy CMS
+
+# on:
+#   push:
+#     branches:
+#       - "deploy-production"
+
 on:
-  push:
+  workflow_run:
+    worklows:
+      - "Lint Client"
+    types:
+      - "completed"
     branches:
       - "deploy-production"
 
