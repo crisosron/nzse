@@ -1,0 +1,10 @@
+name: Default Branch
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  lint-client:
+    uses: ./.github/workflows/lint-client.workflow.yml
