@@ -12,7 +12,9 @@ import {
   LargeCardsBlock
 } from './index';
 
-const Block = ({ blockRecord }) => {
+import Container from '../container';
+
+const Block = ({ blockRecord, noContainerSpacing }) => {
   const blockTypeNameToComponentMapping = {
     ComponentContentBlocksTextBlock: TextBlock,
     ComponentContentBlocksTextWithImageBlock: TextWithImageBlock,
@@ -30,20 +32,27 @@ const Block = ({ blockRecord }) => {
   const blockType = blockRecord.__typename;
   if (blockType in blockTypeNameToComponentMapping) {
     const Component = blockTypeNameToComponentMapping[blockType];
-    return <Component {...blockRecord} />;
+    if(blockType === 'ComponentContentBlocksHeroBannerBlock') return <Component {...blockRecord} />;
+    return (
+      <Container noSpacing={noContainerSpacing}>
+        <Component {...blockRecord} />
+      </Container>
+    );
   }
 
   return <div>Don&apos;t know how to render the block &apos;{blockType}&apos;</div>;
 };
 
-const Blocks = ({ blocks }) => {
+const Blocks = ({ blocks, noContainerSpacing }) => {
   return (
-    <div className='leading-normal flex flex-col lg:items-start'>
-      {blocks &&
-        blocks.map((block) => {
-          const { id, __typename: blockType } = block;
-          return <Block key={`${blockType}-${id}`} blockRecord={block} />;
-        })}
+    // <div className="leading-normal flex flex-col lg:items-start">leading-normal flex flex-col lg:items-start
+    <div>
+      { blocks && blocks.map((block) => {
+        const { id, __typename: blockType } = block;
+        return (
+          <Block key={`${blockType}-${id}`} blockRecord={block} noContainerSpacing={noContainerSpacing} />
+        );
+      })}
     </div>
   );
 };
