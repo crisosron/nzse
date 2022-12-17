@@ -14,7 +14,8 @@ COPY ./yarn.lock ./
 RUN yarn config set network-timeout 600000 -g
 
 # Required for Apple Silicon
-RUN yarn add --platform=linux --arch=x64 sharp
+# RUN yarn add --platform=linux --arch=x64 sharp
+RUN yarn add sharp
 
 RUN yarn add pg knex
 
