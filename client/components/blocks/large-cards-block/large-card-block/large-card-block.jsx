@@ -18,7 +18,7 @@ const LargeCardBlock = ({ title, subtitle, link, image }) => {
             </span>
           </div>
         </div>
-        <div className='overflow-hidden transition-all duration-500 flex flex-1 items-center p-5 md:py-0 text-dark-blue group-hover:bg-light-blue group-hover:text-white group-hover:decoration-2'>
+        <div className='overflow-hidden transition-all duration-500 flex flex-1 items-center p-5 text-dark-blue group-hover:bg-light-blue group-hover:text-white group-hover:decoration-2'>
           <span className='text-xs md:text-xl'>{subtitle}</span>
         </div>
       </a>
