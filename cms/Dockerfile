@@ -13,10 +13,8 @@ COPY ./yarn.lock ./
 # Set a high timeout for yarn to give it extra time in case of poor network conditions
 RUN yarn config set network-timeout 600000 -g
 
-# Required for Apple Silicon
-# RUN yarn add --platform=linux --arch=x64 sharp
+# Install additional packages required for Strapi
 RUN yarn add sharp
-
 RUN yarn add pg knex
 
 COPY ./ .
