@@ -83,13 +83,13 @@ const NavButton = ({ item, className }) => {
       <Link href={linkedPage.url || '/'}>
         <a
           className={classNames(
-            'transition duration-75 p-3 text-dark-blue',
+            'transition-colors duration-150 p-3',
             {
-              'rounded-full drop-shadow-md bg-light-blue-300 hover:bg-light-blue hover:text-dark-blue hover:drop-shadow-xl':
+              'rounded text-white drop-shadow-md bg-light-blue hover:bg-lightest-blue hover:text-dark-blue hover:drop-shadow-xl transition-colors duration-75':
                 item.applyAccent
             },
             {
-              'rounded-full hover:bg-light-blue-100 hover:text-dark-blue hover:drop-shadow-md':
+              'rounded text-dark-blue hover:bg-light-blue-100 hover:text-dark-blue hover:drop-shadow-md':
                 !item.applyAccent
             }
           )}

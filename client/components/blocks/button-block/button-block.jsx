@@ -12,7 +12,7 @@ const ButtonBlock = ({ title, link, alignment, className }) => {
   return (
     <div className={`my-8 flex flex-col md:flex-row ${dynamicClassNames} ${className}`}>
       <a
-        className='bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors'
+        className='bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150'
         href={link}
       >
         {title}
