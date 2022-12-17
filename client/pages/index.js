@@ -1,14 +1,18 @@
-import React from "react";
-import Layout from "../components/layout";
-import Seo from "../components/seo";
-import { useContext } from "react";
-import { GlobalContext } from "../pages/_app";
-import { graphqlClient } from '../lib/graphql-api'
+import React from 'react';
+import Layout from '../components/layout';
+import Seo from '../components/seo';
+import { useContext } from 'react';
+import { GlobalContext } from '../pages/_app';
+import { graphqlClient } from '../lib/graphql-api';
 import { getAllGeneralPages, getHomepage } from '../graphql/queries';
-import { Blocks } from "../components/blocks";
+import { Blocks } from '../components/blocks';
 
 const Home = ({ homepage, generalPages }) => {
-  const { globalAttributes: { siteName }, footer: footerData, navigation: navigationData } = useContext(GlobalContext);
+  const {
+    globalAttributes: { siteName },
+    footer: footerData,
+    navigation: navigationData
+  } = useContext(GlobalContext);
   const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
   return (
     <Layout footerData={footerData} navigationData={navigationData}>
@@ -19,15 +23,15 @@ const Home = ({ homepage, generalPages }) => {
 };
 
 export async function getStaticProps() {
-  const [ { data: generalPagesData }, { data: homepageData } ] = await Promise.all(
-    [
-      graphqlClient.query({ query: getAllGeneralPages }),
-      graphqlClient.query({ query: getHomepage })
-    ]
-  );
+  const [{ data: generalPagesData }, { data: homepageData }] = await Promise.all([
+    graphqlClient.query({ query: getAllGeneralPages }),
+    graphqlClient.query({ query: getHomepage })
+  ]);
 
   const homepage = homepageData.homepage.data?.attributes;
-  const generalPages = generalPagesData.generalPages.data?.map((generalPage) => ({ ...generalPage.attributes }));
+  const generalPages = generalPagesData.generalPages.data?.map((generalPage) => ({
+    ...generalPage.attributes
+  }));
 
   return {
     props: {

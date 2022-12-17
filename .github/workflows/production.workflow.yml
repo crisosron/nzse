@@ -1,0 +1,22 @@
+name: Production
+
+on:
+  push:
+    branches:
+      - "deploy-production"
+  pull_request:
+    branches:
+      - "deploy-production"
+
+jobs:
+  lint-client:
+    uses: ./.github/workflows/lint-client.workflow.yml
+  deploy:
+    needs: lint-client
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-18.04 # Matches the machine used by Digital Ocean App Platform
+    steps:
+      - uses: digitalocean/app_action@main
+        with:
+          app_name: nzse-admin
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}

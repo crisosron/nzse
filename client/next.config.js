@@ -6,8 +6,8 @@ const nextConfig = {
   // https://nextjs.org/docs/messages/failed-loading-swc
   swcMinify: false,
   images: {
-    domains: ["res.cloudinary.com", "localhost"]
+    domains: ['res.cloudinary.com', 'localhost']
   }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

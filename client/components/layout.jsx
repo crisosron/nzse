@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import Nav from "./nav";
-import Footer from "./footer";
+import { useState, useEffect } from 'react';
+import Nav from './nav';
+import Footer from './footer';
 
-const LAYOUT_CLASSES = "font-poppins mx-5 md:mx-[9%] lg:mx-[15%]";
+const LAYOUT_CLASSES = 'font-poppins mx-5 md:mx-[9%] lg:mx-[15%]';
 const Layout = ({ children, categories, seo, footerData, navigationData }) => {
   // The initial state should be derived from the `window` object, but NextJS SSR means that this
   // object is not available during the pre-render as `window` is a client-side only construct.
@@ -20,9 +20,9 @@ const Layout = ({ children, categories, seo, footerData, navigationData }) => {
   // so we can determine if we're on a mobile device
   useEffect(() => {
     setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", handleWindowResize);
+    window.addEventListener('resize', handleWindowResize);
     return () => {
-      window.removeEventListener("resize", handleWindowResize);
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
 
@@ -30,13 +30,14 @@ const Layout = ({ children, categories, seo, footerData, navigationData }) => {
   const isMobileBreakpoint = screenWidth <= 768;
 
   return (
-    <div className="Layout">
+    <div className='Layout'>
       <header>
-        <Nav navigationData={navigationData} isMobileDevice={isTabletBreakpoint || isMobileBreakpoint} />
+        <Nav
+          navigationData={navigationData}
+          isMobileDevice={isTabletBreakpoint || isMobileBreakpoint}
+        />
       </header>
-      <div className={`page-body ${LAYOUT_CLASSES} flex justify-center`}>
-        {children}
-      </div>
+      <div className={`page-body ${LAYOUT_CLASSES} flex justify-center`}>{children}</div>
       <Footer footerData={footerData} />
     </div>
   );

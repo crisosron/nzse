@@ -153,9 +153,9 @@ const navigationBlocksListSubquery = `
   }
 `;
 
-export { 
+export {
   blocksListSubquery,
   imagesSubquery,
   generalPageDataSubquery,
   navigationBlocksListSubquery
-}
+};

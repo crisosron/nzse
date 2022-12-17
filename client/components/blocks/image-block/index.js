@@ -1,3 +1,3 @@
-import ImageBlock from "./image-block";
+import ImageBlock from './image-block';
 
 export default ImageBlock;
