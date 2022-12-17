@@ -23,7 +23,7 @@ const Footer = ({ footerData }) => {
 
   return (
     <footer
-      className={`Footer bg-gray-100 p-5 lg:px-80 mt-10 min-h-48 font-poppins text-sm md:text-base lg:text-sm`}
+      className={`Footer bg-gray-100 p-5 lg:px-80 min-h-48 font-poppins text-sm md:text-base lg:text-sm`}
     >
       <div className='lg:flex lg:items-center lg:justify-around mb-10 lg:mb-0'>
         <div className='lg:flex items-center'>
@@ -66,7 +66,7 @@ const Footer = ({ footerData }) => {
               {links.map((elem, index) => {
                 return (
                   <li key={index} className='cursor-pointer mb-5la st:mb-0 lg:inline lg:ml-5 '>
-                    <Link href={`/${buildPageUrl(elem)}`}>{elem.attributes.title}</Link>
+                    <Link href={buildPageUrl(elem)}>{elem.attributes.title}</Link>
                   </li>
                 );
               })}

@@ -22,21 +22,16 @@ const GeneralPage = ({
 
   return (
     <Layout navigationData={navigationData} footerData={footerData}>
-      <div className='GeneralPage md:flex'>
+      <div className='GeneralPage flex'>
         <Sidebar className='hidden md:block' navBlocks={sidebarNavBlocks} title={sidebarTitle} />
-
-        {/* 'prose' className required by tailwind to apply tailwindcss to CMSable rich text content */}
-        <div className='content prose md:prose-md md:px-8 lg:prose-lg lg:p-4 lg:mx-8 lg:max-w-full md:flex md:flex-col md:justify-center'>
-          <h1 className='mb-2'>{title}</h1>
-          <span>{publishedDate}</span>
-          <Blocks blocks={blocks} />
+        <div className='general-page-blocks mx-[23px] py-4 md:ml-9 md:mr-[9%] md:py-12 lg:ml-12 lg:mr-[15%] lg:py-12'>
+          <Blocks blocks={blocks} noContainerSpacing />
+          <Sidebar
+            className='block my-5 md:hidden'
+            navBlocks={sidebarNavBlocks}
+            title={sidebarTitle}
+          />
         </div>
-
-        <Sidebar
-          className='block my-5 md:hidden'
-          navBlocks={sidebarNavBlocks}
-          title={sidebarTitle}
-        />
       </div>
     </Layout>
   );
