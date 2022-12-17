@@ -3,15 +3,13 @@ import { unwrapEntityResponse } from '../../../lib/utils';
 import ButtonBlock from '../button-block';
 
 // Note: heroBannerBlockTitle is the gql alias assigned to title to prevent field name conflicts
-// with the field 'title'
+// with the field 'title' in the query
 const HeroBannerBlock = ({
-  id,
   preTitle,
   heroBannerBlockTitle: title,
   subtitle,
   callToAction,
   image,
-  className
 }) => {
   const { url: imageUrl, alternativeText } = unwrapEntityResponse(image);
   const ctaButtonProps = callToAction?.[0];
@@ -27,7 +25,7 @@ const HeroBannerBlock = ({
     // mechanisms implemented by NextJS (which is especially important in this case because its
     // a hero image). A mixture of absolute and relative positioning on divs are used to load the
     // image as a background image, without actually using css background image rules.
-    <div className='w-[100vw] h-[80vh] relative font-poppins'>
+    <div className='h-[80vh] relative font-poppins'>
       <div className='relative w-full h-full'>
         <Image src={imageUrl} alt={alternativeText} layout='fill' objectFit='cover' priority />
       </div>
