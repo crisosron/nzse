@@ -134,7 +134,7 @@ const Dropdown = ({ items }) => {
 
 const NavDesktop = ({ linkItems, linkButtons }) => {
   return (
-    <div className='Nav h-24 w-full border-b-2 border-gray-200 flex justify-around items-center font-poppins font-medium z-max'>
+    <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max'>
       <div className='NavDesktop flex flex-row items-center'>
         <div className='mr-14'>
           <Image src='/nzse-logo.svg' alt='nzse-logo' width={180} height={60} />
