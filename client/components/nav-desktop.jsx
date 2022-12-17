@@ -36,7 +36,7 @@ const NavLink = ({ link, className }) => {
 
   const renderLinkedItem = () => {
     return (
-      <Link href={`/${linkedPage.url}`}>
+      <Link href={linkedPage.url || '/'}>
         <a className='transition duration-75 text-dark-blue group-hover:text-dark-blue'>
           {link.label || linkedPage.title}
         </a>
@@ -80,16 +80,16 @@ const NavButton = ({ item, className }) => {
 
   return (
     <div className={`select-none cursor-pointer ${className}`}>
-      <Link href={`/${linkedPage.url}` || '/'}>
+      <Link href={linkedPage.url || '/'}>
         <a
           className={classNames(
-            'transition duration-75 p-3 text-dark-blue',
+            'transition-colors duration-150 p-3',
             {
-              'rounded-full drop-shadow-md bg-light-blue-300 hover:bg-light-blue hover:text-dark-blue hover:drop-shadow-xl':
+              'rounded text-white drop-shadow-md bg-light-blue hover:bg-lightest-blue hover:text-dark-blue hover:drop-shadow-xl transition-colors duration-75':
                 item.applyAccent
             },
             {
-              'rounded-full hover:bg-light-blue-100 hover:text-dark-blue hover:drop-shadow-md':
+              'rounded text-dark-blue hover:bg-light-blue-100 hover:text-dark-blue hover:drop-shadow-md':
                 !item.applyAccent
             }
           )}
@@ -109,7 +109,7 @@ const DropdownItem = ({ item }) => {
 
   return (
     <div className='select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100'>
-      <Link href={`/${linkedPage.url}`}>
+      <Link href={linkedPage.url || '/'}>
         {/* Override default link hover with charcoal (which effectively removes the hover transition) */}
         <a className='text-charcoal hover:text-charcoal'>{linkedPage.title}</a>
       </Link>
@@ -134,7 +134,7 @@ const Dropdown = ({ items }) => {
 
 const NavDesktop = ({ linkItems, linkButtons }) => {
   return (
-    <div className='Nav h-24 w-full border-2 border-gray-200 flex justify-around items-center font-poppins font-medium z-max'>
+    <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max'>
       <div className='NavDesktop flex flex-row items-center'>
         <div className='mr-14'>
           <Image src='/nzse-logo.svg' alt='nzse-logo' width={180} height={60} />

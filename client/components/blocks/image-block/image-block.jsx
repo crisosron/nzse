@@ -2,7 +2,7 @@ import CustomImage from '../../custom-image';
 
 const ImageBlock = ({ imageBlockImage: image, caption }) => {
   return (
-    <div className='my-8 flex flex-col'>
+    <div className='flex flex-col'>
       <div className='flex flex-col'>
         <CustomImage image={image} />
       </div>

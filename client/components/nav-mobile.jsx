@@ -15,7 +15,7 @@ const MenuItem = ({ item, className }) => {
 
   const renderLinkedItem = () => {
     return (
-      <Link href={`/${linkedPage.url}`}>
+      <Link href={linkedPage.url}>
         <a className={`text-dark-blue text-lg md:text-h2 ${className}`}>
           {item.label || linkedPage.title}
         </a>
@@ -43,7 +43,7 @@ const MenuButton = ({ item, className }) => {
 
   return (
     <div className={`${className}`}>
-      <Link href={`/${linkedPage.url}` || '/'}>
+      <Link href={linkedPage.url || '/'}>
         <a
           className={classNames(
             `p-3 md:text-h2`,
@@ -95,11 +95,10 @@ const NavMobile = ({ linkItems, linkButtons }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const handleMenuIconClicked = () => {
-    console.log('Handle menu icon clicked');
     setShowMenu(!showMenu);
   };
 
-  // Lock or unlock when the menu is opened or closed respectively
+  // Lock or unlock scroll when the menu is opened or closed respectively
   useEffect(() => {
     if (showMenu) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
@@ -107,7 +106,7 @@ const NavMobile = ({ linkItems, linkButtons }) => {
 
   return (
     <>
-      <div className='NavMobile flex flex-row justify-between items-center px-4 py-2 md:px-10 md:py-5 z-50'>
+      <div className='NavMobile border-b border-gray-200 flex flex-row justify-between items-center px-4 py-2 md:px-10 md:py-5 z-50'>
         {/* TODO: Apply tailwind classes to make this resize properly? */}
         <Image src='/nzse-logo.svg' alt='nzse-logo' width={150} height={60} />
         <div onClick={handleMenuIconClicked}>

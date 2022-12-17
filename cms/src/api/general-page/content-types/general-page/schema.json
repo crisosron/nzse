@@ -45,15 +45,10 @@
       "type": "dynamiczone",
       "components": [
         "content-blocks.button-block",
-        "content-blocks.card-block",
-        "content-blocks.card-block-list",
         "content-blocks.flipbook-block",
         "content-blocks.image-block",
         "content-blocks.text-block",
-        "content-blocks.text-with-image-block",
-        "content-blocks.hero-banner-block",
-        "content-blocks.large-cards-block",
-        "content-blocks.large-card-block"
+        "content-blocks.text-with-image-block"
       ],
       "required": true
     },
