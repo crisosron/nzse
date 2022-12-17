@@ -95,11 +95,10 @@ const NavMobile = ({ linkItems, linkButtons }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const handleMenuIconClicked = () => {
-    console.log('Handle menu icon clicked');
     setShowMenu(!showMenu);
   };
 
-  // Lock or unlock when the menu is opened or closed respectively
+  // Lock or unlock scroll when the menu is opened or closed respectively
   useEffect(() => {
     if (showMenu) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
