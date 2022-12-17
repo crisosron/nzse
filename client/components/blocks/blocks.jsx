@@ -24,7 +24,7 @@ const CONTENT_BLOCK_NAMES = [
   'ComponentContentBlocksCardBlock',
   'ComponentContentBlocksFlipbookBlock',
   'ComponentContentBlocksHeroBannerBlock',
-  'ComponentContentBlocksLargeCardsBlock',
+  'ComponentContentBlocksLargeCardsBlock'
 ];
 
 const Block = ({ blockRecord, noContainerSpacing }) => {
@@ -45,7 +45,8 @@ const Block = ({ blockRecord, noContainerSpacing }) => {
   const blockType = blockRecord.__typename;
   if (blockType in blockTypeNameToComponentMapping) {
     const Component = blockTypeNameToComponentMapping[blockType];
-    if(blockType === 'ComponentContentBlocksHeroBannerBlock') return <Component {...blockRecord} />;
+    if (blockType === 'ComponentContentBlocksHeroBannerBlock')
+      return <Component {...blockRecord} />;
     return (
       <Container noSpacing={noContainerSpacing}>
         <Component {...blockRecord} />
@@ -69,17 +70,20 @@ const isContentBlock = (blockName) => {
 const Blocks = ({ blocks, noContainerSpacing }) => {
   return (
     <div>
-      { blocks && blocks.map((block) => {
-        const { id, __typename: blockType } = block;
-        return (
-          <div key={`${blockType}-${id}`} className={classNames(
-            "ContentBlockContainer",
-            {"mb-8 md:mb-12 lg:mb-18": isContentBlock(blockType)}
-          )}>
-            <Block blockRecord={block} noContainerSpacing={noContainerSpacing} />
-          </div>
-        );
-      })}
+      {blocks &&
+        blocks.map((block) => {
+          const { id, __typename: blockType } = block;
+          return (
+            <div
+              key={`${blockType}-${id}`}
+              className={classNames('ContentBlockContainer', {
+                'mb-8 md:mb-12 lg:mb-18': isContentBlock(blockType)
+              })}
+            >
+              <Block blockRecord={block} noContainerSpacing={noContainerSpacing} />
+            </div>
+          );
+        })}
     </div>
   );
 };

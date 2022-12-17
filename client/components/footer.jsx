@@ -22,12 +22,14 @@ const Footer = ({ footerData }) => {
   const address = footerData.address;
 
   return (
-    <footer className={`Footer bg-gray-100 p-5 lg:px-80 min-h-48 font-poppins text-sm md:text-base lg:text-sm`}>
-      <div className="lg:flex lg:items-center lg:justify-around mb-10 lg:mb-0">
-        <div className="lg:flex items-center">
-          <div className="flex flex-col items-center">
-            <div className="w-[80%] md:w-[20rem] min-h-[10rem] relative">
-              <Image src="/nzse-logo.svg" alt="nzse-logo" layout="fill" objectFit="contain" />
+    <footer
+      className={`Footer bg-gray-100 p-5 lg:px-80 min-h-48 font-poppins text-sm md:text-base lg:text-sm`}
+    >
+      <div className='lg:flex lg:items-center lg:justify-around mb-10 lg:mb-0'>
+        <div className='lg:flex items-center'>
+          <div className='flex flex-col items-center'>
+            <div className='w-[80%] md:w-[20rem] min-h-[10rem] relative'>
+              <Image src='/nzse-logo.svg' alt='nzse-logo' layout='fill' objectFit='contain' />
             </div>
           </div>
           <div className='lg:ml-10'>
