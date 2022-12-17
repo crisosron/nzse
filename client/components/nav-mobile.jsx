@@ -15,7 +15,7 @@ const MenuItem = ({ item, className }) => {
 
   const renderLinkedItem = () => {
     return (
-      <Link href={`/${linkedPage.url}`}>
+      <Link href={linkedPage.url}>
         <a className={`text-dark-blue text-lg md:text-h2 ${className}`}>
           {item.label || linkedPage.title}
         </a>
@@ -43,7 +43,7 @@ const MenuButton = ({ item, className }) => {
 
   return (
     <div className={`${className}`}>
-      <Link href={`/${linkedPage.url}` || '/'}>
+      <Link href={linkedPage.url || '/'}>
         <a
           className={classNames(
             `p-3 md:text-h2`,

@@ -36,7 +36,7 @@ const NavLink = ({ link, className }) => {
 
   const renderLinkedItem = () => {
     return (
-      <Link href={`/${linkedPage.url}`}>
+      <Link href={linkedPage.url || '/'}>
         <a className='transition duration-75 text-dark-blue group-hover:text-dark-blue'>
           {link.label || linkedPage.title}
         </a>
@@ -80,7 +80,7 @@ const NavButton = ({ item, className }) => {
 
   return (
     <div className={`select-none cursor-pointer ${className}`}>
-      <Link href={`/${linkedPage.url}` || '/'}>
+      <Link href={linkedPage.url || '/'}>
         <a
           className={classNames(
             'transition duration-75 p-3 text-dark-blue',
@@ -109,7 +109,7 @@ const DropdownItem = ({ item }) => {
 
   return (
     <div className='select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100'>
-      <Link href={`/${linkedPage.url}`}>
+      <Link href={linkedPage.url || '/'}>
         {/* Override default link hover with charcoal (which effectively removes the hover transition) */}
         <a className='text-charcoal hover:text-charcoal'>{linkedPage.title}</a>
       </Link>

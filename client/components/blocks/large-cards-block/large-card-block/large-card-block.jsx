@@ -8,7 +8,7 @@ const LargeCardBlock = ({ title, subtitle, link, image }) => {
   let url = '';
   if (linkedPage) url = buildPageUrl(linkedPage);
   return (
-    <Link href={`/${url}`}>
+    <Link href={url}>
       <a className='LargeCardBlock card-block mb-8 w-full h-[25em] last:mb-0 md:mr-4 lg:mr-8 md:last:mr-0 flex flex-col shadow-lg transition-all duration-500 hover:shadow-xl font-poppins group'>
         <div className='flex-3 relative'>
           <Image src={imageUrl} alt={alternativeText} layout='fill' objectFit='cover' />

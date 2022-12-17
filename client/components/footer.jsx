@@ -64,7 +64,7 @@ const Footer = ({ footerData }) => {
               {links.map((elem, index) => {
                 return (
                   <li key={index} className='cursor-pointer mb-5la st:mb-0 lg:inline lg:ml-5 '>
-                    <Link href={`/${buildPageUrl(elem)}`}>{elem.attributes.title}</Link>
+                    <Link href={buildPageUrl(elem)}>{elem.attributes.title}</Link>
                   </li>
                 );
               })}
