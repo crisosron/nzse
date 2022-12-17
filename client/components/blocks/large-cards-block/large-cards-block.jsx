@@ -4,7 +4,7 @@ import classNames from 'classnames';
 const LargeCardsBlock = ({ cards }) => {
   return (
     <div className={classNames(
-      "flex w-full my-8 flex-col md:flex-row",
+      "flex w-full flex-col md:flex-row",
       { 'justify-center': cards.length === 1 },
       { 'justify-between': cards.length > 1 }
     )}>

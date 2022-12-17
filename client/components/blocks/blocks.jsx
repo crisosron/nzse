@@ -13,6 +13,19 @@ import {
 } from './index';
 
 import Container from '../container';
+import classNames from 'classnames';
+
+const CONTENT_BLOCK_NAMES = [
+  'ComponentContentBlocksTextBlock',
+  'ComponentContentBlocksTextWithImageBlock',
+  'ComponentContentBlocksImageBlock',
+  'ComponentContentBlocksButtonBlock',
+  'ComponentContentBlocksCardBlockList',
+  'ComponentContentBlocksCardBlock',
+  'ComponentContentBlocksFlipbookBlock',
+  'ComponentContentBlocksHeroBannerBlock',
+  'ComponentContentBlocksLargeCardsBlock',
+];
 
 const Block = ({ blockRecord, noContainerSpacing }) => {
   const blockTypeNameToComponentMapping = {
@@ -43,14 +56,28 @@ const Block = ({ blockRecord, noContainerSpacing }) => {
   return <div>Don&apos;t know how to render the block &apos;{blockType}&apos;</div>;
 };
 
+/**
+ * A 'Content Block' is a block that is meant to display content for the site user. Content editable
+ * blocks such as navigation blocks do not fall into this category
+ * @param {string} blockName The name of the block
+ * @returns A boolean indicating if the given blockTypeName corresponds to a content block
+ */
+const isContentBlock = (blockName) => {
+  return CONTENT_BLOCK_NAMES.includes(blockName);
+};
+
 const Blocks = ({ blocks, noContainerSpacing }) => {
   return (
-    // <div className="leading-normal flex flex-col lg:items-start">leading-normal flex flex-col lg:items-start
     <div>
       { blocks && blocks.map((block) => {
         const { id, __typename: blockType } = block;
         return (
-          <Block key={`${blockType}-${id}`} blockRecord={block} noContainerSpacing={noContainerSpacing} />
+          <div key={`${blockType}-${id}`} className={classNames(
+            "ContentBlockContainer",
+            {"mb-8 md:mb-12 lg:mb-18": isContentBlock(blockType)}
+          )}>
+            <Block blockRecord={block} noContainerSpacing={noContainerSpacing} />
+          </div>
         );
       })}
     </div>
