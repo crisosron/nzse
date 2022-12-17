@@ -2,14 +2,14 @@ import { buildPageUrl, unwrapEntityResponse } from '../../../../lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const LargeCardBlock = ({ id, title, subtitle, link, image }) => {
+const LargeCardBlock = ({ title, subtitle, link, image }) => {
   const { url: imageUrl, alternativeText } = unwrapEntityResponse(image);
   const linkedPage = unwrapEntityResponse(link);
   let url = '';
   if (linkedPage) url = buildPageUrl(linkedPage);
   return (
     <Link href={`/${url}`}>
-      <a className='card-block w-full h-[25em] mb-8 last:mb-0 md:mr-4 lg:mr-8 md:last:mr-0 flex flex-col shadow-lg transition-all duration-700 hover:shadow-xl font-poppins group'>
+      <a className='card-block w-full h-[25em] mb-8 last:mb-0 md:mr-4 lg:mr-8 md:last:mr-0 flex flex-col shadow-lg transition-all duration-500 hover:shadow-xl font-poppins group'>
         <div className='flex-3 relative'>
           <Image src={imageUrl} alt={alternativeText} layout='fill' objectFit='cover' />
           <div className='absolute top-0 bg-charcoal/0 group-hover:bg-charcoal/20 p-5 w-full h-full flex flex-col justify-end transition-all duration-500'>
