@@ -1,14 +1,18 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
-const Error404 = () => {
-  // TODO: Add Layout component to apply body spacing styles
+import Link from "next/link";
+import { Container, Layout } from "../components";
+const Error404 = ({ navigation: navigationData, footer: footerData }) => {
   return (
-    <div className='prose'>
-      <h1>404</h1>
-      <bold>Looks like the page you were looking for doesn&apos;t exist.</bold>
-      <p>
-        Try a different URL, or go back to the <a href='/'>homepage</a>.
-      </p>
-    </div>
+    <Layout navigationData={navigationData} footerData={footerData}>
+      <Container>
+        <div className='Error404 prose my-20 mx-auto w-full h-[54vh] flex justify-center items-center flex-col text-center'>
+          <h1>404</h1>
+          <p>Looks like the page you were looking for doesn&apos;t exist.</p>
+          <p>
+            Try a different URL, or go back to the <Link href='/'>homepage</Link>.
+          </p>
+        </div>
+      </Container>
+    </Layout>
   );
 };
 

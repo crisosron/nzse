@@ -23,7 +23,7 @@ const PatientsGeneralPage = (props) => {
   const patientsSidebar = sidebar?.patientsSidebar;
 
   if (membersOnly && !user.loggedIn) {
-    return <Error404 />;
+    return <Error404 {...props} />;
   }
 
   return <GeneralPage sidebarNavBlocks={patientsSidebar} {...props} />;
