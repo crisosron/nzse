@@ -1,4 +1,4 @@
-import favicon from './extensions/nzse-favicon.svg'
+import logoNoText from './extensions/nzse-logo-no-text.svg'
 import logo from './extensions/nzse-logo.svg';
 
 // Docs for configuring admin:
@@ -37,10 +37,10 @@ export default {
       logo: logo
     },
     head: {
-      favicon: favicon
+      favicon: logoNoText
     },
     menu: {
-      logo: favicon
+      logo: logoNoText
     },
     theme: {
       colors: {
