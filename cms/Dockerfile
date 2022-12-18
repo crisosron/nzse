@@ -1,7 +1,7 @@
 FROM node:14-slim
 
 # Installing libvips-dev for sharp compatability
-RUN apt-get update && apt-get -y install libvips-dev
+RUN apt-get update && apt-get -y install libvips
 
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
@@ -14,7 +14,7 @@ COPY ./yarn.lock ./
 RUN yarn config set network-timeout 600000 -g
 
 # Install additional packages required for Strapi
-RUN yarn add sharp
+RUN yarn add sharp 
 RUN yarn add pg knex
 
 COPY ./ .
