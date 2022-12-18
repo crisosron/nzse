@@ -23,7 +23,7 @@ const ProfessionalsGeneralPage = (props) => {
   const professionalsSidebar = sidebar?.professionalsSidebar;
 
   if (membersOnly && !user.loggedIn) {
-    return <Error404 />;
+    return <Error404 {...props} />;
   }
 
   return <GeneralPage sidebarNavBlocks={professionalsSidebar} {...props} />;

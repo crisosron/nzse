@@ -23,7 +23,7 @@ const RootGeneralPage = (props) => {
   const rootSidebar = sidebar?.rootSidebar;
 
   if (membersOnly && !user.loggedIn) {
-    return <Error404 />;
+    return <Error404 {...props} />;
   }
 
   return <GeneralPage sidebarNavBlocks={rootSidebar} {...props} />;
