@@ -30,9 +30,9 @@
         "content-blocks.flipbook-block",
         "content-blocks.hero-banner-block",
         "content-blocks.image-block",
+        "content-blocks.large-cards-block",
         "content-blocks.text-block",
-        "content-blocks.text-with-image-block",
-        "content-blocks.large-cards-block"
+        "content-blocks.text-with-image-block"
       ]
     }
   }
