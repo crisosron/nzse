@@ -62,10 +62,10 @@ const Footer = ({ footerData }) => {
             </div>
           </div>
           <div className='mt-5 lg:ml-10'>
-            <ul className='list-none text-center'>
+            <ul className='list-none text-center lg:text-right'>
               {links.map((elem, index) => {
                 return (
-                  <li key={index} className='cursor-pointer mb-5la st:mb-0 lg:inline lg:ml-5 '>
+                  <li key={index} className='cursor-pointer md:mb-0 lg:ml-5 '>
                     <Link href={buildPageUrl(elem)}>{elem.attributes.title}</Link>
                   </li>
                 );
