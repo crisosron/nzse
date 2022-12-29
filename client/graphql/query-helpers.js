@@ -149,16 +149,6 @@ const generalPageDataSubquery = `
       membersOnly
       createdAt
       publishedAt
-      childPages {
-        data {
-          attributes {
-            title
-            type
-            slug
-            membersOnly
-          }
-        }
-      }
       ${generalPageBlocksListSubquery}
     }
   }
