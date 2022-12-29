@@ -147,7 +147,6 @@ const generalPageDataSubquery = `
       slug
       type
       membersOnly
-      landingPage
       createdAt
       publishedAt
       childPages {
@@ -157,7 +156,6 @@ const generalPageDataSubquery = `
             type
             slug
             membersOnly
-            landingPage
           }
         }
       }
