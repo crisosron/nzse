@@ -31,11 +31,6 @@
       "required": true,
       "default": false
     },
-    "childPages": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::general-page.general-page"
-    },
     "blocks": {
       "type": "dynamiczone",
       "components": [
