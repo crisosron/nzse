@@ -51,16 +51,6 @@ const publishCollectionType = async (tableName) => {
 
 const modelsToSeed = [
   {
-    modelName: 'Article',
-    apiName: 'api::article.article',
-    dbTableName: 'articles',
-    seeder: seedCollectionType,
-    seedData: {
-      title: 'Article'
-    },
-    needsPublishing: true
-  },
-  {
     modelName: 'Global',
     apiName: 'api::global.global',
     dbTableName: 'globals',
