@@ -147,20 +147,8 @@ const generalPageDataSubquery = `
       slug
       type
       membersOnly
-      landingPage
       createdAt
       publishedAt
-      childPages {
-        data {
-          attributes {
-            title
-            type
-            slug
-            membersOnly
-            landingPage
-          }
-        }
-      }
       ${generalPageBlocksListSubquery}
     }
   }

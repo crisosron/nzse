@@ -18,6 +18,7 @@ export const GlobalContext = createContext({});
 
 const MyApp = ({ Component, pageProps }) => {
   const { globalAttributes } = pageProps;
+  const { title: pageTitle } = pageProps;
 
   return (
     <>
@@ -25,6 +26,7 @@ const MyApp = ({ Component, pageProps }) => {
         {globalAttributes.favicon.data && (
           <link rel='shortcut icon' href={getStrapiMedia(globalAttributes.favicon).url} />
         )}
+        <title>NZSE | {pageTitle}</title>
       </Head>
       <GlobalContext.Provider value={pageProps}>
         <Component {...pageProps} />

@@ -14,7 +14,6 @@ COPY ./yarn.lock ./
 RUN yarn config set network-timeout 600000 -g
 
 # Install additional packages required for Strapi
-RUN yarn add sharp 
 RUN yarn add pg knex
 
 COPY ./ .

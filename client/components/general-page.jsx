@@ -7,7 +7,6 @@ const GeneralPage = ({
   slug,
   type,
   membersOnly,
-  landingPage,
   createdAt,
   publishedAt,
   blocks,
