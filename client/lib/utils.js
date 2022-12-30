@@ -19,7 +19,7 @@ const DATE_OPTIONS = {
 // This is just a helper function to return the attributes prop directly as this contains all the
 // useful information we want from a response
 const unwrapEntityResponse = (response) => {
-  if (!response.data) return response;
+  if (!response?.data) return response;
   return response.data.attributes;
 };
 
