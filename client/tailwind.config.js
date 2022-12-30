@@ -44,7 +44,8 @@ module.exports = {
       'h6-2xl': '1.34em'
     },
     zIndex: {
-      max: '9999'
+      max: '9999',
+      hide: '-1'
     },
     fontFamily: {
       sansation: ['Sansation', 'serif'],

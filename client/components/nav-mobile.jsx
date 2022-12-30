@@ -118,7 +118,11 @@ const NavMobile = ({ linkItems, linkButtons }) => {
         </div>
       </div>
       <Menu
-        className={classNames({ menuFadeIn: showMenu }, { menuFadeOut: !showMenu })}
+        className={classNames(
+          { menuFadeIn: showMenu },
+          { menuFadeOut: !showMenu },
+          { 'z-hide': !showMenu }
+        )}
         linkItems={linkItems}
         linkButtons={linkButtons}
         handleMenuIconClicked={handleMenuIconClicked}
