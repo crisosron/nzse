@@ -76,7 +76,7 @@ const Footer = ({ footerData }) => {
               })}
             </ul>
           </div>
-          <div className='text-center lg:text-none mt-5'>{address}</div>
+          <div className='text-center lg:text-right mt-5'>{address}</div>
         </div>
       </div>
     </footer>
