@@ -5,10 +5,10 @@ import Image from 'next/image';
 const CardBlock = (props) => {
   const { content, title, bottomLinkText, image, generalPage } = props;
 
-  const page = unwrapEntityResponse(generalPage.data);
+  let page = unwrapEntityResponse(generalPage.data);
   const pageUrl = buildPageUrl(page);
 
-  const { title: pageTitle } = page;
+  const { title: pageTitle } = page || {};
   const { url: imageUrl, alternativeText: imageAlt } = unwrapEntityResponse(image);
 
   return (

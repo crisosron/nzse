@@ -137,7 +137,11 @@ const NavDesktop = ({ linkItems, linkButtons }) => {
     <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max'>
       <div className='NavDesktop flex flex-row items-center'>
         <div className='mr-14'>
-          <Image src='/nzse-logo.svg' alt='nzse-logo' width={180} height={60} />
+          <Link href='/'>
+            <a>
+              <Image src='/nzse-logo.svg' alt='nzse-logo' width={180} height={60} />
+            </a>
+          </Link>
         </div>
         <div className='flex flex-row justify-between'>
           {linkItems.map((item, index) => {
