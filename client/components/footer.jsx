@@ -29,7 +29,11 @@ const Footer = ({ footerData }) => {
         <div className='lg:flex items-center'>
           <div className='flex flex-col items-center'>
             <div className='w-[80%] md:w-[20rem] min-h-[10rem] relative'>
-              <Image src='/nzse-logo.svg' alt='nzse-logo' layout='fill' objectFit='contain' />
+              <Link href='/'>
+                <a>
+                  <Image src='/nzse-logo.svg' alt='nzse-logo' layout='fill' objectFit='contain' />
+                </a>
+              </Link>
             </div>
           </div>
           <div className='lg:ml-10'>
