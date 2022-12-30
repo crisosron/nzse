@@ -26,7 +26,7 @@ const MyApp = ({ Component, pageProps }) => {
         {globalAttributes.favicon.data && (
           <link rel='shortcut icon' href={getStrapiMedia(globalAttributes.favicon).url} />
         )}
-        <title>NZSE | {pageTitle}</title>
+        <title>NZSE { pageTitle ? `| ${pageTitle}` : ''}</title>
       </Head>
       <GlobalContext.Provider value={pageProps}>
         <Component {...pageProps} />
