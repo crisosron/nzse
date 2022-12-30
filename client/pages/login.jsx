@@ -1,4 +1,4 @@
-import { Container, Layout } from "../components";
+import { Container, Layout } from '../components';
 const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
   return (
     <Layout navigationData={navigationData} footerData={footerData}>
