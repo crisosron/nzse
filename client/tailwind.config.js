@@ -82,6 +82,8 @@ module.exports = {
       'gray-200': '#e5e6e7',
       'gray-100': '#f2f3f3',
 
+      'alert-red': '#cc0000',
+
       white: '#FFFFFF'
     }
   },
