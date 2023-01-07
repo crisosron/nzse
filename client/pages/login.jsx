@@ -20,8 +20,8 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
           </Link>
         </div>
 
-        <div className='prose flex grow md:grow-0 md:flex-shrink flex-col justify-center mb-10 w-full md:w-[60%] md:border md:border-gray-300 md:p-10 md:shadow-lg md:rounded-md'>
-          <h2 className='text-center mb-10'>Member Login</h2>
+        <div className='prose flex grow md:grow-0 md:flex-shrink flex-col justify-center mb-10 w-full md:w-[70%] lg:w-[60%] md:border md:border-gray-300 md:p-10 md:shadow-lg md:rounded-md'>
+          <span className='text-center mb-10 text-charcoal text-h2 font-medium'>Member Login</span>
           <Form onSubmit={onSubmit}>
             <InputField
               type='text'
@@ -38,14 +38,14 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
               validations={{ required: 'Please enter your password' }}
               label='Password'
             />
-            <div className='flex justify-end mb-5'>
+            <div className='flex justify-end mb-8 mt-[-15px]'>
               <Link href='/reset-password'>
                 <a className='text-[14px] font-normal'>Forgot your password?</a>
               </Link>
             </div>
             <InputField
               name='login'
-              className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[60%] mb-5 border-none'
+              className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] mb-8 border-none'
               type='submit'
               value='Login'
             />
