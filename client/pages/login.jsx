@@ -45,10 +45,15 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
             </div>
             <InputField
               name='login'
-              className='block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] mb-5 border-none'
+              className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[60%] mb-5 border-none'
               type='submit'
-              defaultValue='Login'
+              value='Login'
             />
+            <div className='flex justify-center'>
+              <Link href='/memberships'>
+                <a className='text-[14px] font-normal'>Find out more about our memberships</a>
+              </Link>
+            </div>
           </Form>
         </div>
       </div>
