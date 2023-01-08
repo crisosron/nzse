@@ -2,13 +2,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 const Form = ({ defaultValues, children, onSubmit}) => {
-  const {handleSubmit, register, formState: { errors }} = useForm({ defaultValues });
+  const { handleSubmit, register, formState: { errors }} = useForm({ ...defaultValues });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {React.Children.map(children, child => {
 
-        const element = child.props.name ? React.createElement(child.type, {
+        const element = child?.props.name ? React.createElement(child.type, {
           ...{
             ...child.props,
             register,

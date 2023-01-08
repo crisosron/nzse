@@ -7,16 +7,18 @@ const InputField = ({
   label,
   register,
   validations,
+  applyInvalidHighlight,
+  onClick,
   children,
   ...rest
 }) => {
   {
     /* children is the error message that has occurred for this field (see Form component) */
   }
-  const hasValidationError = !!children;
+  const hasValidationError = !!children || applyInvalidHighlight;
 
   return (
-    <div className='block mb-5 group'>
+    <div className='block mb-5 group' onClick={onClick}>
       <label
         htmlFor={name}
         className={classNames('block mb-2 group-focus-within:text-light-blue', {

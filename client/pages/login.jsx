@@ -3,11 +3,35 @@ import { EMAIL_REGEX } from '../lib/form-utils';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Form, InputField } from '../components';
+import { useAuth } from '../lib/hooks/use-auth';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
+  const { signInUser, authLoading, authError } = useAuth();
+  const {
+    setError,
+    clearErrors,
+    formState: { errors: manualErrors } // This is noted as manualErrors as form errors are usually generated and handled by the Form component
+  } = useForm();
+
   const onSubmit = (data) => {
-    console.log('Submit data: ', data);
+    const { emailAddress, password } = data;
+    signInUser(emailAddress, password);
   };
+
+  // Set an error on the form manually to indicate invalid login credentials were used
+  useEffect(() => {
+    console.log('authError changed: ', authError);
+    if (!authError) clearErrors();
+    if (authError) {
+      setError(
+        'invalidLogin',
+        { type: 'custom', message: 'Email or password is incorrect' },
+        { shouldFocus: false }
+      );
+    }
+  }, [authError]);
 
   return (
     <Container className='h-[100vh]'>
@@ -31,13 +55,18 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
                 pattern: { value: EMAIL_REGEX, message: 'Please enter a valid email address' }
               }}
               label='Email'
+              applyInvalidHighlight={manualErrors && manualErrors.invalidLogin}
             />
             <InputField
               type='password'
               name='password'
               validations={{ required: 'Please enter your password' }}
               label='Password'
+              applyInvalidHighlight={manualErrors && manualErrors.invalidLogin}
             />
+            {manualErrors && manualErrors.invalidLogin && (
+              <span className='text-alert-red'>{manualErrors.invalidLogin.message}</span>
+            )}
             <div className='flex justify-end mb-8 mt-[-15px]'>
               <Link href='/reset-password'>
                 <a className='text-[14px] font-normal'>Forgot your password?</a>
@@ -48,6 +77,9 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
               className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] mb-8 border-none'
               type='submit'
               value='Login'
+              onClick={() => {
+                clearErrors();
+              }}
             />
             <div className='flex justify-center'>
               <Link href='/memberships'>
