@@ -12,6 +12,7 @@ import {
 } from '../graphql/queries';
 
 import '../styles/globals.scss';
+import { AuthProvider } from '../lib/hooks/use-auth';
 
 // Store Strapi Global object in context
 export const GlobalContext = createContext({});
@@ -28,9 +29,11 @@ const MyApp = ({ Component, pageProps }) => {
         )}
         <title>NZSE { pageTitle ? `| ${pageTitle}` : ''}</title>
       </Head>
-      <GlobalContext.Provider value={pageProps}>
-        <Component {...pageProps} />
-      </GlobalContext.Provider>
+      <AuthProvider>
+        <GlobalContext.Provider value={pageProps}>
+          <Component {...pageProps} />
+        </GlobalContext.Provider>
+      </AuthProvider>
     </>
   );
 };
