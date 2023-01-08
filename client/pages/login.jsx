@@ -22,7 +22,6 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
 
   // Set an error on the form manually to indicate invalid login credentials were used
   useEffect(() => {
-    console.log('authError changed: ', authError);
     if (!authError) clearErrors();
     if (authError) {
       setError(
