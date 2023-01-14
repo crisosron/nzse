@@ -29,8 +29,9 @@ const InputField = ({
       </label>
       <input
         className={classNames(
-          `border-b-2 border-gray-300 rounded-sm py-2 w-full mb-2 outline-none active:border-light-blue-900 focus:border-light-blue-900 ${className}`,
-          { 'border-alert-red': hasValidationError }
+          `border-b-2 border-gray-500 rounded-sm p-2 w-full mb-2 outline-none active:border-light-blue-900 focus:border-light-blue-900 ${className}`,
+          { 'border-alert-red': hasValidationError },
+          { 'bg-gray-100': type !== 'submit' }
         )}
         type={type}
         placeholder={placeholder}
