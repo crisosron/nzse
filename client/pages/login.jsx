@@ -7,6 +7,7 @@ import { useAuth } from '../lib/hooks/use-auth';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { TailSpin } from 'react-loader-spinner';
+// import { signIn } from 'next-auth/react';
 
 const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
   const { signInUser, authLoading, authError } = useAuth();
@@ -19,6 +20,9 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
   const onSubmit = (data) => {
     const { emailAddress, password } = data;
     signInUser(emailAddress, password);
+    // 'redirect: false' required to handle login error on this page: https://next-auth.js.org/getting-started/client#using-the-redirect-false-option
+    // without this, next-auth will redirect to a default 'try again' login page
+    // signIn('credentials', { email: emailAddress, password, redirect: false });
   };
 
   // Set an error on the form manually to indicate invalid login credentials were used
