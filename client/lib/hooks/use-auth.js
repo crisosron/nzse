@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
         setUser(formatUser(userCredential));
       })
       .catch((error) => {
-        console.log('Got signin error: ', error);
+        console.error('Got signin error: ', error);
         setAuthError(formatAuthError(error));
       })
       .finally(() => {

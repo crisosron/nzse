@@ -6,6 +6,7 @@ import { Form, InputField } from '../components';
 import { useAuth } from '../lib/hooks/use-auth';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { TailSpin } from 'react-loader-spinner';
 
 const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
   const { signInUser, authLoading, authError } = useAuth();
@@ -71,15 +72,29 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
                 <a className='text-[14px] font-normal'>Forgot your password?</a>
               </Link>
             </div>
-            <InputField
-              name='login'
-              className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] mb-8 border-none'
-              type='submit'
-              value='Login'
-              onClick={() => {
-                clearErrors();
-              }}
-            />
+            {!authLoading && (
+              <InputField
+                name='login'
+                className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] mb-8 border-none'
+                type='submit'
+                value='Login'
+                onClick={() => {
+                  clearErrors();
+                }}
+              />
+            )}
+            {authLoading && (
+              <div className='flex justify-center items-center bg-light-blue py-2 w-[80%] md:w-[60%] mb-5 mx-auto border-none'>
+                <TailSpin
+                  height='28'
+                  width='28'
+                  color='white'
+                  ariaLabel='tail-spin-loading'
+                  radius='1'
+                  visible={true}
+                />
+              </div>
+            )}
             <div className='flex justify-center'>
               <Link href='/memberships'>
                 <a className='text-[14px] font-normal'>Find out more about our memberships</a>
