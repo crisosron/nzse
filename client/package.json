@@ -28,6 +28,7 @@
     "react-dom": "18.1.0",
     "react-hook-form": "^7.41.2",
     "react-icons": "^4.4.0",
+    "react-loader-spinner": "^5.3.4",
     "react-markdown": "^8.0.3",
     "sass": "^1.53.0"
   },
