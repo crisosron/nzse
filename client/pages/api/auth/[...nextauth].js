@@ -4,7 +4,8 @@ import { firebaseAuth } from '../../../lib/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 // For a detailed explanation: https://next-auth.js.org/configuration/providers/credentials
-export default NextAuth({
+
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'Firebase Email/Password login',
@@ -28,4 +29,6 @@ export default NextAuth({
       }
     })
   ]
-});
+};
+
+export default NextAuth(authOptions);

@@ -18,7 +18,7 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
-  const [user] = useAuthState(firebaseAuth);
+  // const [user] = useAuthState(firebaseAuth);
   const [authLoading, setAuthLoading] = useState(null);
   const [authError, setAuthError] = useState(null);
 
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     // TODO: Register a user
   };
 
-  console.log('user: ', user);
+  // console.log('user: ', user);
 
   const signInUser = (email, password) => {
     setAuthLoading(true);
@@ -60,10 +60,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const contextValue = {
-    user: {
-      email: user?.email,
-      uid: user?.uid
-    },
+    // user: {
+    //   email: user?.email,
+    //   uid: user?.uid
+    // },
     registerUser,
     signInUser,
     signOutUser,
