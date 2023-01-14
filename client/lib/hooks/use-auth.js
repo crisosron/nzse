@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from 'react';
 import { firebaseAuth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 /**
  * Fore more info on firebase authentication: https://firebase.google.com/docs/auth/web/start
@@ -31,7 +32,7 @@ const formatAuthError = (firebaseAuthError) => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user] = useAuthState(firebaseAuth);
   const [authLoading, setAuthLoading] = useState(null);
   const [authError, setAuthError] = useState(null);
 
@@ -44,8 +45,8 @@ export const AuthProvider = ({ children }) => {
   const signInUser = (email, password) => {
     setAuthLoading(true);
     signInWithEmailAndPassword(firebaseAuth, email, password)
-      .then((userCredential) => {
-        setUser(formatUser(userCredential));
+      .then(() => {
+        // Note that a successful signin attempt will mutate 'user' automatically thanks to useAuthState
         router.push('/');
       })
       .catch((error) => {
@@ -62,11 +63,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const contextValue = {
-    user,
+    user: {
+      email: user?.email,
+      uid: user?.uid
+    },
     registerUser,
     signInUser,
     signOutUser,
-    authLoading,
+    authLoading: authLoading,
     authError
   };
 
