@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import { firebaseAuth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useRouter } from 'next/router';
 
 /**
  * Fore more info on firebase authentication: https://firebase.google.com/docs/auth/web/start
@@ -34,6 +35,8 @@ export const AuthProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(null);
   const [authError, setAuthError] = useState(null);
 
+  const router = useRouter();
+
   const registerUser = (email, password) => {
     // TODO: Register a user
   };
@@ -43,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     signInWithEmailAndPassword(firebaseAuth, email, password)
       .then((userCredential) => {
         setUser(formatUser(userCredential));
+        router.push('/');
       })
       .catch((error) => {
         console.error('Got signin error: ', error);
