@@ -139,7 +139,10 @@ const UnAuthenticatedNavButtons = () => {
   return (
     <>
       <NavButton href='/login' className='mr-6 last:mr-0'>
-        Member sign-in
+        <div className='flex justify-center items-center'>
+          <UserIcon className='mr-4 h-8 w-8 fill-dark-blue' />
+          Member Login
+        </div>
       </NavButton>
       <NavButton href='/memberships' className='mr-6 last:mr-0' applyAccent>
         Become a member
