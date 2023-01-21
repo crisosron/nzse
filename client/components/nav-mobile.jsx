@@ -117,6 +117,7 @@ const Menu = ({ linkItems, handleMenuIconClicked, className }) => {
   );
 };
 
+// TODO: Refactor out link buttons
 const NavMobile = ({ linkItems, linkButtons }) => {
   const [showMenu, setShowMenu] = useState(false);
 

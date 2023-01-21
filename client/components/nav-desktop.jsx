@@ -77,7 +77,7 @@ const NavButton = ({ className, onClick, children, applyAccent, href }) => {
     return (
       <a
         className={classNames(
-          `inline-block capitalize transition-colors duration-150 p-3 ${className}`,
+          `inline-block transition-colors duration-150 p-3 ${className}`,
           {
             'rounded text-white drop-shadow-md bg-light-blue hover:bg-lightest-blue hover:text-dark-blue hover:drop-shadow-xl transition-colors duration-75':
               applyAccent
