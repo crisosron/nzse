@@ -75,9 +75,9 @@ const NavLink = ({ link, className }) => {
 const NavButton = ({ className, onClick, children, applyAccent, href }) => {
   const renderButton = () => {
     return (
-      <div
+      <a
         className={classNames(
-          `transition-colors duration-150 p-3 ${className}`,
+          `inline-block capitalize transition-colors duration-150 p-3 ${className}`,
           {
             'rounded text-white drop-shadow-md bg-light-blue hover:bg-lightest-blue hover:text-dark-blue hover:drop-shadow-xl transition-colors duration-75':
               applyAccent
@@ -89,7 +89,7 @@ const NavButton = ({ className, onClick, children, applyAccent, href }) => {
         )}
       >
         {children}
-      </div>
+      </a>
     );
   };
 

@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HamburgerIcon, CloseIcon } from './svg-components';
+import { HamburgerIcon, CloseIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
+import { useAuth } from '../lib/hooks/use-auth';
 
 const MenuItem = ({ item, className }) => {
   const page = unwrapEntityResponse(item.page);
@@ -34,35 +35,64 @@ const MenuItem = ({ item, className }) => {
   return linkedPage.url ? renderLinkedItem() : renderUnlinkedItem();
 };
 
-const MenuButton = ({ item, className }) => {
-  const page = unwrapEntityResponse(item.page);
-  const linkedPage = {
-    title: page.title,
-    url: buildPageUrl(page)
+const MenuButton = ({ className, onClick, children, applyAccent, href }) => {
+  const renderButton = () => {
+    return (
+      <a
+        className={classNames(
+          `block p-3 md:text-h2 capitalize`,
+          {
+            'rounded-md drop-shadow-md bg-light-blue text-white': applyAccent
+          },
+          {
+            'rounded-md drop-shadow-md bg-light-blue-500 text-dark-blue': !applyAccent
+          }
+        )}
+      >
+        {children}
+      </a>
+    );
+  };
+
+  const renderLink = () => {
+    return <Link href={href || '/'}>{renderButton()}</Link>;
   };
 
   return (
-    <div className={`${className}`}>
-      <Link href={linkedPage.url || '/'}>
-        <a
-          className={classNames(
-            `p-3 md:text-h2`,
-            {
-              'rounded-md drop-shadow-md bg-light-blue text-white': item.applyAccent
-            },
-            {
-              'rounded-md drop-shadow-md bg-light-blue-500 text-dark-blue': !item.applyAccent
-            }
-          )}
-        >
-          {item.label}
-        </a>
-      </Link>
+    <div className={`w-[60%] text-center ${className}`} onClick={onClick}>
+      {onClick ? renderButton() : renderLink(href)}
     </div>
   );
 };
 
-const Menu = ({ linkItems, linkButtons, handleMenuIconClicked, className }) => {
+const UnAuthenticatedMenuButtons = () => {
+  return (
+    <>
+      <MenuButton href='/login' className='mb-12 last:mb-0'>
+        <div className='flex justify-center items-center'>
+          <UserIcon className='mr-2 h-8 w-8 fill-dark-blue' />
+          Member Login
+        </div>
+      </MenuButton>
+      <MenuButton href='/memberships' className='mb-12 last:mb-0' applyAccent>
+        Become a member
+      </MenuButton>
+    </>
+  );
+};
+
+const AuthenticatedMenuButtons = () => {
+  const { signOutUser, authenticatedUser } = useAuth();
+  return (
+    <>
+      <span className='mb-12 text-dark-blue'>{authenticatedUser.email}</span>
+      <MenuButton onClick={signOutUser}>Sign out</MenuButton>
+    </>
+  );
+};
+
+const Menu = ({ linkItems, handleMenuIconClicked, className }) => {
+  const { authenticatedUser } = useAuth();
   return (
     // Note this root div's padding is meant to be similar to NavMobile component dimensions
     <div
@@ -81,11 +111,7 @@ const Menu = ({ linkItems, linkButtons, handleMenuIconClicked, className }) => {
         })}
       </div>
       <div className='flex flex-grow flex-col justify-center items-center'>
-        {linkButtons.map((item, index) => {
-          return (
-            <MenuButton key={`menu-button-${index}`} className='mb-12 last:mb-0' item={item} />
-          );
-        })}
+        {authenticatedUser ? <AuthenticatedMenuButtons /> : <UnAuthenticatedMenuButtons />}
       </div>
     </div>
   );
