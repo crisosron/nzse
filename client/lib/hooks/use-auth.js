@@ -15,20 +15,20 @@ const AuthContext = createContext({
   signOutUser: null,
   authLoading: null,
   authError: null,
+  authenticatedUser: null,
+  setAuthenticatedUser: null
 });
 
 export const AuthProvider = ({ children }) => {
-  // const [user] = useAuthState(firebaseAuth);
   const [authLoading, setAuthLoading] = useState(null);
   const [authError, setAuthError] = useState(null);
+  const [authenticatedUser, setAuthenticatedUser] = useState(null);
 
   const router = useRouter();
 
   const registerUser = (email, password) => {
     // TODO: Register a user
   };
-
-  // console.log('user: ', user);
 
   const signInUser = (email, password) => {
     setAuthLoading(true);
@@ -41,9 +41,9 @@ export const AuthProvider = ({ children }) => {
           status: response.status,
           error: response.error
         });
+
         return;
       }
-      // Note that a successful signin attempt will mutate 'user' automatically thanks to useAuthState
       router.push('/');
     })
       .catch((error) => {
@@ -60,15 +60,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   const contextValue = {
-    // user: {
-    //   email: user?.email,
-    //   uid: user?.uid
-    // },
     registerUser,
     signInUser,
     signOutUser,
     authLoading: authLoading,
-    authError
+    authError,
+    authenticatedUser,
+    setAuthenticatedUser
   };
 
   return (
