@@ -1,8 +1,6 @@
 import { createContext, useContext, useState } from 'react';
-import { firebaseAuth } from '../firebase';
 import { useRouter } from 'next/router';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 
 /**
  * Fore more info on firebase authentication: https://firebase.google.com/docs/auth/web/start
@@ -56,7 +54,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signOutUser = () => {
-    // TODO: Sign out the current user
+    signOut({ callbackUrl: '/' });
   };
 
   const contextValue = {

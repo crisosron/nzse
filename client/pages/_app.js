@@ -47,7 +47,6 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
 // https://github.com/vercel/next.js/discussions/10949
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
-  const { req, res } = context;
   const [
     { data: globalAttributesData },
     { data: globalSeoData },

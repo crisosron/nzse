@@ -7,7 +7,6 @@ import _ from 'lodash';
 import PopoverTransitionWrapper from './popover-transition-wrapper';
 import { ChevronRightIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
-import { useSession } from 'next-auth/react';
 import { useAuth } from '../lib/hooks/use-auth';
 
 const NavLink = ({ link, className }) => {
@@ -150,7 +149,7 @@ const UnAuthenticatedNavButtons = () => {
 };
 
 const AuthenticatedNavButtons = ({ authenticatedUser }) => {
-  const { signOut } = useAuth();
+  const { signOutUser } = useAuth();
 
   const { email } = authenticatedUser;
   const [signoutHovered, setSignoutHovered] = useState(false);
@@ -177,7 +176,10 @@ const AuthenticatedNavButtons = ({ authenticatedUser }) => {
                       'w-full absolute border p-2 border-light-blue-300 rounded-md drop-shadow-lg bg-white'
                     )}
                   >
-                    <div className='select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100 z-max'>
+                    <div
+                      className='select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100 z-max'
+                      onClick={signOutUser}
+                    >
                       Sign out
                     </div>
                   </div>
