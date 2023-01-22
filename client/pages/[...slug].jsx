@@ -3,7 +3,7 @@ import { GeneralPage } from '../components';
 import { buildGeneralPageProps } from '../lib/general-page-utils';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from '../api/auth/[...nextauth]';
-import { useAuth } from '../../lib/hooks/use-auth';
+import { useAuth } from '../lib/hooks/use-auth';
 
 export const getServerSideProps = async (context) => {
   const { params, req, res } = context;
