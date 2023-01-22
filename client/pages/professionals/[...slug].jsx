@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { buildGeneralPageProps } from '../../lib/general-page-utils';
 import { GeneralPage } from '../../components';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from '../api/auth/[...nextauth]';
+import { useAuth } from '../../lib/hooks/use-auth';
 
 export const getServerSideProps = async (context) => {
   const { params, req, res } = context;
@@ -21,13 +23,22 @@ export const getServerSideProps = async (context) => {
   }
 
   return {
-    props
+    props: {
+      ...props,
+      authenticatedUser: session ? { email: session.user.email } : null
+    }
   };
 };
 
 const ProfessionalsGeneralPage = (props) => {
-  const { sidebar } = props;
+  const { sidebar, authenticatedUser } = props;
   const professionalsSidebar = sidebar?.professionalsSidebar;
+
+  // Set the authenticated user state here to prevent flashing of un-authenticated Nav component state
+  const { setAuthenticatedUser } = useAuth();
+  useEffect(() => {
+    setAuthenticatedUser(authenticatedUser);
+  }, []);
 
   return <GeneralPage sidebarNavBlocks={professionalsSidebar} {...props} />;
 };
