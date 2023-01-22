@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HamburgerIcon, CloseIcon, UserIcon } from './svg-components';
+import { HamburgerIcon, CloseIcon, UserIcon, LogoutIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
 import { useAuth } from '../lib/hooks/use-auth';
 
@@ -40,12 +40,13 @@ const MenuButton = ({ className, onClick, children, applyAccent, href }) => {
     return (
       <a
         className={classNames(
-          `block p-3 md:text-h2 capitalize`,
+          `block p-3 md:text-h2 capitalize ${className}`,
           {
             'rounded-md drop-shadow-md bg-light-blue text-white': applyAccent
           },
           {
-            'rounded-md drop-shadow-md bg-light-blue-500 text-dark-blue': !applyAccent
+            'rounded-md drop-shadow-md border-2 border-light-blue-500 bg-white bg-opacity-40 text-dark-blue':
+              !applyAccent
           }
         )}
       >
@@ -70,7 +71,7 @@ const UnAuthenticatedMenuButtons = () => {
     <>
       <MenuButton href='/login' className='mb-12 last:mb-0'>
         <div className='flex justify-center items-center'>
-          <UserIcon className='mr-2 h-8 w-8 fill-dark-blue' />
+          <UserIcon className='mr-2 fill-dark-blue' />
           Member Login
         </div>
       </MenuButton>
@@ -86,7 +87,9 @@ const AuthenticatedMenuButtons = () => {
   return (
     <>
       <span className='mb-12 text-dark-blue'>{authenticatedUser.email}</span>
-      <MenuButton onClick={signOutUser}>Sign out</MenuButton>
+      <MenuButton onClick={signOutUser}>
+        <div className='flex justify-center items-center'>Sign out</div>
+      </MenuButton>
     </>
   );
 };

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Popover } from '@headlessui/react';
 import _ from 'lodash';
 import PopoverTransitionWrapper from './popover-transition-wrapper';
-import { ChevronRightIcon, UserIcon } from './svg-components';
+import { ChevronRightIcon, LogoutIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
 import { useAuth } from '../lib/hooks/use-auth';
 
@@ -140,7 +140,7 @@ const UnAuthenticatedNavButtons = () => {
     <>
       <NavButton href='/login' className='mr-6 last:mr-0'>
         <div className='flex justify-center items-center'>
-          <UserIcon className='mr-4 h-8 w-8 fill-dark-blue' />
+          <UserIcon className='mr-4 h-6 w-6 fill-dark-blue' />
           Member Login
         </div>
       </NavButton>
@@ -183,7 +183,10 @@ const AuthenticatedNavButtons = ({ authenticatedUser }) => {
                       className='select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100 z-max'
                       onClick={signOutUser}
                     >
-                      Sign out
+                      <div className='flex justify-center items-center'>
+                        <LogoutIcon className='h-8 w-8 mx-auto' />
+                        <div className='grow'>Sign out</div>
+                      </div>
                     </div>
                   </div>
                 </Popover.Panel>
