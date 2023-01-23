@@ -4,7 +4,8 @@
   "info": {
     "singularName": "navigation",
     "pluralName": "navigations",
-    "displayName": "Navigation"
+    "displayName": "Navigation",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -15,11 +16,6 @@
       "type": "component",
       "repeatable": true,
       "component": "navigation-blocks.nav-link-item"
-    },
-    "navButtons": {
-      "type": "component",
-      "repeatable": true,
-      "component": "navigation-blocks.nav-button"
     }
   }
 }
