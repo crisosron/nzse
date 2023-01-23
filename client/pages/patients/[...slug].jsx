@@ -1,30 +1,44 @@
-import { buildGeneralPageSlugs, buildGeneralPageProps } from '../../lib/general-page-utils';
+import { useEffect } from 'react';
+import { buildGeneralPageProps } from '../../lib/general-page-utils';
 import { GeneralPage } from '../../components';
-import Error404 from '../404';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from '../api/auth/[...nextauth]';
+import { useAuth } from '../../lib/hooks/use-auth';
 
-// TODO: Should this apply only for non member-only pages? Because with member only pages, we need
-// to do some client side checks to determine if the user is logged in or not?
-export const getStaticPaths = async () => {
-  return {
-    paths: await buildGeneralPageSlugs('Patients'),
-    fallback: false // Return 404 if the path is not in slugs/paths
-  };
-};
+export const getServerSideProps = async (context) => {
+  const { params, req, res } = context;
+  const session = await unstable_getServerSession(req, res, authOptions);
+  const props = await buildGeneralPageProps(params, 'Patients');
 
-export const getStaticProps = async ({ params }) => {
+  const { membersOnly } = props;
+
+  // Redirect to login page if not signed in and the page is marked as members only
+  if (membersOnly && !session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    };
+  }
+
   return {
-    props: await buildGeneralPageProps(params, 'Patients'),
-    revalidate: 60
+    props: {
+      ...props,
+      authenticatedUser: session ? { email: session.user.email } : null
+    }
   };
 };
 
 const PatientsGeneralPage = (props) => {
-  const { membersOnly, user, sidebar } = props;
+  const { sidebar, authenticatedUser } = props;
   const patientsSidebar = sidebar?.patientsSidebar;
 
-  if (membersOnly && !user.loggedIn) {
-    return <Error404 {...props} />;
-  }
+  // Set the authenticated user state here to prevent flashing of un-authenticated Nav component state
+  const { setAuthenticatedUser } = useAuth();
+  useEffect(() => {
+    setAuthenticatedUser(authenticatedUser);
+  }, []);
 
   return <GeneralPage sidebarNavBlocks={patientsSidebar} {...props} />;
 };
