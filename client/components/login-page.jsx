@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { TailSpin } from 'react-loader-spinner';
 
-const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
+const LoginPage = () => {
   const { signInUser, authLoading, authError } = useAuth();
   const {
     setError,
@@ -87,7 +87,7 @@ const LoginPage = ({ navigation: navigationData, footer: footerData }) => {
               />
             )}
             {authLoading && (
-              <div className='flex justify-center items-center bg-light-blue py-2 w-[80%] md:w-[60%] mb-5 mx-auto border-none'>
+              <div className='rounded flex justify-center items-center bg-light-blue py-2 px-4 w-[80%] md:w-[60%] mb-8 mx-auto border-none'>
                 <TailSpin
                   height='28'
                   width='28'
