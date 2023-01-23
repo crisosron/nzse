@@ -5,8 +5,9 @@ import classNames from 'classnames';
 import { Popover } from '@headlessui/react';
 import _ from 'lodash';
 import PopoverTransitionWrapper from './popover-transition-wrapper';
-import { ChevronRightIcon } from './svg-components';
+import { ChevronRightIcon, LogoutIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
+import { useAuth } from '../lib/hooks/use-auth';
 
 const NavLink = ({ link, className }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -71,32 +72,34 @@ const NavLink = ({ link, className }) => {
   );
 };
 
-const NavButton = ({ item, className }) => {
-  const page = unwrapEntityResponse(item.page);
-  const linkedPage = {
-    title: page.title,
-    url: buildPageUrl(page)
+const NavButton = ({ className, onClick, children, applyAccent, href }) => {
+  const renderButton = () => {
+    return (
+      <a
+        className={classNames(
+          `inline-block transition-colors duration-150 p-3 ${className}`,
+          {
+            'rounded text-white drop-shadow-md bg-light-blue hover:bg-lightest-blue hover:text-dark-blue hover:drop-shadow-xl transition-colors duration-75':
+              applyAccent
+          },
+          {
+            'rounded text-dark-blue hover:bg-light-blue-100 hover:text-dark-blue hover:drop-shadow-md':
+              !applyAccent
+          }
+        )}
+      >
+        {children}
+      </a>
+    );
+  };
+
+  const renderLink = (href) => {
+    return <Link href={href || '/'}>{renderButton()}</Link>;
   };
 
   return (
-    <div className={`select-none cursor-pointer ${className}`}>
-      <Link href={linkedPage.url || '/'}>
-        <a
-          className={classNames(
-            'transition-colors duration-150 p-3',
-            {
-              'rounded text-white drop-shadow-md bg-light-blue hover:bg-lightest-blue hover:text-dark-blue hover:drop-shadow-xl transition-colors duration-75':
-                item.applyAccent
-            },
-            {
-              'rounded text-dark-blue hover:bg-light-blue-100 hover:text-dark-blue hover:drop-shadow-md':
-                !item.applyAccent
-            }
-          )}
-        >
-          {item.label}
-        </a>
-      </Link>
+    <div className={`select-none cursor-pointer ${className}`} onClick={onClick}>
+      {onClick ? renderButton() : renderLink(href)}
     </div>
   );
 };
@@ -132,7 +135,72 @@ const Dropdown = ({ items }) => {
   );
 };
 
-const NavDesktop = ({ linkItems, linkButtons }) => {
+const UnAuthenticatedNavButtons = () => {
+  return (
+    <>
+      <NavButton href='/login' className='mr-6 last:mr-0'>
+        <div className='flex justify-center items-center'>
+          <UserIcon className='mr-4 h-6 w-6 fill-dark-blue' />
+          Member Login
+        </div>
+      </NavButton>
+      <NavButton href='/memberships' className='mr-6 last:mr-0' applyAccent>
+        Become a member
+      </NavButton>
+    </>
+  );
+};
+
+const AuthenticatedNavButtons = ({ authenticatedUser }) => {
+  const { signOutUser } = useAuth();
+
+  const { email } = authenticatedUser;
+  const [signoutHovered, setSignoutHovered] = useState(false);
+  return (
+    <div
+      className='group z-max'
+      onMouseEnter={() => setSignoutHovered(true)}
+      onMouseLeave={() => setSignoutHovered(false)}
+    >
+      <Popover>
+        {() => {
+          return (
+            <>
+              <NavButton className='group-hover:bg-light-blue-100'>
+                <div className='flex justify-center items-center'>
+                  <UserIcon className='mr-4 h-8 w-8 fill-dark-blue' />
+                  {email}
+                </div>
+              </NavButton>
+              <PopoverTransitionWrapper show={signoutHovered}>
+                <Popover.Panel>
+                  <div
+                    className={classNames(
+                      'w-full absolute border p-2 border-light-blue-300 rounded-md drop-shadow-lg bg-white'
+                    )}
+                  >
+                    <div
+                      className='select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100 z-max'
+                      onClick={signOutUser}
+                    >
+                      <div className='flex justify-center items-center'>
+                        <LogoutIcon className='h-8 w-8 mx-auto' />
+                        <div className='grow'>Sign out</div>
+                      </div>
+                    </div>
+                  </div>
+                </Popover.Panel>
+              </PopoverTransitionWrapper>
+            </>
+          );
+        }}
+      </Popover>
+    </div>
+  );
+};
+
+const NavDesktop = ({ linkItems }) => {
+  const { authenticatedUser } = useAuth();
   return (
     <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max'>
       <div className='NavDesktop flex flex-row items-center'>
@@ -150,9 +218,11 @@ const NavDesktop = ({ linkItems, linkButtons }) => {
         </div>
       </div>
       <div className='flex flex-row w-1/3 justify-end'>
-        {linkButtons.map((item, index) => {
-          return <NavButton key={`nav-button-${index}`} item={item} className='mr-6 last:mr-0' />;
-        })}
+        {authenticatedUser ? (
+          <AuthenticatedNavButtons authenticatedUser={authenticatedUser} />
+        ) : (
+          <UnAuthenticatedNavButtons />
+        )}
       </div>
     </div>
   );

@@ -1,13 +1,13 @@
 import { NavMobile, NavDesktop } from './';
 
 const Nav = ({ isMobileDevice, navigationData }) => {
-  const { navLinkItems, navButtons } = navigationData;
+  const { navLinkItems } = navigationData;
   return (
     <nav>
       {isMobileDevice ? (
-        <NavMobile linkItems={navLinkItems} linkButtons={navButtons} />
+        <NavMobile linkItems={navLinkItems} />
       ) : (
-        <NavDesktop linkItems={navLinkItems} linkButtons={navButtons} />
+        <NavDesktop linkItems={navLinkItems} />
       )}
     </nav>
   );

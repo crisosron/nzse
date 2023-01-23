@@ -166,13 +166,6 @@ const getNavigation = gql`
               ${generalPageDataSubquery}
             }
           }
-          navButtons {
-            label
-            applyAccent
-            page {
-              ${generalPageDataSubquery}
-            }
-          }
         }
       }
     }
