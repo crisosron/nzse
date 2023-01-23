@@ -4,9 +4,9 @@ import { LoginPage } from '../components';
 // an odd ApolloLink Error...
 //
 // But not global level props fetched and passed down by MyApp is still available in the component
-// export const getStaticProps = () => {
-//   return { props: {} };
-// };
+export const getStaticProps = () => {
+  return { props: {} };
+};
 
 const Login = (props) => {
   return <LoginPage {...props} />;
