@@ -19,9 +19,6 @@ const LoginPage = () => {
   const onSubmit = (data) => {
     const { emailAddress, password } = data;
     signInUser(emailAddress, password);
-    // 'redirect: false' required to handle login error on this page: https://next-auth.js.org/getting-started/client#using-the-redirect-false-option
-    // without this, next-auth will redirect to a default 'try again' login page
-    // signIn('credentials', { email: emailAddress, password, redirect: false });
   };
 
   // Set an error on the form manually to indicate invalid login credentials were used
@@ -71,7 +68,7 @@ const LoginPage = () => {
               <span className='text-alert-red'>{manualErrors.invalidLogin.message}</span>
             )}
             <div className='flex justify-end mb-8 mt-[-15px]'>
-              <Link href='/reset-password'>
+              <Link href='/password-reset'>
                 <a className='text-[14px] font-normal'>Forgot your password?</a>
               </Link>
             </div>
