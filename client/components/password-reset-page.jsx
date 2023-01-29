@@ -75,7 +75,7 @@ const PasswordResetPage = () => {
                   />
                 )}
                 {authLoading && (
-                  <div className='rounded flex justify-center items-center bg-light-blue py-2 px-4 w-[80%] md:w-[60%] mb-8 mx-auto border-none'>
+                  <div className='rounded flex justify-center items-center bg-light-blue py-2 px-4 w-[80%] md:w-[60%] mb-12 mx-auto border-none'>
                     <TailSpin
                       height='28'
                       width='28'
