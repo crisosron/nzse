@@ -18,7 +18,7 @@ jobs:
       
       - name: Install dependencies
         working-directory: ./client
-        run: yarn install --frozen-lockfile
+        run: yarn install
       
       - name: Run lint
         working-directory: ./client
