@@ -13,3 +13,4 @@ export { default as InputField} from './input-field';
 export { default as Form } from './form';
 export { default as LoginPage } from './login-page';
 export { default as PasswordResetPage } from './password-reset-page';
+export { default as JoinPage } from './join-page';
