@@ -29,7 +29,7 @@ const InputField = ({
       </label>
       <input
         className={classNames(
-          `border-b-2 border-gray-500 rounded-sm p-2 w-full mb-2 outline-none active:border-light-blue-900 focus:border-light-blue-900 ${className}`,
+          `border-b-2 border-gray-500 rounded-sm p-2 w-full mb-2 outline-none active:border-light-blue-900 focus:border-light-blue-900 disabled:text-gray-800 disabled:active:border-gray-500 disabled:bg-gray-100 ${className}`,
           { 'border-alert-red': hasValidationError },
           { 'bg-gray-100': type !== 'submit' }
         )}
