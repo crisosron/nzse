@@ -33,8 +33,7 @@
     "react-icons": "^4.4.0",
     "react-loader-spinner": "^5.3.4",
     "react-markdown": "^8.0.3",
-    "sass": "^1.53.0",
-    "v8": "^0.1.0"
+    "sass": "^1.53.0"
   },
   "devDependencies": {
     "eslint": "8.16.0",
