@@ -62,6 +62,7 @@ module.exports = {
       'light-blue-300': '#c9ebf4',
       'light-blue-200': '#dbf2f8',
       'light-blue-100': '#edf8fb',
+      'light-blue-50': '#f7fbfd',
 
       'lightest-blue': '#54cceb',
 

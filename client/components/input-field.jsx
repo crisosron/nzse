@@ -16,6 +16,7 @@ const InputField = ({
     /* children is the error message that has occurred for this field (see Form component) */
   }
   const hasValidationError = !!children || applyInvalidHighlight;
+  const isRequired = Object.keys(validations).includes('required');
 
   return (
     <div className='block mb-5 group' onClick={onClick}>
@@ -26,6 +27,7 @@ const InputField = ({
         })}
       >
         {label}
+        {isRequired && <span className='text-alert-red'>*</span>}
       </label>
       <input
         className={classNames(
