@@ -2,6 +2,12 @@ import Container from './container';
 import InputField from './input-field';
 import { useForm } from 'react-hook-form';
 
+const DESIGNATION_OPTIONS = [
+  { value: 'test-1', label: 'Test 1' },
+  { value: 'test-2', label: 'Test 2' },
+  { value: 'test-3', label: 'Test 3' }
+];
+
 const Section = ({ title, children }) => {
   return (
     <div className='prose bg-light-blue-50 w-full max-w-[100%] p-5 rounded-md my-10'>
@@ -76,8 +82,14 @@ const JoinPage = () => {
         <Section title='Your professional details'>
           <InputField type='text' name='institution' label='Institution' register={register} />
           <InputField type='text' name='department' label='Department' register={register} />
-          {/* TODO: Need to implement 'select' type */}
-          <InputField type='select' name='designation' label='Designation' register={register} />
+          <InputField
+            type='select'
+            name='designation'
+            label='Designation'
+            register={register}
+            placeholder='Select a designation'
+            options={DESIGNATION_OPTIONS}
+          />
         </Section>
 
         <Section title='Creating your account'>
