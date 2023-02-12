@@ -24,6 +24,8 @@ const JoinPage = () => {
     formState: { errors }
   } = useForm();
 
+  console.log('JOIN PAGE ERRORS: ', errors);
+
   const onSubmit = (data) => {
     console.log('Called onSubmit with data: ', data);
   };
@@ -31,6 +33,8 @@ const JoinPage = () => {
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
+      This text should be CMSable. Should contain a link to the privacy policy (so it should be
+      richtext)
       <form onSubmit={handleSubmit(onSubmit)}>
         <Section title='Your Details'>
           <InputField
@@ -118,6 +122,23 @@ const JoinPage = () => {
             label='Confirm password'
             register={register}
           />
+        </Section>
+
+        <Section title='Declaration and payment'>
+          <p>Description goes here</p>
+          {/* Note that for checkboxes, the label is added by the component and wraps the children supplied
+          to the component */}
+          <InputField
+            type='checkbox'
+            name='terms-and-conditions'
+            validations={{ required: 'Please accept the terms and conditions to continue' }}
+            register={register}
+          >
+            <span>
+              By ticking, you are confirming that you have read, understood and agree to our{' '}
+              <a>terms and conditions</a>.
+            </span>
+          </InputField>
         </Section>
       </form>
     </Container>

@@ -1,42 +1,98 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useState, Children } from 'react';
 
-const SelectInput = (props) => {
-  const { options, name, className, register, validations, placeholder } = props;
-  const [valueSelected, setValueSelected] = useState(false);
-
+const InputLabel = ({ applyInvalidHighlight, name, label, isRequired }) => {
   return (
-    <select
-      name={name}
-      id={`select-${name}`}
-      className={classNames(className, { 'text-gray': !valueSelected })}
-      placeholder={placeholder}
-      {...register(name, { ...validations })}
-      onChange={() => setValueSelected(true)}
+    <label
+      htmlFor={name}
+      className={classNames('block mb-2 group-focus-within:text-light-blue', {
+        'text-alert-red': applyInvalidHighlight
+      })}
     >
-      {placeholder && (
-        <option value='' disabled selected hidden>
-          {placeholder}
-        </option>
-      )}
-      {options &&
-        options.map((option, index) => {
-          if (!option.value || !option.label) return <></>;
-          return (
-            <option
-              key={`select-${name}-option-${index}`}
-              value={option.value}
-              className='text-charcoal'
-            >
-              {option.label}
-            </option>
-          );
-        })}
-    </select>
+      {label}
+      {isRequired && <span className='text-alert-red'>*</span>}
+    </label>
   );
 };
 
-const InputField = ({
+const SelectInput = (props) => {
+  const {
+    options,
+    name,
+    className,
+    register,
+    validations,
+    placeholder,
+    applyInvalidHighlight,
+    label,
+    isRequired,
+    children
+  } = props;
+  const [valueSelected, setValueSelected] = useState(false);
+
+  return (
+    <>
+      <InputLabel
+        label={label}
+        applyInvalidHighlight={applyInvalidHighlight}
+        name={name}
+        isRequired={isRequired}
+      />
+      <select
+        name={name}
+        id={`select-${name}`}
+        className={classNames(className, { 'text-gray': !valueSelected })}
+        placeholder={placeholder}
+        {...register(name, { ...validations })}
+        onChange={() => setValueSelected(true)}
+      >
+        {placeholder && (
+          <option value='' disabled selected hidden>
+            {placeholder}
+          </option>
+        )}
+        {options &&
+          options.map((option, index) => {
+            if (!option.value || !option.label) return <></>;
+            return (
+              <option
+                key={`select-${name}-option-${index}`}
+                value={option.value}
+                className='text-charcoal'
+              >
+                {option.label}
+              </option>
+            );
+          })}
+      </select>
+      {children}
+    </>
+  );
+};
+
+const CheckboxInput = (props) => {
+  const { name, register, validations, placeholder, isRequired, rest, children } = props;
+  return (
+    <>
+      <div className='md:flex md:items-center'>
+        <input
+          className='mr-2 w-5 h-5 align-middle'
+          type='checkbox'
+          placeholder={placeholder}
+          id={name}
+          {...register(name, { ...validations })}
+          {...rest}
+        />
+        <label htmlFor={name} className='align-middle'>
+          {children}
+          {isRequired && <span className='text-alert-red'>*</span>}
+        </label>
+      </div>
+    </>
+  );
+};
+
+const StandardInput = ({
   placeholder,
   className,
   name,
@@ -45,15 +101,47 @@ const InputField = ({
   register,
   validations,
   applyInvalidHighlight,
-  onClick,
-  options,
+  isRequired,
   children,
   ...rest
 }) => {
+  return (
+    <>
+      <InputLabel
+        label={label}
+        applyInvalidHighlight={applyInvalidHighlight}
+        name={name}
+        isRequired={isRequired}
+      />
+      <input
+        className={className}
+        type={type}
+        placeholder={placeholder}
+        id={name}
+        {...register(name, { ...validations })}
+        {...rest}
+      />
+      {children}
+    </>
+  );
+};
+
+const InputField = (props) => {
   {
     /* children is the error message that has occurred for this field (see Form component) */
   }
-  const hasValidationError = !!children || applyInvalidHighlight;
+  const { children, applyInvalidHighlight, validations, type, className, onClick, ...rest } = props;
+
+  const hasErrorMessage = () => {
+    const childrenArray = Children.toArray(children);
+    if (childrenArray.length === 0) return false;
+    const childElement = childrenArray[0];
+
+    // See Form component. This field will have errors if it has this element as a child
+    return childElement.type === 'span' && childElement.props?.className === 'text-alert-red';
+  };
+
+  const hasValidationError = !!hasErrorMessage() || applyInvalidHighlight;
   const isRequired = validations && Object.keys(validations).includes('required');
 
   const inputClassName = classNames(
@@ -62,36 +150,25 @@ const InputField = ({
     { 'bg-gray-100': type !== 'submit' }
   );
 
+  const renderField = () => {
+    if (type === 'select') {
+      return (
+        <SelectInput {...props} {...rest} className={inputClassName} isRequired={isRequired} />
+      );
+    } else if (type === 'checkbox') {
+      return (
+        <CheckboxInput {...props} {...rest} className={inputClassName} isRequired={isRequired} />
+      );
+    } else {
+      return (
+        <StandardInput {...props} {...rest} className={inputClassName} isRequired={isRequired} />
+      );
+    }
+  };
+
   return (
     <div className='block mb-5 group' onClick={onClick}>
-      <label
-        htmlFor={name}
-        className={classNames('block mb-2 group-focus-within:text-light-blue', {
-          'text-alert-red': hasValidationError
-        })}
-      >
-        {label}
-        {isRequired && <span className='text-alert-red'>*</span>}
-      </label>
-      {type === 'select' ? (
-        <SelectInput
-          className={inputClassName}
-          name={name}
-          options={options}
-          register={register}
-          placeholder={placeholder}
-          applyInvalidHighlight
-        />
-      ) : (
-        <input
-          className={inputClassName}
-          type={type}
-          placeholder={placeholder}
-          {...register(name, { ...validations })}
-          {...rest}
-        />
-      )}
-      {children}
+      {renderField()}
     </div>
   );
 };
