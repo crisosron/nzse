@@ -2,8 +2,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-// const FORM_ELEMENTS = ['input', 'select', 'option'];
-
 const Form = ({ defaultValues, children, onSubmit }) => {
   const {
     handleSubmit,
@@ -16,9 +14,6 @@ const Form = ({ defaultValues, children, onSubmit }) => {
    *
    * Recursion is required so that form elements can be detected and manipulated no matter how
    * deeply nested they are in the DOM.
-   *
-   * @param {*} children
-   * @returns
    */
   const renderChildren = (children) => {
     return React.Children.map(children, (child) => {
@@ -32,7 +27,7 @@ const Form = ({ defaultValues, children, onSubmit }) => {
         return child;
       }
 
-      // If the element has a 'name' prop, assume its a form element (i.e. an InputField) of some
+      // If the element has a 'name' prop, assume its a form element (e.g. an InputField) of some
       // sort, therefore we do extra processing first before returning it
       //
       // What is the extra processing?
