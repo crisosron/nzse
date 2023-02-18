@@ -172,6 +172,20 @@ const getNavigation = gql`
   }
 `;
 
+const getMemberships = gql`
+  query memberships {
+    memberships {
+      data {
+        attributes {
+          title
+          description
+          stripePriceId
+        }
+      }
+    }
+  }
+`;
+
 // ================================ QUERY BUILDERS ================================ //
 /**
  * In this project, query builders are used for queries that can take in values from a client,
@@ -234,6 +248,7 @@ export {
   getSidebar,
   getFooter,
   getNavigation,
+  getMemberships,
   buildGeneralPageBySlugAndTypeQuery,
   buildGeneralPageSlugsByTypeQuery,
   buildGeneralPageBySlugQuery
