@@ -7,6 +7,7 @@ import { authOptions } from './api/auth/[...nextauth]';
 import { useAuth } from '../lib/hooks/use-auth';
 import { graphqlClient } from '../lib/graphql-api';
 import { getMemberships } from '../graphql/queries';
+import { initStripe } from '../lib/stripe';
 
 export const getServerSideProps = async (context) => {
   const { req, res } = context;
@@ -19,6 +20,9 @@ export const getServerSideProps = async (context) => {
 
   const memberships = membershipsData.memberships.data;
   console.log('Got memberships: ', memberships);
+
+  const stripe = await initStripe();
+  const membershipPrices = await stripe.prices.list();
 
   // TODO: need to transform memberships in the CMS to contain details about how much it costs
 
