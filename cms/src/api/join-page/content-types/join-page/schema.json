@@ -1,0 +1,34 @@
+{
+  "kind": "singleType",
+  "collectionName": "join_pages",
+  "info": {
+    "singularName": "join-page",
+    "pluralName": "join-pages",
+    "displayName": "Join page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "yourDetailsSectionDescription": {
+      "type": "richtext"
+    },
+    "addressSectionDescription": {
+      "type": "richtext"
+    },
+    "professionalDetailsSectionDescription": {
+      "type": "richtext"
+    },
+    "membershipSectionDescription": {
+      "type": "richtext"
+    },
+    "yourAccountSectionDescription": {
+      "type": "richtext"
+    },
+    "declarationSectionDescription": {
+      "type": "richtext"
+    }
+  }
+}

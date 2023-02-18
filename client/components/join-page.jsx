@@ -132,6 +132,21 @@ const JoinPage = () => {
           </SplitRow>
         </Section>
 
+        <Section title='Select a membership'>
+          <div>CMSable description</div>
+          <SplitRow>
+            <InputField
+              type='select'
+              name='membership'
+              label='Membership'
+              validations={{ required: 'Please select a membership' }}
+              placeholder='Select a membership'
+              options={DESIGNATION_OPTIONS}
+            />
+          </SplitRow>
+          TODO: Selected option description goes here. Should be CMSable rich text
+        </Section>
+
         <Section title='Creating your account'>
           <p>
             Please enter your email address and a password to setup your account. Your account will
