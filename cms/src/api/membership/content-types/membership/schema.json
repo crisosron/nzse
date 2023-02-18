@@ -16,7 +16,7 @@
       "type": "string",
       "required": true
     },
-    "stripeProductId": {
+    "stripePriceId": {
       "type": "string",
       "required": true
     },
