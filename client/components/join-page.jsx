@@ -39,8 +39,9 @@ const SplitRow = ({ children }) => {
   );
 };
 
-const JoinPage = () => {
+const JoinPage = ({ memberships }) => {
   const [submitted, setSubmitted] = useState(false);
+  console.log('memberships: ', memberships);
 
   const onSubmit = (data) => {
     console.log('Called onSubmit with data: ', data);
