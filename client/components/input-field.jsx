@@ -26,6 +26,7 @@ const SelectInput = (props) => {
     applyInvalidHighlight,
     label,
     isRequired,
+    onOptionSelect,
     children
   } = props;
   const [valueSelected, setValueSelected] = useState(false);
@@ -44,7 +45,10 @@ const SelectInput = (props) => {
         className={classNames(className, { 'text-gray': !valueSelected })}
         placeholder={placeholder}
         {...register(name, { ...validations })}
-        onChange={() => setValueSelected(true)}
+        onChange={(event) => {
+          setValueSelected(true);
+          onOptionSelect(event.target.value);
+        }}
       >
         {placeholder && (
           <option value='' disabled selected hidden>
@@ -130,7 +134,16 @@ const InputField = (props) => {
   {
     /* children is the error message that has occurred for this field (see Form component) */
   }
-  const { children, applyInvalidHighlight, validations, type, className, onClick, ...rest } = props;
+  const {
+    children,
+    applyInvalidHighlight,
+    validations,
+    type,
+    className,
+    onClick,
+    onOptionSelect,
+    ...rest
+  } = props;
 
   const hasErrorMessage = () => {
     const childrenArray = Children.toArray(children);
@@ -153,7 +166,13 @@ const InputField = (props) => {
   const renderField = () => {
     if (type === 'select') {
       return (
-        <SelectInput {...props} {...rest} className={inputClassName} isRequired={isRequired} />
+        <SelectInput
+          {...props}
+          {...rest}
+          className={inputClassName}
+          isRequired={isRequired}
+          onOptionSelect={onOptionSelect}
+        />
       );
     } else if (type === 'checkbox') {
       return (

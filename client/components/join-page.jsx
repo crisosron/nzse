@@ -3,6 +3,7 @@ import InputField from './input-field';
 import { useState, Children } from 'react';
 import Form from './form';
 import { EMAIL_REGEX, PHONE_NUMBER_REGEX } from '../lib/form-utils';
+import ReactMarkdown from 'react-markdown';
 
 const DESIGNATION_OPTIONS = [
   { value: 'test-1', label: 'Test 1' },
@@ -41,10 +42,35 @@ const SplitRow = ({ children }) => {
 
 const JoinPage = ({ memberships }) => {
   const [submitted, setSubmitted] = useState(false);
-  console.log('memberships: ', memberships);
+  const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
 
   const onSubmit = (data) => {
     console.log('Called onSubmit with data: ', data);
+  };
+
+  const membershipOptions = memberships.map((membership) => {
+    return {
+      value: membership.stripePriceId,
+      label: `${membership.title} ($${membership.priceDollar})`
+    };
+  });
+
+  const handleMembershipOptionSelected = (value) => {
+    setSelectedMembershipPriceId(value);
+  };
+
+  const renderSelectedMembershipDescription = () => {
+    const description = memberships.find(
+      (membership) => membership.stripePriceId === selectedMembershipPriceId
+    )?.description;
+
+    return (
+      <div className='md:mt-[-20px]'>
+        <ReactMarkdown>
+          {description || 'Select a membership option above to see its features and benefits'}
+        </ReactMarkdown>
+      </div>
+    );
   };
 
   return (
@@ -134,7 +160,7 @@ const JoinPage = ({ memberships }) => {
         </Section>
 
         <Section title='Select a membership'>
-          <div>CMSable description</div>
+          <ReactMarkdown>CMSable description</ReactMarkdown>
           <SplitRow>
             <InputField
               type='select'
@@ -142,10 +168,11 @@ const JoinPage = ({ memberships }) => {
               label='Membership'
               validations={{ required: 'Please select a membership' }}
               placeholder='Select a membership'
-              options={DESIGNATION_OPTIONS}
+              options={membershipOptions}
+              onOptionSelect={handleMembershipOptionSelected}
             />
           </SplitRow>
-          TODO: Selected option description goes here. Should be CMSable rich text
+          {renderSelectedMembershipDescription()}
         </Section>
 
         <Section title='Creating your account'>

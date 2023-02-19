@@ -70,8 +70,11 @@ const Form = ({ defaultValues, children, onSubmit }) => {
       }
 
       if (child.props.children) {
+        // Render the child as is if it doesn't have children that are components
+        if (typeof child.props.children === 'string') return child;
+
         child = React.cloneElement(child, {
-          children: renderChildren(child.props.children)
+          children: renderChildren(child.props.children) // note that child.props.children is an array in this case
         });
       }
 
