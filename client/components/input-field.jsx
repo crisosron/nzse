@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useState, Children } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 const InputLabel = ({ applyInvalidHighlight, name, label, isRequired }) => {
   return (
@@ -75,7 +76,8 @@ const SelectInput = (props) => {
 };
 
 const CheckboxInput = (props) => {
-  const { name, register, validations, placeholder, isRequired, rest, children } = props;
+  const { name, register, validations, placeholder, isRequired, rest, children, checkboxText } =
+    props;
   return (
     <>
       <div className='md:flex md:items-center'>
@@ -88,10 +90,11 @@ const CheckboxInput = (props) => {
           {...rest}
         />
         <label htmlFor={name} className='align-middle'>
-          {children}
+          <ReactMarkdown components={{ p: 'span' }}>{checkboxText}</ReactMarkdown>
           {isRequired && <span className='text-alert-red'>*</span>}
         </label>
       </div>
+      {children}
     </>
   );
 };

@@ -213,12 +213,10 @@ const JoinPage = ({ memberships }) => {
             type='checkbox'
             name='terms-and-conditions'
             validations={{ required: 'Please accept the terms and conditions to continue' }}
-          >
-            <span>
-              By ticking, you are confirming that you have read, understood, and agree to our{' '}
-              <a>terms and conditions</a>.
-            </span>
-          </InputField>
+            checkboxText={
+              'By ticking, you are confirming that you have read, understood, and agree to our [terms and conditions](/terms-and-conditions)'
+            }
+          />
           <InputField
             name='continue'
             className='cursor-pointer block mx-auto my-0 md:mx-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] lg:w-[20%] border-none'

@@ -38,23 +38,24 @@ const Form = ({ defaultValues, children, onSubmit }) => {
       // the component react to the mechanisms of react-hook-form
       //
       // - Insert validation error messages as a child element of the form element if such error
-      // exists: If the form element has a 'validations' prop given to it, there is a potential
+      // exists: If the form element has a 'validations' prop given to it, there is a likelihood
       // for the form element to have a validation error associated with it. The error message
       // is added here via a span
       if (child.props.name) {
         let formElementChildren = undefined;
 
+        // If it has children, recursive call to process all children that need to be rendered
+        if (child.props.children) formElementChildren = renderChildren(child.props.children);
+
         // If the form element has an error associated with it, insert the error message as a
         // child of the form element
         if (errors[child.props.name]) {
-          formElementChildren = (
-            <span className='text-alert-red'>
+          const errorMessage = (
+            <span className='text-alert-red block'>
               {errors[child.props.name].message || 'This field is invalid'}
             </span>
           );
-        } else if (child.props.children) {
-          // If it has children, recursive call to process the children
-          formElementChildren = renderChildren(child.props.children);
+          formElementChildren = [formElementChildren, errorMessage];
         }
 
         const element = React.createElement(child.type, {
