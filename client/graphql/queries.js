@@ -192,12 +192,23 @@ const getJoinPage = gql`
       data {
         id
         attributes {
-          yourDetailsSectionDescription
+          seo {
+            metaTitle,
+            metaDescription
+          }
+          formIntro,
+          yourDetailsSectionDescription,
           addressSectionDescription,
           professionalDetailsSectionDescription,
           membershipSectionDescription,
           yourAccountSectionDescription,
-          declarationSectionDescription
+          declarationSectionDescription,
+          termsAndConditionsPage {
+            ${generalPageDataSubquery}
+          }
+          privacyPolicyPage {
+            ${generalPageDataSubquery}
+          }
         }
       }
     }

@@ -67,10 +67,11 @@ const Join = (props) => {
     setAuthenticatedUser(authenticatedUser);
   }, []);
 
+  const { seo } = joinPageProps;
+
   return (
     <Layout footerData={footerData} navigationData={navigationData}>
-      {/* TODO: Make join-page specific seo data fields in global seo? (for each stand alone page as well) */}
-      <Seo />
+      <Seo seo={seo} />
       <JoinPage memberships={memberships} {...joinPageProps} />
     </Layout>
   );

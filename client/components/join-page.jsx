@@ -4,6 +4,7 @@ import { useState, Children } from 'react';
 import Form from './form';
 import { EMAIL_REGEX, PHONE_NUMBER_REGEX } from '../lib/form-utils';
 import ReactMarkdown from 'react-markdown';
+import { buildPageUrl } from '../lib/utils';
 
 const DESIGNATION_OPTIONS = [
   { value: 'test-1', label: 'Test 1' },
@@ -42,15 +43,21 @@ const SplitRow = ({ children }) => {
 
 const JoinPage = ({
   memberships,
+  formIntro,
   yourDetailsSectionDescription,
   addressSectionDescription,
   professionalDetailsSectionDescription,
   membershipSectionDescription,
   yourAccountSectionDescription,
-  declarationSectionDescription
+  declarationSectionDescription,
+  termsAndConditionsPage,
+  privacyPolicyPage
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
+
+  const termsAndConditionsPageUrl = buildPageUrl(termsAndConditionsPage?.data);
+  const privacyPolicyPageUrl = buildPageUrl(privacyPolicyPage?.data);
 
   const onSubmit = (data) => {
     console.log('Called onSubmit with data: ', data);
@@ -84,8 +91,7 @@ const JoinPage = ({
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
-      This text should be CMSable. Should contain a link to the privacy policy (so it should be
-      richtext)
+      <ReactMarkdown>{formIntro}</ReactMarkdown>
       <Form onSubmit={onSubmit}>
         <Section title='Your Details'>
           <ReactMarkdown>{yourDetailsSectionDescription}</ReactMarkdown>
@@ -221,9 +227,7 @@ const JoinPage = ({
             type='checkbox'
             name='terms-and-conditions'
             validations={{ required: 'Please accept the terms and conditions to continue' }}
-            checkboxText={
-              'By ticking, you are confirming that you have read, understood, and agree to our [terms and conditions](/terms-and-conditions)'
-            }
+            checkboxText={`By ticking, you are confirming that you have read, understood, and agree to our [terms and conditions](${termsAndConditionsPageUrl})`}
           />
           <InputField
             name='continue'
