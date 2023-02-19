@@ -186,6 +186,23 @@ const getMemberships = gql`
   }
 `;
 
+const getJoinPage = gql`
+  query joinPage {
+    joinPage {
+      data {
+        id
+        attributes {
+          yourDetailsSectionDescription
+          addressSectionDescription,
+          professionalDetailsSectionDescription,
+          membershipSectionDescription,
+          yourAccountSectionDescription,
+          declarationSectionDescription
+        }
+      }
+    }
+  }
+`;
 // ================================ QUERY BUILDERS ================================ //
 /**
  * In this project, query builders are used for queries that can take in values from a client,
@@ -249,6 +266,7 @@ export {
   getFooter,
   getNavigation,
   getMemberships,
+  getJoinPage,
   buildGeneralPageBySlugAndTypeQuery,
   buildGeneralPageSlugsByTypeQuery,
   buildGeneralPageBySlugQuery

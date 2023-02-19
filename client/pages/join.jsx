@@ -5,7 +5,7 @@ import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import { useAuth } from '../lib/hooks/use-auth';
 import { graphqlClient } from '../lib/graphql-api';
-import { getMemberships } from '../graphql/queries';
+import { getJoinPage, getMemberships } from '../graphql/queries';
 import { initStripe } from '../lib/stripe';
 import { unwrapCollectionEntityResponse } from '../lib/utils';
 
@@ -31,26 +31,35 @@ export const getServerSideProps = async (context) => {
   const { req, res } = context;
   const session = await unstable_getServerSession(req, res, authOptions);
 
-  // TODO: add fetching of other CMSable Join page content
-  const [membershipsResponse] = await Promise.all([graphqlClient.query({ query: getMemberships })]);
+  const [membershipsResponse, { data: joinPageData }] = await Promise.all([
+    graphqlClient.query({ query: getMemberships }),
+    graphqlClient.query({ query: getJoinPage })
+  ]);
 
   const membershipsCMS = unwrapCollectionEntityResponse(membershipsResponse, 'memberships');
-
   const stripe = await initStripe();
   const { data: membershipPrices } = await stripe.prices.list();
-
   const memberships = attachPriceToMemberships(membershipsCMS, membershipPrices);
+
+  const joinPage = joinPageData?.joinPage?.data?.attributes;
 
   return {
     props: {
       authenticatedUser: session ? { email: session.user.email } : null,
-      memberships
+      memberships,
+      joinPageProps: joinPage
     }
   };
 };
 
 const Join = (props) => {
-  const { footer: footerData, navigation: navigationData, authenticatedUser, memberships } = props;
+  const {
+    footer: footerData,
+    navigation: navigationData,
+    authenticatedUser,
+    memberships,
+    joinPageProps
+  } = props;
 
   // Set the authenticated user state here to prevent flashing of un-authenticated Nav component state
   const { setAuthenticatedUser } = useAuth();
@@ -62,7 +71,7 @@ const Join = (props) => {
     <Layout footerData={footerData} navigationData={navigationData}>
       {/* TODO: Make join-page specific seo data fields in global seo? (for each stand alone page as well) */}
       <Seo />
-      <JoinPage memberships={memberships} />
+      <JoinPage memberships={memberships} {...joinPageProps} />
     </Layout>
   );
 };

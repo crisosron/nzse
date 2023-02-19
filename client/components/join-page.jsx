@@ -40,7 +40,15 @@ const SplitRow = ({ children }) => {
   );
 };
 
-const JoinPage = ({ memberships }) => {
+const JoinPage = ({
+  memberships,
+  yourDetailsSectionDescription,
+  addressSectionDescription,
+  professionalDetailsSectionDescription,
+  membershipSectionDescription,
+  yourAccountSectionDescription,
+  declarationSectionDescription
+}) => {
   const [submitted, setSubmitted] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
 
@@ -80,6 +88,7 @@ const JoinPage = ({ memberships }) => {
       richtext)
       <Form onSubmit={onSubmit}>
         <Section title='Your Details'>
+          <ReactMarkdown>{yourDetailsSectionDescription}</ReactMarkdown>
           <SplitRow>
             <InputField
               type='text'
@@ -119,6 +128,7 @@ const JoinPage = ({ memberships }) => {
         </Section>
 
         <Section title='Address'>
+          <ReactMarkdown>{addressSectionDescription}</ReactMarkdown>
           <InputField
             type='text'
             name='address'
@@ -144,6 +154,7 @@ const JoinPage = ({ memberships }) => {
         </Section>
 
         <Section title='Your professional details'>
+          <ReactMarkdown>{professionalDetailsSectionDescription}</ReactMarkdown>
           <SplitRow>
             <InputField type='text' name='institution' label='Institution' />
             <InputField type='text' name='department' label='Department' />
@@ -160,7 +171,7 @@ const JoinPage = ({ memberships }) => {
         </Section>
 
         <Section title='Select a membership'>
-          <ReactMarkdown>CMSable description</ReactMarkdown>
+          <ReactMarkdown>{membershipSectionDescription}</ReactMarkdown>
           <SplitRow>
             <InputField
               type='select'
@@ -176,10 +187,7 @@ const JoinPage = ({ memberships }) => {
         </Section>
 
         <Section title='Creating your account'>
-          <p>
-            Please enter your email address and a password to setup your account. Your account will
-            be activated after successful payment.
-          </p>
+          <ReactMarkdown>{yourAccountSectionDescription}</ReactMarkdown>
           <SplitRow>
             <InputField
               type='email'
@@ -208,7 +216,7 @@ const JoinPage = ({ memberships }) => {
         </Section>
 
         <Section title='Declaration and payment'>
-          <p>Description goes here</p>
+          <ReactMarkdown>{declarationSectionDescription}</ReactMarkdown>
           <InputField
             type='checkbox'
             name='terms-and-conditions'
