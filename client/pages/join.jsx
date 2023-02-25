@@ -47,9 +47,6 @@ export const getServerSideProps = async (context) => {
   // successful payment
   const { successful_session_id: successfulSessionId } = query || {};
   let successfulCheckoutSession = null;
-  // TODO: validate that the session id is valid by issuing a call to stripe
-  // const successfulCheckoutSession = await stripe.checkout.sessions.retrieve(successfulSessionId);
-  // console.log('successfulCheckoutSession: ', successfulCheckoutSession);
   try {
     successfulCheckoutSession = await stripe.checkout.sessions.retrieve(successfulSessionId);
   } catch (_) {
