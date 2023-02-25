@@ -5,6 +5,7 @@ import Form from './form';
 import { EMAIL_REGEX, PHONE_NUMBER_REGEX } from '../lib/form-utils';
 import ReactMarkdown from 'react-markdown';
 import { buildPageUrl } from '../lib/utils';
+import axios from 'axios';
 
 const DESIGNATION_OPTIONS = [
   { value: 'test-1', label: 'Test 1' },
@@ -51,16 +52,41 @@ const JoinPage = ({
   yourAccountSectionDescription,
   declarationSectionDescription,
   termsAndConditionsPage,
-  privacyPolicyPage
+  privacyPolicyPage,
+  showSuccessState
 }) => {
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
 
   const termsAndConditionsPageUrl = buildPageUrl(termsAndConditionsPage?.data);
   const privacyPolicyPageUrl = buildPageUrl(privacyPolicyPage?.data);
 
-  const onSubmit = (data) => {
-    console.log('Called onSubmit with data: ', data);
+  const onSubmit = async (data) => {
+    if (submitting) return;
+    setSubmitting(true);
+
+    const { membership: membershipPriceId, email } = data;
+
+    const item = {
+      price: membershipPriceId,
+      quantity: 1
+    };
+
+    const customer = {
+      email
+    };
+
+    try {
+      const { data } = (await axios.post('/api/stripe/checkout-session', { item, customer })) || {};
+      if (!data || !data.checkoutSessionUrl)
+        throw new Error('Something went wrong. Please try again later');
+
+      window.location.href = data.checkoutSessionUrl;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const membershipOptions = memberships.map((membership) => {
@@ -88,6 +114,9 @@ const JoinPage = ({
     );
   };
 
+  console.log('showSuccessState: ', showSuccessState);
+
+  // TODO: If signed in, add an alert message that the user already has a membership
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
@@ -227,14 +256,14 @@ const JoinPage = ({
             type='checkbox'
             name='terms-and-conditions'
             validations={{ required: 'Please accept the terms and conditions to continue' }}
-            checkboxText={`By ticking, you are confirming that you have read, understood, and agree to our [terms and conditions](${termsAndConditionsPageUrl})`}
+            checkboxText={`By ticking, you are confirming that you have read, understood, and agree to our [terms and conditions](${termsAndConditionsPageUrl}) and have read our [privacy policy](${privacyPolicyPageUrl}).`}
           />
           <InputField
             name='continue'
-            className='cursor-pointer block mx-auto my-0 md:mx-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] lg:w-[20%] border-none'
+            size='small'
             type='submit'
             value='Continue to payment'
-            disabled={submitted}
+            loading={submitting}
           />
         </Section>
       </Form>

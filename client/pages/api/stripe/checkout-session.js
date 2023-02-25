@@ -1,10 +1,11 @@
 import { initStripe } from "../../../lib/stripe";
 
 const validRequestBody = (req) => {
-  const { item } = req.body || {};
-  if(!item) return false;
-  const hasAllProperties = Object.keys(item).every((key) => ["price", "quantity"].includes(key));
-  return hasAllProperties;
+  if(!req.body) return false;
+  const hasAllProperties = Object.keys(req.body).every((key) => ["item", "customer"].includes(key));
+  const hasAllItemProperties = Object.keys(req.body.item).every((key) => ["price", "quantity"].includes(key));
+  const hasAllCustomerProperties = Object.keys(req.body.customer).every((key) => ["email"].includes(key));
+  return hasAllProperties && hasAllItemProperties && hasAllCustomerProperties;
 };
 
 export default async function handler(req, res) {
@@ -16,24 +17,31 @@ export default async function handler(req, res) {
   
   try {
     if(!validRequestBody(req)) {
-      res.status(400).json({ message: "Request body must contain an 'item' object with the properties '{ price: <price_id>, quantity: <number> }'"});
+      res.status(400).json({ message: "Request body must contain an 'item' object with the properties '{ price: <price_id>, quantity: <number> }' and a 'customer' object with the properties '{email: <email address>}'"});
       return;
     }
 
     const stripe = await initStripe();
-    
-    const { item } = req.body;
+
+    const customer = await stripe.customers.create({
+      email: req.body.customer.email
+    });
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
+      payment_method_types: ['card'],
       line_items: [
-        item
+        req.body.item
       ],
-      success_url: `${req.headers.origin}/?success=true`,
-      cancel_url: `${req.headers.origin}/`
+      customer: customer.id,
+
+      // Note: template string comes from Stripe
+      // https://stripe.com/docs/payments/checkout/custom-success-page
+      success_url: `${req.headers.origin}/join/?successful_session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin}/join`
     });
 
-    res.redirect(303, session.url);
+    res.status(200).json({ checkoutSessionUrl: session.url });
 
   } catch(error) {
     res.status(error.statusCode || 500).json(

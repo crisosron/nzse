@@ -75,25 +75,13 @@ const LoginPage = () => {
             {!authLoading && (
               <InputField
                 name='login'
-                className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] mb-8 border-none'
                 type='submit'
                 value='Login'
+                loading={authLoading}
                 onClick={() => {
                   clearErrors();
                 }}
               />
-            )}
-            {authLoading && (
-              <div className='rounded flex justify-center items-center bg-light-blue py-2 px-4 w-[80%] md:w-[60%] mb-8 mx-auto border-none'>
-                <TailSpin
-                  height='28'
-                  width='28'
-                  color='white'
-                  ariaLabel='tail-spin-loading'
-                  radius='1'
-                  visible={true}
-                />
-              </div>
             )}
             <div className='flex justify-center'>
               <Link href='/memberships'>

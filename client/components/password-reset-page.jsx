@@ -65,26 +65,14 @@ const PasswordResetPage = () => {
                 {!authLoading && (
                   <InputField
                     name='continue'
-                    className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] mb-12 border-none'
                     type='submit'
                     value='Continue'
                     onClick={() => {
                       clearAuthError();
                     }}
                     disabled={emailSent}
+                    loading={authLoading}
                   />
-                )}
-                {authLoading && (
-                  <div className='rounded flex justify-center items-center bg-light-blue py-2 px-4 w-[80%] md:w-[60%] mb-12 mx-auto border-none'>
-                    <TailSpin
-                      height='28'
-                      width='28'
-                      color='white'
-                      ariaLabel='tail-spin-loading'
-                      radius='1'
-                      visible={true}
-                    />
-                  </div>
                 )}
               </Form>
             </>

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useState, Children } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { TailSpin } from 'react-loader-spinner';
 
 const InputLabel = ({ applyInvalidHighlight, name, label, isRequired }) => {
   return (
@@ -48,7 +49,7 @@ const SelectInput = (props) => {
         {...register(name, { ...validations })}
         onChange={(event) => {
           setValueSelected(true);
-          onOptionSelect(event.target.value);
+          if (onOptionSelect) onOptionSelect(event.target.value);
         }}
       >
         {placeholder && (
@@ -96,6 +97,43 @@ const CheckboxInput = (props) => {
       </div>
       {children}
     </>
+  );
+};
+
+const SubmitInput = (props) => {
+  const { name, register, rest, disabled, loading, value, size, className: classNameProps } = props;
+
+  const smallClassNames = 'md:mx-0 lg:w-[20%] border-none';
+  const largeClassNames = 'block w-[80%] mb-8';
+  const commonClassNames = `cursor-pointer flex justify-center items-center mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] border-none ${classNameProps}`;
+
+  const className = size === 'small' ? smallClassNames : largeClassNames;
+
+  return (
+    <button
+      // className={`${commonClassNames} ${classNames}`}
+      className={classNames(`${commonClassNames} ${className}`, {
+        'cursor-default': loading || disabled
+      })}
+      disabled={disabled || loading}
+      {...register(name)}
+      {...rest}
+    >
+      {loading ? (
+        <span className='block'>
+          <TailSpin
+            height='28'
+            width='28'
+            color='#4cbedb'
+            ariaLabel='tail-spin-loading'
+            radius='1'
+            visible={true}
+          />
+        </span>
+      ) : (
+        value
+      )}
+    </button>
   );
 };
 
@@ -181,6 +219,8 @@ const InputField = (props) => {
       return (
         <CheckboxInput {...props} {...rest} className={inputClassName} isRequired={isRequired} />
       );
+    } else if (type === 'submit') {
+      return <SubmitInput {...props} {...rest} className={inputClassName} />;
     } else {
       return (
         <StandardInput {...props} {...rest} className={inputClassName} isRequired={isRequired} />
