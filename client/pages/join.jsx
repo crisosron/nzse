@@ -59,7 +59,7 @@ export const getServerSideProps = async (context) => {
       memberships,
       joinPageProps: {
         ...joinPage,
-        showSuccessState: !!successfulCheckoutSession
+        showPaymentSuccessState: !!successfulCheckoutSession
       }
     }
   };
