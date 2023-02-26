@@ -1,13 +1,37 @@
 import { firebaseAdminAuth } from "../../../lib/firebase-admin";
 
+const validRequestBody = (req) => {
+  if(!req.body) return false;
+  return Object.keys(req.body).every((key) => ["email", "password"].includes(key));
+};
+
 export default async function handler(req, res) {
+  if(req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method not allowed');
+    return;
+  }
 
-  firebaseAdminAuth.getUsers([
-    { email: 'test@example.com' }
-  ]).then((response) => {
-    console.log('getUsers response :', response);
+  if(!validRequestBody(req)) {
+    res.status(400).json({ message: "Request body must contain 'email' and 'password' properties of the member to create"});
+    return;
+  }
 
+  const { email, password } = req.body;
+
+  firebaseAdminAuth.createUser({
+    email,
+    password,
+    disabled: true
+  }).then((record) => {
+    res.status(200).json({ uid: record.uid });
+  }).catch((error) => {
+    res.status(500).json({
+      error: {
+        message: error.message || 'Something went wrong. Please try again later',
+        status: 500
+      }
+    });
   });
 
-  res.status(200).json({ name: 'John Doe' });
 }
