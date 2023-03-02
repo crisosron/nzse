@@ -14,3 +14,4 @@ export { default as Form } from './form';
 export { default as LoginPage } from './login-page';
 export { default as PasswordResetPage } from './password-reset-page';
 export { default as JoinPage } from './join-page';
+export { default as Notice } from './notice';

@@ -51,6 +51,8 @@ module.exports = {
       sansation: ['Sansation', 'serif'],
       poppins: ['Poppins', 'serif']
     },
+
+    // Useful generator: https://maketintsandshades.com/
     colors: {
       'light-blue': '#4cbedb',
       'light-blue-900': '#5ec4df',
@@ -83,7 +85,10 @@ module.exports = {
       'gray-200': '#e5e6e7',
       'gray-100': '#f2f3f3',
 
+      'alert-orange': '#ffa500',
+      'alert-orange-400': '#ffdb99',
       'alert-red': '#cc0000',
+      'alert-red-400': '#eb9999',
 
       white: '#FFFFFF'
     }

@@ -8,6 +8,8 @@ import { buildPageUrl } from '../lib/utils';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { setCookie } from 'cookies-next';
+import { useAuth } from '../lib/hooks/use-auth';
+import Notice from './notice';
 
 const DESIGNATION_OPTIONS = [
   { value: 'test-1', label: 'Test 1' },
@@ -62,6 +64,8 @@ const JoinPage = ({
 
   const termsAndConditionsPageUrl = buildPageUrl(termsAndConditionsPage?.data);
   const privacyPolicyPageUrl = buildPageUrl(privacyPolicyPage?.data);
+
+  const { authenticatedUaer } = useAuth();
 
   const onSubmit = async (data) => {
     if (submitting) return;
@@ -126,6 +130,15 @@ const JoinPage = ({
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
+      {authenticatedUaer && (
+        <Notice type='info'>
+          <span>
+            Please note that you already have a membership. If you are looking to change or
+            discontinue your membership, please contact{' '}
+            <a href='mailto:info@nzse.org.nz'>info@nzse.org.nz</a> for more information.
+          </span>
+        </Notice>
+      )}
       <ReactMarkdown>{formIntro}</ReactMarkdown>
       <Form onSubmit={onSubmit}>
         <Section title='Your Details'>
