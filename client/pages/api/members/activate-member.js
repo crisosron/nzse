@@ -1,13 +1,41 @@
 import { firebaseAdminAuth } from "../../../lib/firebase-admin";
 
+export const activateMember = async (email) => {
+  const { users } = await firebaseAdminAuth.getUsers([{ email, }]) || {};
+
+  if(!users || users.length === 0) {
+    return {
+      error: {
+        message: `No members with the email ${email} were found`,
+        status: 404
+      }
+    };
+  }
+
+  const uid = users[0].uid;
+
+  try {
+    const result = await firebaseAdminAuth.updateUser(uid, { disabled: false });
+    return result;
+
+  } catch(error) {
+    return {
+      error: {
+        message: error.message || 'Something went wrong. Please try again later',
+        status: 500
+      }
+    };
+  }
+};
+
 const validRequestBody = (req) => {
   if(!req.body) return false;
   return Object.keys(req.body).every((key) => ["email"].includes(key));
 };
 
 export default async function handler(req, res) {
-  if(req.method !== 'PATCH') {
-    res.setHeader('Allow', 'PATCH');
+  if(req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
     res.status(405).end('Method not allowed');
     return;
   }
@@ -17,27 +45,11 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { email } = req.body;
-
-  const { users } = await firebaseAdminAuth.getUsers([{ email, }]) || {};
-
-  if(!users || users.length === 0) {
-    res.status(404).json({ message: `No members with the email ${email} were found`});
+  const activationResult = await activateMember(req.body.email);
+  if(activationResult.error) {
+    res.status(activationResult.error.status).json({message: activationResult.error.message});
     return;
   }
 
-  const uid = users[0].uid;
-
-  firebaseAdminAuth.updateUser(uid, {
-    disabled: false
-  }).then((record) => {
-    res.status(200).json({ message: `Successfully activated user: ${record.uid}`});
-  }).catch((error) => {
-    res.status(500).json({
-      error: {
-        message: error.message || 'Something went wrong. Please try again later',
-        status: 500
-      }
-    });
-  });
+  res.status(200);
 }

@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { buildPageUrl } from '../lib/utils';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { setCookie } from 'cookies-next';
 
 const DESIGNATION_OPTIONS = [
   { value: 'test-1', label: 'Test 1' },
@@ -66,7 +67,7 @@ const JoinPage = ({
     if (submitting) return;
     setSubmitting(true);
 
-    const { membership: membershipPriceId, email } = data;
+    const { membership: membershipPriceId, email, password } = data;
 
     const item = {
       price: membershipPriceId,
@@ -82,7 +83,9 @@ const JoinPage = ({
       if (!data || !data.checkoutSessionUrl)
         throw new Error('Something went wrong. Please try again later');
 
-      // TODO: store all data in localStorage so we don't lose it as a result of the checkout redirect (don't store the password though)
+      await axios.post('/api/members/create-member', { email, password });
+
+      setCookie('pendingMemberEmail', email);
 
       window.location.href = data.checkoutSessionUrl;
     } catch (error) {
@@ -116,27 +119,6 @@ const JoinPage = ({
       </div>
     );
   };
-
-  useEffect(() => {
-    // TODO: if showPaymentSuccessState, return a form with an email field that is disabled and preloaded
-    // with the email address the user entered in stripe, and a password, and a confirm password field
-    // Submitting this form creates the user in stripe, shows a success state, and redirects to the homepage with the user logged in
-    //
-    // A user should also somehow be created in strapi that records the user's details (that isn't the password)
-    // User should receive an email via firebase?
-    //
-    // TODO: Alternative
-    // Don't ask for password in the initial form
-    // After succesful payment - Send a sign in email link (which will also verify the email address) https://firebase.google.com/docs/auth/web/email-link-auth
-    //  - be sure to pass in actionCodeSettings = { url :'..../join/finish-sign-up=<stripe successful checkout session id>', handleCodeInApp: true }
-    // When user clicks the link, they will should be signed in, and will be redirected to the above page, which should have a password and confirm password field
-    // when this form is submitted, do this: https://firebase.google.com/docs/auth/web/account-linking#link-email-address-and-password-credentials-to-a-user-account
-    //
-    // TODO: OR use Firebase Admin SDK (more granular and programmatic control over user creation)
-    // - Create a user BEFORE PAYMENT with the profile disabled
-    // - On succcessful payment (in getStaticProps?), update the user (disabled: false)
-    // On payment cancel, delete the user!
-  }, []);
 
   console.log('showSuccessState: ', showPaymentSuccessState);
 
@@ -250,7 +232,7 @@ const JoinPage = ({
           <SplitRow>
             <InputField
               type='email'
-              name='emailAddress'
+              name='email'
               validations={{
                 required: 'Please enter your email address',
                 pattern: { value: EMAIL_REGEX, message: 'Please enter a valid email address' }
