@@ -9,7 +9,7 @@ import { graphqlClient } from '../lib/graphql-api';
 import { getJoinPage, getMemberships } from '../graphql/queries';
 import { initStripe } from '../lib/stripe';
 import { unwrapCollectionEntityResponse } from '../lib/utils';
-import { getCookie } from 'cookies-next';
+import { getCookie, deleteCookie } from 'cookies-next';
 import { activateMember } from './api/members/activate-member';
 
 const attachPriceToMemberships = (membershipsCMS, stripePrices) => {
@@ -85,6 +85,15 @@ export const getServerSideProps = async (context) => {
         req,
         res
       );
+
+      // If this cookie is not deleted, on render, client side code will run to delete the Firebase
+      // user whose email is the value of the cookie.
+      //
+      // This is because if this cookie exists AFTER the user is redirected from stripe checkout to
+      // the join page, the frontend assumes that the payment has failed or has been cancelled by the user,
+      // and therefore will issue an API call to remove pending member from Firebase users to make
+      // the email useable again for future attempts at member registration
+      deleteCookie('pendingMemberEmail', { req, res });
     } catch (caughtException) {
       exception = caughtException;
     }

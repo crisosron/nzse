@@ -1,9 +1,5 @@
 import { initStripe } from "../../../lib/stripe";
-
-const hasRequiredProperties = (requiredProperties, object) => {
-  const actualProperties = Object.keys(object);
-  return requiredProperties.every((requiredProperty) => actualProperties.includes(requiredProperty));
-};
+import { hasRequiredProperties } from "../../../lib/api-utils";
 
 const validRequestBody = (req) => {
   if(!req.body) return false;

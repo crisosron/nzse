@@ -7,7 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { buildPageUrl } from '../lib/utils';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie, deleteCookie, hasCookie } from 'cookies-next';
 import { useAuth } from '../lib/hooks/use-auth';
 import Notice from './notice';
 
@@ -148,6 +148,30 @@ const JoinPage = ({
       </div>
     );
   };
+
+  // Handles the deletion of a pending member
+  //
+  // When this component loads with the pendingMemberEmail cookie set, this means that the user attempted
+  // to register as a member, but at some point during the checkout session decided to cancel (by clicking the browser
+  // back button or through some other means), sending the user back to the join page and causing this
+  // component to remount.
+  //
+  // When this happens, the firebase user created for the member when the form is submitted should
+  // be deleted to ensure that subsequent attempts at membership registration is not blocked by
+  // Firebase because the email already exists in the system
+  useEffect(() => {
+    if (!hasCookie('pendingMemberEmail')) return;
+    const pendingMemberEmail = getCookie('pendingMemberEmail');
+
+    const deletePendingMember = async () => {
+      await axios.post('/api/members/delete-pending-member', { email: pendingMemberEmail });
+      deleteCookie('pendingMemberEmail');
+    };
+
+    deletePendingMember().catch((error) => {
+      console.log('Got error deleting pending member: ', error);
+    });
+  }, []);
 
   console.log('showSuccessState: ', showPaymentSuccessState);
 
