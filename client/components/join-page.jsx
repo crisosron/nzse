@@ -57,7 +57,8 @@ const JoinPage = ({
   declarationSectionDescription,
   termsAndConditionsPage,
   privacyPolicyPage,
-  showPaymentSuccessState
+  showPaymentSuccessState,
+  error: processingError
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
@@ -65,13 +66,27 @@ const JoinPage = ({
   const termsAndConditionsPageUrl = buildPageUrl(termsAndConditionsPage?.data);
   const privacyPolicyPageUrl = buildPageUrl(privacyPolicyPage?.data);
 
-  const { authenticatedUaer } = useAuth();
+  const { authenticatedUser } = useAuth();
 
   const onSubmit = async (data) => {
     if (submitting) return;
     setSubmitting(true);
 
-    const { membership: membershipPriceId, email, password } = data;
+    const {
+      membership: membershipPriceId,
+      email,
+      password,
+      firstName,
+      surname,
+      mobileNumber,
+      address,
+      suburb,
+      city,
+      postcode,
+      institution,
+      department,
+      designation
+    } = data;
 
     const item = {
       price: membershipPriceId,
@@ -79,7 +94,17 @@ const JoinPage = ({
     };
 
     const customer = {
-      email
+      firstName,
+      surname,
+      email,
+      mobileNumber,
+      address,
+      suburb,
+      city,
+      postcode,
+      institution,
+      department,
+      designation
     };
 
     try {
@@ -130,7 +155,7 @@ const JoinPage = ({
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
-      {authenticatedUaer && (
+      {authenticatedUser && (
         <Notice type='info'>
           <span>
             Please note that you already have a membership. If you are looking to change or

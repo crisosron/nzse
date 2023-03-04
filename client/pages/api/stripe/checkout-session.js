@@ -1,11 +1,104 @@
 import { initStripe } from "../../../lib/stripe";
 
+const hasRequiredProperties = (requiredProperties, object) => {
+  const actualProperties = Object.keys(object);
+  return requiredProperties.every((requiredProperty) => actualProperties.includes(requiredProperty));
+};
+
 const validRequestBody = (req) => {
   if(!req.body) return false;
-  const hasAllProperties = Object.keys(req.body).every((key) => ["item", "customer"].includes(key));
-  const hasAllItemProperties = Object.keys(req.body.item).every((key) => ["price", "quantity"].includes(key));
-  const hasAllCustomerProperties = Object.keys(req.body.customer).every((key) => ["email"].includes(key));
-  return hasAllProperties && hasAllItemProperties && hasAllCustomerProperties;
+
+  const hasAllProperties = hasRequiredProperties(["item", "customer"], req.body);
+  if(!hasAllProperties) return false;
+
+  const hasAllRequiredItemProperties = hasRequiredProperties(["price", "quantity"], req.body.item);
+  if(!hasAllRequiredItemProperties) return false;
+
+  const hasAllRequiredCustomerProperties = hasRequiredProperties(['email', 'firstName', 'surname', 'address'], req.body.customer);
+  return hasAllRequiredCustomerProperties;
+};
+
+const customerMetadata = (customerDetails) => {
+  const { firstName, surname, mobileNumber, address, suburb, city, postcode, institution, department, designation } = customerDetails || {};
+  return {
+    firstName,
+    surname,
+    mobileNumber,
+    address,
+    suburb,
+    city,
+    postcode,
+    institution,
+    department,
+    designation
+  };
+};
+
+const updateCustomer = async (customerDetails, stripeCustomerData) => {
+  const stripe = await initStripe();
+
+  const { firstName, lastName, address, city, postcode } = customerDetails || {};
+
+  const customer = await stripe.customers.update(
+    stripeCustomerData.id,
+    {
+      shipping: {
+        address: {
+          city,
+          country: 'NZ',
+          line1: address,
+          postal_code: postcode
+        },
+        name: `${firstName} ${lastName}`
+      },
+      metadata: {
+        ...customerMetadata(customerDetails)
+      }
+    }
+  );
+
+  return customer;
+
+};
+
+const createCustomer = async (customerDetails) => {
+  const stripe = await initStripe();
+  const { email, firstName, lastName, address, city, postcode, mobileNumber } = customerDetails || {};
+
+  const customer = await stripe.customers.create(
+    {
+      email: email,
+      name: `${firstName} ${lastName}`,
+      phone: mobileNumber,
+      shipping: {
+        address: {
+          city,
+          country: 'NZ',
+          line1: address,
+          postal_code: postcode
+        },
+        name: `${firstName} ${lastName}`
+      },
+      metadata: {
+        ...customerMetadata(customerDetails)
+      }
+    }
+  );
+
+  return customer;
+
+};
+
+const findOrCreateStripeCustomer = async (customerDetails) => {
+  const stripe = await initStripe();
+
+  const { email } = customerDetails;
+  const customers = await stripe.customers.list({
+    email,
+  });
+
+  const customerExists = customers.data && customers.data.length > 0;
+  return customerExists  ? updateCustomer(customerDetails, customers.data[0]) : createCustomer(customerDetails);
 };
 
 export default async function handler(req, res) {
@@ -23,9 +116,7 @@ export default async function handler(req, res) {
 
     const stripe = await initStripe();
 
-    const customer = await stripe.customers.create({
-      email: req.body.customer.email
-    });
+    const customer = await findOrCreateStripeCustomer(req.body.customer);
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
