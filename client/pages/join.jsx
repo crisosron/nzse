@@ -106,7 +106,7 @@ export const getServerSideProps = async (context) => {
       joinPageProps: {
         ...joinPage,
         showPaymentSuccessState: !!processSuccessfulCheckoutResult,
-        error: !exception
+        error: exception
           ? {
               message:
                 'Something went wrong. Please contact info@nzse.org.nz for more information.',
