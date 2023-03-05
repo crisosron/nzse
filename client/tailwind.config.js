@@ -85,6 +85,9 @@ module.exports = {
       'gray-200': '#e5e6e7',
       'gray-100': '#f2f3f3',
 
+
+      'affirmative-green': '#008000',
+      'affirmative-green-400': '#99cc99',
       'alert-orange': '#ffa500',
       'alert-orange-400': '#ffdb99',
       'alert-red': '#cc0000',

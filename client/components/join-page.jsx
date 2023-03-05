@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { getCookie, setCookie, deleteCookie, hasCookie } from 'cookies-next';
 import { useAuth } from '../lib/hooks/use-auth';
+import { TickIcon } from './svg-components';
 import Notice from './notice';
 
 const DESIGNATION_OPTIONS = [
@@ -46,6 +47,19 @@ const SplitRow = ({ children }) => {
   );
 };
 
+const SuccessState = ({ message }) => {
+  return (
+    <Container className='prose my-10 md:my-20'>
+      <div className='flex justify-center items-center'>
+        <TickIcon className='fill-affirmative-green w-[40%] h-[40%] md:w-[15%] md:h-[15%] mb-8' />
+      </div>
+      <div className='text-center'>
+        <ReactMarkdown>{message}</ReactMarkdown>
+      </div>
+    </Container>
+  );
+};
+
 const JoinPage = ({
   memberships,
   formIntro,
@@ -58,7 +72,8 @@ const JoinPage = ({
   termsAndConditionsPage,
   privacyPolicyPage,
   showPaymentSuccessState,
-  error: processingError
+  error: processingError,
+  successMessage
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
@@ -173,9 +188,11 @@ const JoinPage = ({
     });
   }, []);
 
-  console.log('showSuccessState: ', showPaymentSuccessState);
+  if (showPaymentSuccessState) {
+    return <SuccessState message={successMessage} />;
+  }
 
-  // TODO: If signed in, add an alert message that the user already has a membership
+  // TODO: Show errors with <Notice type="alert" />
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>

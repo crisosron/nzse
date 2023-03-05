@@ -205,10 +205,11 @@ const getJoinPage = gql`
           declarationSectionDescription,
           termsAndConditionsPage {
             ${generalPageDataSubquery}
-          }
+          },
           privacyPolicyPage {
             ${generalPageDataSubquery}
-          }
+          },
+          successMessage
         }
       }
     }

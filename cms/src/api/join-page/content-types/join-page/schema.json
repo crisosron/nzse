@@ -47,6 +47,9 @@
     },
     "formIntro": {
       "type": "richtext"
+    },
+    "successMessage": {
+      "type": "richtext"
     }
   }
 }
