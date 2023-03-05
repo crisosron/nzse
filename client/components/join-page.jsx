@@ -72,11 +72,12 @@ const JoinPage = ({
   termsAndConditionsPage,
   privacyPolicyPage,
   showPaymentSuccessState,
-  error: processingError,
+  error: stripeError,
   successMessage
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
+  const [processingError, setProcessingError] = useState(null);
 
   const termsAndConditionsPageUrl = buildPageUrl(termsAndConditionsPage?.data);
   const privacyPolicyPageUrl = buildPageUrl(privacyPolicyPage?.data);
@@ -133,7 +134,7 @@ const JoinPage = ({
 
       window.location.href = data.checkoutSessionUrl;
     } catch (error) {
-      console.error(error);
+      setProcessingError(error);
     } finally {
       setSubmitting(false);
     }
@@ -184,7 +185,7 @@ const JoinPage = ({
     };
 
     deletePendingMember().catch((error) => {
-      console.log('Got error deleting pending member: ', error);
+      setProcessingError(error);
     });
   }, []);
 
@@ -192,10 +193,18 @@ const JoinPage = ({
     return <SuccessState message={successMessage} />;
   }
 
-  // TODO: Show errors with <Notice type="alert" />
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
+      {processingError ||
+        (stripeError && (
+          <Notice type='danger'>
+            <span>
+              An error occurred trying to process your request. Please try again later, or contact
+              <a href='mailto:info@nzse.org.nz'>info@nzse.org.nz</a> for more information.
+            </span>
+          </Notice>
+        ))}
       {authenticatedUser && (
         <Notice type='info'>
           <span>
