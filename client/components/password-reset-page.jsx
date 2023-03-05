@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Form, InputField } from '../components';
 import { EMAIL_REGEX } from '../lib/form-utils';
 import { useAuth } from '../lib/hooks/use-auth';
-import { TailSpin } from 'react-loader-spinner';
 import { TickIcon } from './svg-components';
 
 const PasswordResetPage = () => {
@@ -62,18 +61,16 @@ const PasswordResetPage = () => {
                 {authError && (
                   <span className='block text-alert-red mt-[-15px] mb-10'>{authError.message}</span>
                 )}
-                {!authLoading && (
-                  <InputField
-                    name='continue'
-                    type='submit'
-                    value='Continue'
-                    onClick={() => {
-                      clearAuthError();
-                    }}
-                    disabled={emailSent}
-                    loading={authLoading}
-                  />
-                )}
+                <InputField
+                  name='continue'
+                  type='submit'
+                  value='Continue'
+                  onClick={() => {
+                    clearAuthError();
+                  }}
+                  disabled={emailSent}
+                  loading={authLoading}
+                />
               </Form>
             </>
           )}

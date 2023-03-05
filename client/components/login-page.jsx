@@ -6,7 +6,6 @@ import { Form, InputField } from '../components';
 import { useAuth } from '../lib/hooks/use-auth';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { TailSpin } from 'react-loader-spinner';
 
 const LoginPage = () => {
   const { signInUser, authLoading, authError } = useAuth();
@@ -72,17 +71,15 @@ const LoginPage = () => {
                 <a className='text-[14px] font-normal'>Forgot your password?</a>
               </Link>
             </div>
-            {!authLoading && (
-              <InputField
-                name='login'
-                type='submit'
-                value='Login'
-                loading={authLoading}
-                onClick={() => {
-                  clearErrors();
-                }}
-              />
-            )}
+            <InputField
+              name='login'
+              type='submit'
+              value='Login'
+              loading={authLoading}
+              onClick={() => {
+                clearErrors();
+              }}
+            />
             <div className='flex justify-center'>
               <Link href='/memberships'>
                 <a className='text-[14px] font-normal'>Find out more about our memberships</a>
