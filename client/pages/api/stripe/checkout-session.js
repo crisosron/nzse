@@ -33,7 +33,7 @@ const customerMetadata = (customerDetails) => {
 const updateCustomer = async (customerDetails, stripeCustomerData) => {
   const stripe = await initStripe();
 
-  const { firstName, lastName, address, city, postcode } = customerDetails || {};
+  const { firstName, surname, address, city, postcode } = customerDetails || {};
 
   const customer = await stripe.customers.update(
     stripeCustomerData.id,
@@ -45,7 +45,7 @@ const updateCustomer = async (customerDetails, stripeCustomerData) => {
           line1: address,
           postal_code: postcode
         },
-        name: `${firstName} ${lastName}`
+        name: `${firstName} ${surname}`
       },
       metadata: {
         ...customerMetadata(customerDetails)
@@ -59,12 +59,12 @@ const updateCustomer = async (customerDetails, stripeCustomerData) => {
 
 const createCustomer = async (customerDetails) => {
   const stripe = await initStripe();
-  const { email, firstName, lastName, address, city, postcode, mobileNumber } = customerDetails || {};
+  const { email, firstName, surname, address, city, postcode, mobileNumber } = customerDetails || {};
 
   const customer = await stripe.customers.create(
     {
       email: email,
-      name: `${firstName} ${lastName}`,
+      name: `${firstName} ${surname}`,
       phone: mobileNumber,
       shipping: {
         address: {
@@ -73,7 +73,7 @@ const createCustomer = async (customerDetails) => {
           line1: address,
           postal_code: postcode
         },
-        name: `${firstName} ${lastName}`
+        name: `${firstName} ${surname}`
       },
       metadata: {
         ...customerMetadata(customerDetails)
