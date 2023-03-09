@@ -43,7 +43,6 @@ const formatDate = (dateString) => {
  * @param page A strapi link object to a page
  */
 const buildPageUrl = (page) => {
-  // TODO: If page is membersOnly, route to memberships page?
   if (!page) return null;
 
   // Check if the page object has already been unwrapped, and if so, use it instead (the unwrapped

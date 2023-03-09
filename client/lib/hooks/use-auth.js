@@ -34,10 +34,6 @@ export const AuthProvider = ({ children }) => {
 
   const router = useRouter();
 
-  const registerUser = (email, password) => {
-    // TODO: Register a user
-  };
-
   const signInUser = (email, password) => {
     setAuthLoading(true);
 
@@ -100,7 +96,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const contextValue = {
-    registerUser,
     signInUser,
     signOutUser,
     authLoading: authLoading,

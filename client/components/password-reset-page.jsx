@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Form, InputField } from '../components';
 import { EMAIL_REGEX } from '../lib/form-utils';
 import { useAuth } from '../lib/hooks/use-auth';
-import { TailSpin } from 'react-loader-spinner';
 import { TickIcon } from './svg-components';
 
 const PasswordResetPage = () => {
@@ -62,30 +61,16 @@ const PasswordResetPage = () => {
                 {authError && (
                   <span className='block text-alert-red mt-[-15px] mb-10'>{authError.message}</span>
                 )}
-                {!authLoading && (
-                  <InputField
-                    name='continue'
-                    className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] mb-12 border-none'
-                    type='submit'
-                    value='Continue'
-                    onClick={() => {
-                      clearAuthError();
-                    }}
-                    disabled={emailSent}
-                  />
-                )}
-                {authLoading && (
-                  <div className='rounded flex justify-center items-center bg-light-blue py-2 px-4 w-[80%] md:w-[60%] mb-12 mx-auto border-none'>
-                    <TailSpin
-                      height='28'
-                      width='28'
-                      color='white'
-                      ariaLabel='tail-spin-loading'
-                      radius='1'
-                      visible={true}
-                    />
-                  </div>
-                )}
+                <InputField
+                  name='continue'
+                  type='submit'
+                  value='Continue'
+                  onClick={() => {
+                    clearAuthError();
+                  }}
+                  disabled={emailSent}
+                  loading={authLoading}
+                />
               </Form>
             </>
           )}

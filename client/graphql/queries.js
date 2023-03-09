@@ -172,6 +172,49 @@ const getNavigation = gql`
   }
 `;
 
+const getMemberships = gql`
+  query memberships {
+    memberships {
+      data {
+        attributes {
+          title
+          description
+          stripePriceId
+        }
+      }
+    }
+  }
+`;
+
+const getJoinPage = gql`
+  query joinPage {
+    joinPage {
+      data {
+        id
+        attributes {
+          seo {
+            metaTitle,
+            metaDescription
+          }
+          formIntro,
+          yourDetailsSectionDescription,
+          addressSectionDescription,
+          professionalDetailsSectionDescription,
+          membershipSectionDescription,
+          yourAccountSectionDescription,
+          declarationSectionDescription,
+          termsAndConditionsPage {
+            ${generalPageDataSubquery}
+          },
+          privacyPolicyPage {
+            ${generalPageDataSubquery}
+          },
+          successMessage
+        }
+      }
+    }
+  }
+`;
 // ================================ QUERY BUILDERS ================================ //
 /**
  * In this project, query builders are used for queries that can take in values from a client,
@@ -234,6 +277,8 @@ export {
   getSidebar,
   getFooter,
   getNavigation,
+  getMemberships,
+  getJoinPage,
   buildGeneralPageBySlugAndTypeQuery,
   buildGeneralPageSlugsByTypeQuery,
   buildGeneralPageBySlugQuery

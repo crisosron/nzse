@@ -6,7 +6,7 @@ import { Form, InputField } from '../components';
 import { useAuth } from '../lib/hooks/use-auth';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { TailSpin } from 'react-loader-spinner';
+import Notice from './notice';
 
 const LoginPage = () => {
   const { signInUser, authLoading, authError } = useAuth();
@@ -34,7 +34,7 @@ const LoginPage = () => {
   }, [authError]);
 
   return (
-    <Container className='h-[100vh]'>
+    <Container className='h-full md:h-[100vh]'>
       <div className='LoginPage mx-auto w-full h-full flex flex-col justify-center items-center font-poppins'>
         <div className='w-[70%] md:w-[20rem] min-h-[10rem] relative md:mb-10'>
           <Link href='/'>
@@ -43,6 +43,17 @@ const LoginPage = () => {
             </a>
           </Link>
         </div>
+
+        <Notice type='info' className='lg:w-[80%]'>
+          <span>
+            If you are a member of the old NZSE website and this is your first time logging in,
+            navigate to the{' '}
+            <Link href='/password-reset'>
+              <a>password reset</a>
+            </Link>{' '}
+            page and follow the instructions to activate your account.
+          </span>
+        </Notice>
 
         <div className='prose flex grow md:grow-0 md:flex-shrink flex-col justify-center mb-10 w-full md:w-[70%] lg:w-[60%] md:border md:border-gray-300 md:p-10 md:shadow-lg md:rounded-md'>
           <span className='text-center mb-10 text-charcoal text-h2 font-medium'>Member Login</span>
@@ -72,29 +83,15 @@ const LoginPage = () => {
                 <a className='text-[14px] font-normal'>Forgot your password?</a>
               </Link>
             </div>
-            {!authLoading && (
-              <InputField
-                name='login'
-                className='cursor-pointer block mx-auto my-0 bg-light-blue hover:bg-lightest-blue shadow hover:text-dark-blue text-white py-2 px-4 rounded transition-colors duration-150 w-[80%] md:w-[60%] mb-8 border-none'
-                type='submit'
-                value='Login'
-                onClick={() => {
-                  clearErrors();
-                }}
-              />
-            )}
-            {authLoading && (
-              <div className='rounded flex justify-center items-center bg-light-blue py-2 px-4 w-[80%] md:w-[60%] mb-8 mx-auto border-none'>
-                <TailSpin
-                  height='28'
-                  width='28'
-                  color='white'
-                  ariaLabel='tail-spin-loading'
-                  radius='1'
-                  visible={true}
-                />
-              </div>
-            )}
+            <InputField
+              name='login'
+              type='submit'
+              value='Login'
+              loading={authLoading}
+              onClick={() => {
+                clearErrors();
+              }}
+            />
             <div className='flex justify-center'>
               <Link href='/memberships'>
                 <a className='text-[14px] font-normal'>Find out more about our memberships</a>

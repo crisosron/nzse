@@ -9,7 +9,14 @@ export const getServerSideProps = async (context) => {
   const { params, req, res } = context;
   const session = await unstable_getServerSession(req, res, authOptions);
   const props = await buildGeneralPageProps(params, 'Root');
-  const { membersOnly } = props;
+
+  if (!props) {
+    return {
+      notFound: true
+    };
+  }
+
+  const { membersOnly } = props || {};
 
   // Redirect to login page if not signed in and the page is marked as members only
   if (membersOnly && !session) {
