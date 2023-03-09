@@ -8,4 +8,4 @@
 docker exec nzse_strapi npx strapi config:dump -f config-dump.json
 
 # Copy the dump to this host
-docker cp nzse_strapi:/opt/app/config-dump.json ../
+docker cp nzse_strapi:/opt/app/config-dump.json ../../cms
