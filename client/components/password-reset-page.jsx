@@ -6,6 +6,7 @@ import { Form, InputField } from '../components';
 import { EMAIL_REGEX } from '../lib/form-utils';
 import { useAuth } from '../lib/hooks/use-auth';
 import { TickIcon } from './svg-components';
+import Seo from './seo';
 
 const PasswordResetPage = () => {
   const { resetUserPassword, authError, clearAuthError, authLoading } = useAuth();
@@ -27,6 +28,7 @@ const PasswordResetPage = () => {
 
   return (
     <Container className='h-[100vh]'>
+      <Seo />
       <div className='LoginPage mx-auto w-full h-full flex flex-col justify-center items-center font-poppins'>
         <div className='w-[70%] md:w-[20rem] min-h-[10rem] relative md:mb-10'>
           <Link href='/'>
