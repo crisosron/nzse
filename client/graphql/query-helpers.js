@@ -149,6 +149,10 @@ const generalPageDataSubquery = `
       membersOnly
       createdAt
       publishedAt
+      seo {
+        metaTitle
+        metaDescription
+      }
       ${generalPageBlocksListSubquery}
     }
   }
