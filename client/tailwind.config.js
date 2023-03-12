@@ -48,7 +48,6 @@ module.exports = {
       hide: '-1'
     },
     fontFamily: {
-      sansation: ['Sansation', 'serif'],
       poppins: ['Poppins', 'serif']
     },
 
