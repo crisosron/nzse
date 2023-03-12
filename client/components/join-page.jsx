@@ -11,6 +11,7 @@ import { getCookie, setCookie, deleteCookie, hasCookie } from 'cookies-next';
 import { useAuth } from '../lib/hooks/use-auth';
 import { TickIcon } from './svg-components';
 import Notice from './notice';
+import Seo from './seo';
 
 const DESIGNATION_OPTIONS = [
   { value: 'test-1', label: 'Test 1' },
@@ -195,6 +196,7 @@ const JoinPage = ({
 
   return (
     <Container className='prose my-10 md:my-20'>
+      <Seo seo={{ metaTitle: 'Join NZSE' }} />
       <h1>Join NZSE</h1>
       {processingError ||
         (stripeError && (

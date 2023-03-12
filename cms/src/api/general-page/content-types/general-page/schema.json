@@ -46,6 +46,11 @@
       "type": "uid",
       "targetField": "title",
       "required": true
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "other-blocks.seo-block"
     }
   }
 }

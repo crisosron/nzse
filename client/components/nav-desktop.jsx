@@ -110,11 +110,21 @@ const DropdownItem = ({ item }) => {
     url: buildPageUrl(item)
   };
 
+  const { membersOnly } = item.attributes || {};
+  const { authenticatedUser } = useAuth();
+
   return (
     <div className='select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100'>
       <Link href={linkedPage.url || '/'}>
         {/* Override default link hover with charcoal (which effectively removes the hover transition) */}
-        <a className='text-charcoal hover:text-charcoal'>{linkedPage.title}</a>
+        <a className='text-charcoal hover:text-charcoal'>
+          {linkedPage.title}
+          <div>
+            {membersOnly && authenticatedUser && (
+              <span className='text-light-blue hover:text-light-blue'>Members Only</span>
+            )}
+          </div>
+        </a>
       </Link>
     </div>
   );

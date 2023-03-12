@@ -11,7 +11,7 @@ const Seo = ({ seo }) => {
 
   const fullSeo = {
     ...seoWithDefaults,
-    metaTitle: seoWithDefaults.metaTitle || globalAttributes.siteName
+    metaTitle: seoWithDefaults.metaTitle || globalAttributes.siteName || 'NZSE'
   };
 
   return (
