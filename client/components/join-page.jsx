@@ -273,6 +273,7 @@ const JoinPage = ({
             <InputField
               type='number'
               name='postcode'
+              maxLength={4}
               validations={{
                 required: 'Please enter your postcode',
                 minLength: { value: 4, message: 'Please enter a valid postcode ' },

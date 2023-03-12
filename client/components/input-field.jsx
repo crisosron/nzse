@@ -150,6 +150,13 @@ const StandardInput = ({
   children,
   ...rest
 }) => {
+  const { maxLength } = { ...rest } || {};
+
+  const enforceMaxCharacterLimit = (e) => {
+    if (maxLength === null || maxLength === undefined) return;
+    if (e.target.value.length > maxLength) e.target.value = e.target.value.slice(0, maxLength);
+  };
+
   return (
     <>
       <InputLabel
@@ -163,6 +170,7 @@ const StandardInput = ({
         type={type}
         placeholder={placeholder}
         id={name}
+        onInput={enforceMaxCharacterLimit}
         {...register(name, { ...validations })}
         {...rest}
       />
