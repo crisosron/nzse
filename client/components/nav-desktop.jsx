@@ -52,7 +52,7 @@ const NavLink = ({ link, className }) => {
           <>
             <div onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
               <Popover.Button className='flex focus:outline-none items-center select-none cursor-pointed px-2 py1 rounded transition duration-75 group-hover:bg-light-blue-100'>
-                {linkedPage.url ? renderLinkedItem() : renderUnlinkedItem()}
+                {linkedPage.url && !hasChildLinks ? renderLinkedItem() : renderUnlinkedItem()}
                 {hasChildLinks && (
                   <ChevronRightIcon
                     className={`group-hover:fill-lightest-blue group-hover:rotate-90 transition duration-75`}
