@@ -5,6 +5,9 @@ import {
 } from '../graphql/queries';
 import { unwrapCollectionEntityResponse } from './utils';
 
+// Used for getStaticPaths
+// Note: getStaticProps is not used anymore in favor of getServersideProps 
+// but keep this for future reference
 const buildGeneralPageSlugs = async (pageType) => {
   const slugQuery = buildGeneralPageSlugsByTypeQuery(pageType);
   const slugs = unwrapCollectionEntityResponse(
