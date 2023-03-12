@@ -50,6 +50,10 @@
     },
     "successMessage": {
       "type": "richtext"
+    },
+    "designationOptions": {
+      "type": "text",
+      "unique": false
     }
   }
 }
