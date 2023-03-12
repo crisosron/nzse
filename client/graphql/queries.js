@@ -210,6 +210,7 @@ const getJoinPage = gql`
             ${generalPageDataSubquery}
           },
           successMessage
+          designationOptions
         }
       }
     }

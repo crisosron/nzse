@@ -13,12 +13,6 @@ import { TickIcon } from './svg-components';
 import Notice from './notice';
 import Seo from './seo';
 
-const DESIGNATION_OPTIONS = [
-  { value: 'test-1', label: 'Test 1' },
-  { value: 'test-2', label: 'Test 2' },
-  { value: 'test-3', label: 'Test 3' }
-];
-
 const Section = ({ title, children }) => {
   return (
     <div className='prose bg-light-blue-50 w-full max-w-[100%] p-5 rounded-md my-10'>
@@ -74,7 +68,8 @@ const JoinPage = ({
   privacyPolicyPage,
   showPaymentSuccessState,
   error: stripeError,
-  successMessage
+  successMessage,
+  designationOptions: designationOptionsString
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
@@ -84,6 +79,10 @@ const JoinPage = ({
   const privacyPolicyPageUrl = buildPageUrl(privacyPolicyPage?.data);
 
   const { authenticatedUser } = useAuth();
+
+  const designationOptions = designationOptionsString
+    .split(',')
+    .map((option) => ({ label: option, value: option }));
 
   const onSubmit = async (data) => {
     if (submitting) return;
@@ -296,7 +295,7 @@ const JoinPage = ({
               name='designation'
               label='Designation'
               placeholder='Select a designation'
-              options={DESIGNATION_OPTIONS}
+              options={designationOptions}
             />
           </SplitRow>
         </Section>
