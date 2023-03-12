@@ -7,6 +7,7 @@ const validRequestBody = (req) => {
 };
 
 export default async function handler(req, res) {
+  console.log('------------------- delete-pending-member.js');
   if(req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     res.status(405).end('Method not allowed');

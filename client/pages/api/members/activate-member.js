@@ -29,6 +29,7 @@ export const activateMember = async (email) => {
 };
 
 const validRequestBody = (req) => {
+  console.log('------------------- activate-member.js');
   if(!req.body) return false;
   return Object.keys(req.body).every((key) => ["email"].includes(key));
 };

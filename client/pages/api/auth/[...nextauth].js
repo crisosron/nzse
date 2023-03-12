@@ -14,6 +14,7 @@ export const authOptions = {
         password: {  label: "Password", type: "password" }
       },
       async authorize(credentials) {
+        console.log('------------------- authorize on nextauth.js');
         try {
           const { email, password } = credentials;
           const response = await signInWithEmailAndPassword(firebaseAuth, email, password);
