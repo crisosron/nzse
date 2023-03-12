@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../pages/_app';
 
 const Seo = ({ seo }) => {
-  const { globalSeo, globalAttributes } = useContext(GlobalContext);
+  const { globalSeo } = useContext(GlobalContext);
   const seoWithDefaults = {
     ...globalSeo,
     ...seo
@@ -11,7 +11,7 @@ const Seo = ({ seo }) => {
 
   const fullSeo = {
     ...seoWithDefaults,
-    metaTitle: seoWithDefaults.metaTitle || globalAttributes.siteName || 'NZSE'
+    metaTitle: seoWithDefaults.metaTitle || 'NZSE'
   };
 
   return (

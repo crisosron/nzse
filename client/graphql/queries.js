@@ -67,7 +67,6 @@ const getGlobalAttributes = gql`
     global {
       data {
         attributes {
-          siteName
           favicon {
             data {
               attributes {

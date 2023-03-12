@@ -51,16 +51,6 @@ const publishCollectionType = async (tableName) => {
 
 const modelsToSeed = [
   {
-    modelName: 'Global',
-    apiName: 'api::global.global',
-    dbTableName: 'globals',
-    seeder: seedSingleType,
-    seedData: {
-      siteName: 'Sample strapi app'
-    },
-    needsPublishing: false
-  },
-  {
     modelName: 'Homepage',
     apiName: 'api::homepage.homepage',
     dbTableName: 'homepages',

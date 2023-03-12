@@ -19,10 +19,11 @@ const Home = ({ homepage, generalPages, authenticatedUser }) => {
   }, []);
 
   const {
-    globalAttributes: { siteName },
+    globalAttributes,
     footer: footerData,
     navigation: navigationData
   } = useContext(GlobalContext);
+
   const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
   return (
     <Layout footerData={footerData} navigationData={navigationData}>
