@@ -45,20 +45,26 @@ const generalPageBlocksListSubquery = `
     ...on ComponentContentBlocksButtonBlock {
       id
       title
-      link
+      externalLink
+      internalLink {
+        data {
+          attributes {
+            title
+            slug
+            type
+          }
+        }
+      }
       alignment
     }
     ...on ComponentContentBlocksFlipbookBlock {
       id
       subjectTitle
       flipbookLink
-      ${fileSubquery}
     }
   }
 `;
 
-// TODO: Investigate what happens if a text block, and a text with image block are both present with
-// the exact same value for their content field. Will there be a conflict?
 const blocksListSubquery = `
   blocks {
     __typename
@@ -109,7 +115,16 @@ const blocksListSubquery = `
     ...on ComponentContentBlocksButtonBlock {
       id
       title
-      link
+      externalLink
+      internalLink {
+        data {
+          attributes {
+            title
+            slug
+            type
+          }
+        }
+      }
       alignment
     }
     ...on ComponentContentBlocksCardBlockList {

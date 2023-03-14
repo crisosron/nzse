@@ -11,9 +11,9 @@
       "required": true,
       "default": "Button title"
     },
-    "link": {
+    "externalLink": {
       "type": "string",
-      "required": true,
+      "required": false,
       "default": "https://www.nzse.org.nz"
     },
     "alignment": {
@@ -24,6 +24,11 @@
         "Center"
       ],
       "default": "Left"
+    },
+    "internalLink": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::general-page.general-page"
     }
   }
 }

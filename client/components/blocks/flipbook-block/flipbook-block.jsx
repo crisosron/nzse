@@ -1,21 +1,15 @@
-import { unwrapEntityResponse } from '../../../lib/utils';
-
-const FlipbookBlock = ({ subjectTitle, flipbookLink, file }) => {
-  const { url: fileUrl } = unwrapEntityResponse(file);
+const FlipbookBlock = ({ subjectTitle, flipbookLink }) => {
   return (
-    <div className='prose self-center w-full h-screen'>
-      {subjectTitle && <h2>{subjectTitle}</h2>}
-      <a target='_blank' rel='noreferrer' className='inline-block mb-4' href={fileUrl} download>
-        Download this file
-      </a>
-      <iframe
-        className='mb-8 w-full h-full'
-        src={flipbookLink}
-        seamless='seamless'
-        scrolling='no'
-        frameBorder='0'
-        allowFullScreen
-      ></iframe>
+    <div>
+      <div className='prose self-center w-full mb-8'>{subjectTitle && <h2>{subjectTitle}</h2>}</div>
+      <div className='w-full h-[100vh]'>
+        <iframe
+          className='w-full h-full overflow-hidden'
+          src={flipbookLink}
+          seamless='seamless'
+          allowFullScreen
+        />
+      </div>
     </div>
   );
 };
