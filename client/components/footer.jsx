@@ -69,8 +69,10 @@ const Footer = ({ footerData }) => {
             <ul className='list-none text-center lg:text-right'>
               {links.map((elem, index) => {
                 return (
-                  <li key={index} className='cursor-pointer md:mb-0 lg:ml-5 '>
-                    <Link href={buildPageUrl(elem)}>{elem.attributes.title}</Link>
+                  <li key={index} className='md:mb-0 lg:ml-5 '>
+                    <Link href={buildPageUrl(elem)}>
+                      {<a className='cursor-pointer'>{elem.attributes.title}</a>}
+                    </Link>
                   </li>
                 );
               })}
