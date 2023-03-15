@@ -76,7 +76,16 @@ const blocksListSubquery = `
       callToAction {
         id
         title
-        link
+        externalLink
+        internalLink {
+          data {
+            attributes {
+              title
+              slug
+              type
+            }
+          }
+        }
         alignment
       }
       ${imagesSubquery}
@@ -150,7 +159,6 @@ const blocksListSubquery = `
       id
       subjectTitle
       flipbookLink
-      ${fileSubquery}
     }
   }
 `;

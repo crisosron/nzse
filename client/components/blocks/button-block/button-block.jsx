@@ -22,7 +22,7 @@ const ButtonBlock = ({ title, externalLink, internalLink, alignment, className }
       </a>
     );
 
-    if (internalLink) {
+    if (internalLink && internalLink.data) {
       const internalLinkURL = buildPageUrl(internalLink.data.attributes);
       return (
         <Link href={internalLinkURL} passHref>
