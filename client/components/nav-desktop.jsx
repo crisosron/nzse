@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames';
 import { Popover } from '@headlessui/react';
-import _ from 'lodash';
 import PopoverTransitionWrapper from './popover-transition-wrapper';
 import { ChevronRightIcon, LogoutIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';

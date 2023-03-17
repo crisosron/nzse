@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
-import { useContext } from 'react';
 import { GlobalContext } from '../pages/_app';
 import { graphqlClient } from '../lib/graphql-api';
 import { getHomepage } from '../graphql/queries';
