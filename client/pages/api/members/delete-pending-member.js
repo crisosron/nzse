@@ -7,7 +7,6 @@ const validRequestBody = (req) => {
 };
 
 export default async function handler(req, res) {
-  console.log('------------------- delete-pending-member.js');
   if(req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     res.status(405).end('Method not allowed');
@@ -15,7 +14,7 @@ export default async function handler(req, res) {
   }
 
   if(!validRequestBody(req)) {
-    res.status(400).json({ message: "Request body must contain 'email' and 'password' properties of the member to create"});
+    res.status(400).json({ message: "Request body must contain 'email' of the member to delete from firebase"});
     return;
   }
 

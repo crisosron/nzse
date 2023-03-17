@@ -98,7 +98,6 @@ const findOrCreateStripeCustomer = async (customerDetails) => {
 };
 
 export default async function handler(req, res) {
-  console.log('------------------- Called checkout-session.js');
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     res.status(405).end('Method not allowed');
