@@ -47,6 +47,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
 // https://github.com/vercel/next.js/discussions/10949
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
+  const { res } = context;
   const [
     { data: globalAttributesData },
     { data: globalSeoData },
@@ -66,6 +67,11 @@ MyApp.getInitialProps = async (context) => {
   const sidebar = sidebarData.sidebar.data?.attributes;
   const footer = footerData.footer.data?.attributes;
   const navigation = navigationData.navigation.data?.attributes;
+
+  // Keep fresh for an 1 hour, but allow serving of stale content (and revalidate) up to a day
+  res.setHeader(
+    'Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400'
+  );
 
   return {
     ...appProps,
