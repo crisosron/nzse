@@ -21,7 +21,6 @@ export const GlobalContext = createContext({});
 const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
   const { globalAttributes } = pageProps;
   const { title: pageTitle } = pageProps;
-
   return (
     <>
       <Head>
@@ -46,8 +45,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
 // Hopefully we can replace this with getStaticProps once this issue is fixed:
 // https://github.com/vercel/next.js/discussions/10949
 MyApp.getInitialProps = async (context) => {
-  const appProps = await App.getInitialProps(context);
-  const { res } = context;
+  const { ctx: { res } } = context;
   const [
     { data: globalAttributesData },
     { data: globalSeoData },
@@ -74,7 +72,7 @@ MyApp.getInitialProps = async (context) => {
   );
 
   return {
-    ...appProps,
+    // ...appProps,
     pageProps: {
       globalAttributes,
       globalSeo,
