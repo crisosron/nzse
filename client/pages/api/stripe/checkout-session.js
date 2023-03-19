@@ -121,6 +121,9 @@ export default async function handler(req, res) {
         req.body.item
       ],
       customer: customer.id,
+      payment_intent_data: {
+        capture_method: 'manual'
+      },
 
       // Note: template string comes from Stripe
       // https://stripe.com/docs/payments/checkout/custom-success-page
