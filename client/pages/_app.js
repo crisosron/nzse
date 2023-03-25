@@ -21,6 +21,8 @@ export const GlobalContext = createContext({});
 const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
   const { globalAttributes } = pageProps;
   const { title: pageTitle } = pageProps;
+
+  // TODO: SEO fields should be rendered under here within the Head element?
   return (
     <>
       <Head>
