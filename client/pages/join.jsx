@@ -9,8 +9,7 @@ import { graphqlClient } from '../lib/graphql-api';
 import { getJoinPage, getMemberships } from '../graphql/queries';
 import { initStripe } from '../lib/stripe';
 import { unwrapCollectionEntityResponse } from '../lib/utils';
-import { getCookie, deleteCookie } from 'cookies-next';
-import { activateMember } from './api/members/activate-member';
+import { deleteCookie } from 'cookies-next';
 
 const attachPriceToMemberships = (membershipsCMS, stripePrices) => {
   return membershipsCMS.map((membershipCMS) => {
@@ -30,9 +29,8 @@ const attachPriceToMemberships = (membershipsCMS, stripePrices) => {
   });
 };
 
-const processSuccessfulCheckout = async (successfulSessionId, stripe, req, res) => {
+const findSuccessfulCheckoutSession = async (successfulSessionId, stripe) => {
   let successfulCheckoutSession = null;
-  let activationResult = null;
 
   const defaultError = {
     status: 500,
@@ -43,16 +41,8 @@ const processSuccessfulCheckout = async (successfulSessionId, stripe, req, res) 
   successfulCheckoutSession = await stripe.checkout.sessions.retrieve(successfulSessionId);
   if (!successfulCheckoutSession) throw new Error(defaultError.message);
 
-  // pendingMemberEmail cookie is set after the join form has been submitted
-  const pendingMemberEmail = getCookie('pendingMemberEmail', { req, res });
-  if (!pendingMemberEmail) throw new Error(defaultError.message);
-
-  activationResult = await activateMember(pendingMemberEmail);
-  if (!activationResult || activationResult.error) throw new Error(activationResult.error.message);
-
   return {
-    successfulCheckoutSession,
-    activationResult
+    successfulCheckoutSession
   };
 };
 
@@ -75,16 +65,11 @@ export const getServerSideProps = async (context) => {
   // A 'successful_session_url' query  will exist if this page is redirected to by Stripe after a
   // successful payment (see /api/stripe/checkout-session)
   const { successful_session_id: successfulSessionId } = query || {};
-  let processSuccessfulCheckoutResult = null;
+  let successfulCheckoutSession = null;
   let exception = null;
   if (successfulSessionId) {
     try {
-      processSuccessfulCheckoutResult = await processSuccessfulCheckout(
-        successfulSessionId,
-        stripe,
-        req,
-        res
-      );
+      successfulCheckoutSession = await findSuccessfulCheckoutSession(successfulSessionId, stripe);
 
       // If this cookie is not deleted, on render, client side code will run to delete the Firebase
       // user whose email is the value of the cookie.
@@ -105,7 +90,7 @@ export const getServerSideProps = async (context) => {
       memberships,
       joinPageProps: {
         ...joinPage,
-        showPaymentSuccessState: !!processSuccessfulCheckoutResult,
+        showPaymentSuccessState: !!successfulCheckoutSession,
         error: exception
           ? {
               message:
