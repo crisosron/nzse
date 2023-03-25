@@ -19,7 +19,7 @@ const GeneralPage = ({
       <Seo seo={seo} />
       <div className='GeneralPage flex'>
         <Sidebar className='hidden md:block' navBlocks={sidebarNavBlocks} title={sidebarTitle} />
-        <div className='general-page-blocks mx-[23px] py-4 md:ml-9 md:mr-[9%] md:py-12 lg:ml-12 lg:mr-[15%] lg:py-12'>
+        <div className='general-page-blocks w-full mx-[23px] py-4 md:ml-9 md:mr-[9%] md:py-12 lg:ml-12 lg:mr-[15%] lg:py-12'>
           <Blocks blocks={blocks} noContainerSpacing />
           <Sidebar
             className='block my-5 md:hidden'
