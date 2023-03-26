@@ -2,6 +2,9 @@ module.exports = {
   content: ['./pages/**/*.{js,jsx}', './components/**/*.{js,jsx}'],
   theme: {
     extend: {
+      screens: {
+        'xlg': '2000px',
+      },
       height: {
         100: '33rem'
       },

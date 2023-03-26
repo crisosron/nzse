@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 import { JoinPage, Layout } from '../components';
 import { useEffect } from 'react';
-import Seo from '../components/seo';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import { useAuth } from '../lib/hooks/use-auth';
@@ -118,11 +117,8 @@ const Join = (props) => {
     setAuthenticatedUser(authenticatedUser);
   }, []);
 
-  const { seo } = joinPageProps;
-
   return (
     <Layout footerData={footerData} navigationData={navigationData}>
-      <Seo seo={seo} />
       <JoinPage memberships={memberships} {...joinPageProps} />
     </Layout>
   );

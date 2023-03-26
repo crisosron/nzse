@@ -57,6 +57,25 @@ const generalPageBlocksListSubquery = `
       }
       alignment
     }
+    ...on ComponentContentBlocksCardBlockList {
+      cardBlocks {
+        id
+        title
+        bottomLinkText
+        content
+        generalPage {
+          data {
+            attributes {
+              slug
+              title
+              type
+              membersOnly
+            }
+          }
+        }
+        ${imagesSubquery}
+      }
+    }
     ...on ComponentContentBlocksFlipbookBlock {
       id
       subjectTitle

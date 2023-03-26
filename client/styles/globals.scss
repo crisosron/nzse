@@ -197,21 +197,24 @@
 .prose :where(a):not(:where([class~='not-prose'] *)) {
   color: theme('colors.link-blue');
   text-decoration: none;
-}
-
-/* See https://tailwindcss.com/docs/screens for breakpoint sizes */
-/* For md and above */
-@media only screen and (min-width: 768px) {
-}
-
-/* For lg and above */
-@media only screen and (min-width: 1024px) {
+  // &:hover {
+  //   text-decoration: solid;
+  // }
 }
 
 a {
   @apply text-link-blue;
   &:hover {
     @apply text-light-blue;
+  }
+}
+
+.Notice {
+  a {
+    &:hover {
+      @apply text-link-blue;
+      text-decoration: underline;
+    }
   }
 }
 

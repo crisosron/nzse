@@ -1,8 +1,8 @@
 import ReactMarkdown from 'react-markdown';
 
-const TextBlock = ({ id, content }) => {
+const TextBlock = ({ content }) => {
   return (
-    <div className='prose md:prose-lg lg:prose-lg leading-normal flex flex-col lg:items-start lg:max-w-full'>
+    <div className='prose prose-base leading-normal flex flex-col lg:items-start lg:max-w-full text-base'>
       <ReactMarkdown>{content}</ReactMarkdown>
     </div>
   );

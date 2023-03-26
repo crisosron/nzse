@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import Nav from './nav';
 import Footer from './footer';
 
-const LAYOUT_CLASSES = 'font-poppins';
-const Layout = ({ children, categories, seo, footerData, navigationData }) => {
+const Layout = ({ children, footerData, navigationData }) => {
   // The initial state should be derived from the `window` object, but NextJS SSR means that this
   // object is not available during the pre-render as `window` is a client-side only construct.
   //
@@ -37,7 +36,7 @@ const Layout = ({ children, categories, seo, footerData, navigationData }) => {
           isMobileDevice={isTabletBreakpoint || isMobileBreakpoint}
         />
       </header>
-      <div className={`page-body ${LAYOUT_CLASSES}`}>{children}</div>
+      <div className="page-body font-poppins">{children}</div>
       <Footer footerData={footerData} />
     </div>
   );
