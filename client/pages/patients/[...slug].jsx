@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { buildGeneralPageProps } from '../../lib/general-page-utils';
 import { GeneralPage } from '../../components';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../api/auth/[...nextauth]';
 import { useAuth } from '../../lib/hooks/use-auth';
 
 export const getServerSideProps = async (context) => {
   const { params, req, res } = context;
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
   const props = await buildGeneralPageProps(params, 'Patients');
 
   if (!props) {

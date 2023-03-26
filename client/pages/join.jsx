@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { JoinPage, Layout } from '../components';
 import { useEffect } from 'react';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import { useAuth } from '../lib/hooks/use-auth';
 import { graphqlClient } from '../lib/graphql-api';
@@ -47,7 +47,7 @@ const findSuccessfulCheckoutSession = async (successfulSessionId, stripe) => {
 
 export const getServerSideProps = async (context) => {
   const { req, res, query } = context;
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   const [membershipsResponse, { data: joinPageData }] = await Promise.all([
     graphqlClient.query({ query: getMemberships }),
