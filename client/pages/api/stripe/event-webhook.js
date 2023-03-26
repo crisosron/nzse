@@ -77,6 +77,7 @@ export default async function handler(req, res) {
   const rawBody = buf.toString('utf8');
   const signature = req.headers['stripe-signature'];
 
+  // TODO: add console logs to deletion and activation fns above to see if they are triggering
   console.log('req.body: ', req.body);
   console.log('req.rawBody: ', req.rawBody);
   console.log('rawBody: ', rawBody);
@@ -93,7 +94,7 @@ export default async function handler(req, res) {
   }
   
   // Return 200 here so that the webhook doesn't timeout
-  res.status(200).json({ received: true });
+  // res.status(200).json({ received: true });
 
   try {
     switch (event.type) {
@@ -113,4 +114,6 @@ export default async function handler(req, res) {
   } catch(error) {
     console.log('Error handling webhook event: ', error.message);
   }
+
+  res.status(200).json({ received: true });
 }
