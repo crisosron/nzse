@@ -118,6 +118,9 @@ const getSidebar = gql`
           professionalsSidebar {
             ${navigationBlocksListSubquery}
           }
+          rootSidebar {
+            ${navigationBlocksListSubquery}
+          }
         }
       }
     }
