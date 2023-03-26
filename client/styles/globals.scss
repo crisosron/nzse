@@ -197,12 +197,24 @@
 .prose :where(a):not(:where([class~='not-prose'] *)) {
   color: theme('colors.link-blue');
   text-decoration: none;
+  // &:hover {
+  //   text-decoration: solid;
+  // }
 }
 
 a {
   @apply text-link-blue;
   &:hover {
     @apply text-light-blue;
+  }
+}
+
+.Notice {
+  a {
+    &:hover {
+      @apply text-link-blue;
+      text-decoration: underline;
+    }
   }
 }
 
