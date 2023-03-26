@@ -66,6 +66,9 @@ export default async function handler(req, res) {
   const bodyBuffer = await buffer(req);
   const signature = req.headers['stripe-signature'];
 
+  console.log('req.body: ', req.body);
+  console.log('req.rawBody: ', req.rawBody);
+
   const body = process.env.NODE_ENV === 'development' ? bodyBuffer : req.body;
 
   let event;
