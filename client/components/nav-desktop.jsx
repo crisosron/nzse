@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames';
 import { Popover } from '@headlessui/react';
-import _ from 'lodash';
 import PopoverTransitionWrapper from './popover-transition-wrapper';
 import { ChevronRightIcon, LogoutIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
@@ -29,7 +28,7 @@ const NavLink = ({ link, className }) => {
 
   const renderUnlinkedItem = () => {
     return (
-      <a className='transition duration-75 text-dark-blue group-hover:text-dark-blue'>
+      <a className='transition duration-75 text-dark-blue group-hover:text-dark-blue cursor-default'>
         {link.label}
       </a>
     );
@@ -51,11 +50,19 @@ const NavLink = ({ link, className }) => {
         {() => (
           <>
             <div onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
-              <Popover.Button className='flex focus:outline-none items-center select-none cursor-pointed px-2 py1 rounded transition duration-75 group-hover:bg-light-blue-100'>
+              <Popover.Button
+                className={classNames(
+                  'flex focus:outline-none items-center select-none px-2 py1 rounded transition duration-75 group-hover:bg-light-blue-100',
+                  { 'cursor-default': !link?.page?.data }
+                )}
+              >
                 {linkedPage.url && !hasChildLinks ? renderLinkedItem() : renderUnlinkedItem()}
                 {hasChildLinks && (
                   <ChevronRightIcon
-                    className={`group-hover:fill-lightest-blue group-hover:rotate-90 transition duration-75`}
+                    className={classNames(
+                      'group-hover:fill-lightest-blue group-hover:rotate-90 transition duration-75',
+                      { 'cursor-default': !link?.page?.data }
+                    )}
                   />
                 )}
               </Popover.Button>
@@ -114,19 +121,17 @@ const DropdownItem = ({ item }) => {
   const { authenticatedUser } = useAuth();
 
   return (
-    <div className='select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100'>
-      <Link href={linkedPage.url || '/'}>
-        {/* Override default link hover with charcoal (which effectively removes the hover transition) */}
-        <a className='text-charcoal hover:text-charcoal'>
-          {linkedPage.title}
-          <div>
-            {membersOnly && authenticatedUser && (
-              <span className='text-light-blue hover:text-light-blue'>Members Only</span>
-            )}
-          </div>
-        </a>
-      </Link>
-    </div>
+    <Link href={linkedPage.url || '/'}>
+      {/* Override default link hover with charcoal (which effectively removes the hover transition) */}
+      <a className='block text-charcoal hover:text-charcoal select-none cursor-pointer w-full text-center p-2 font-normal text-sm transition duration-75 hover:bg-gray-100'>
+        {linkedPage.title}
+        <div>
+          {membersOnly && authenticatedUser && (
+            <span className='text-light-blue hover:text-light-blue'>Members Only</span>
+          )}
+        </div>
+      </a>
+    </Link>
   );
 };
 

@@ -45,20 +45,45 @@ const generalPageBlocksListSubquery = `
     ...on ComponentContentBlocksButtonBlock {
       id
       title
-      link
+      externalLink
+      internalLink {
+        data {
+          attributes {
+            title
+            slug
+            type
+          }
+        }
+      }
       alignment
+    }
+    ...on ComponentContentBlocksCardBlockList {
+      cardBlocks {
+        id
+        title
+        bottomLinkText
+        content
+        generalPage {
+          data {
+            attributes {
+              slug
+              title
+              type
+              membersOnly
+            }
+          }
+        }
+        ${imagesSubquery}
+      }
     }
     ...on ComponentContentBlocksFlipbookBlock {
       id
       subjectTitle
       flipbookLink
-      ${fileSubquery}
     }
   }
 `;
 
-// TODO: Investigate what happens if a text block, and a text with image block are both present with
-// the exact same value for their content field. Will there be a conflict?
 const blocksListSubquery = `
   blocks {
     __typename
@@ -70,7 +95,16 @@ const blocksListSubquery = `
       callToAction {
         id
         title
-        link
+        externalLink
+        internalLink {
+          data {
+            attributes {
+              title
+              slug
+              type
+            }
+          }
+        }
         alignment
       }
       ${imagesSubquery}
@@ -109,7 +143,16 @@ const blocksListSubquery = `
     ...on ComponentContentBlocksButtonBlock {
       id
       title
-      link
+      externalLink
+      internalLink {
+        data {
+          attributes {
+            title
+            slug
+            type
+          }
+        }
+      }
       alignment
     }
     ...on ComponentContentBlocksCardBlockList {
@@ -135,7 +178,6 @@ const blocksListSubquery = `
       id
       subjectTitle
       flipbookLink
-      ${fileSubquery}
     }
   }
 `;

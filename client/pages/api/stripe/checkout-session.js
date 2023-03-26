@@ -17,16 +17,16 @@ const validRequestBody = (req) => {
 const customerMetadata = (customerDetails) => {
   const { firstName, surname, mobileNumber, address, suburb, city, postcode, institution, department, designation } = customerDetails || {};
   return {
-    firstName,
-    surname,
-    mobileNumber,
-    address,
-    suburb,
-    city,
-    postcode,
-    institution,
-    department,
-    designation
+    'First name': firstName,
+    'Last name': surname,
+    'Mobile number': mobileNumber,
+    'Address': address,
+    'Suburb': suburb,
+    'City': city,
+    'Post code': postcode,
+    'Institution': institution,
+    'Department': department,
+    'Designation': designation
   };
 };
 
@@ -98,7 +98,6 @@ const findOrCreateStripeCustomer = async (customerDetails) => {
 };
 
 export default async function handler(req, res) {
-  console.log('------------------- Called checkout-session.js');
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     res.status(405).end('Method not allowed');
@@ -122,6 +121,10 @@ export default async function handler(req, res) {
         req.body.item
       ],
       customer: customer.id,
+      payment_intent_data: {
+        capture_method: 'manual',
+        metadata: customerMetadata(req.body.customer)
+      },
 
       // Note: template string comes from Stripe
       // https://stripe.com/docs/payments/checkout/custom-success-page

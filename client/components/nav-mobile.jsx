@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HamburgerIcon, CloseIcon, UserIcon, LogoutIcon } from './svg-components';
+import { HamburgerIcon, CloseIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
 import { useAuth } from '../lib/hooks/use-auth';
 
@@ -120,7 +120,6 @@ const Menu = ({ linkItems, handleMenuIconClicked, className }) => {
   );
 };
 
-// TODO: Refactor out link buttons
 const NavMobile = ({ linkItems, linkButtons }) => {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -128,16 +127,17 @@ const NavMobile = ({ linkItems, linkButtons }) => {
     setShowMenu(!showMenu);
   };
 
-  // Lock or unlock scroll when the menu is opened or closed respectively
+  // Lock or unlock scroll when the menu is opened or closed respectively (and enable scroll on dismount)
   useEffect(() => {
     if (showMenu) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
+
+    return () => document.body.style.overflow = 'unset';
   }, [showMenu]);
 
   return (
     <>
       <div className='NavMobile border-b border-gray-200 flex flex-row justify-between items-center px-4 py-2 md:px-10 md:py-5 z-50'>
-        {/* TODO: Apply tailwind classes to make this resize properly? */}
         <Link href='/'>
           <a>
             <Image src='/nzse-logo.svg' alt='nzse-logo' width={150} height={60} />

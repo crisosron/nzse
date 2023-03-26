@@ -1,4 +1,3 @@
-import App from 'next/app';
 import Head from 'next/head';
 import { createContext } from 'react';
 import { getStrapiMedia } from '../lib/media';
@@ -15,12 +14,20 @@ import { SessionProvider } from 'next-auth/react';
 import '../styles/globals.scss';
 import { AuthProvider } from '../lib/hooks/use-auth';
 
-// Store Strapi Global object in context
 export const GlobalContext = createContext({});
 
 const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
-  const { globalAttributes } = pageProps;
-  const { title: pageTitle } = pageProps;
+  const { globalAttributes, globalSeo, seo } = pageProps;
+
+  const seoWithDefaults = {
+    ...globalSeo,
+    ...seo
+  };
+
+  const fullSeo = {
+    ...seoWithDefaults,
+    metaTitle: seoWithDefaults.metaTitle || 'NZSE'
+  };
 
   return (
     <>
@@ -28,7 +35,21 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
         {globalAttributes.favicon.data && (
           <link rel='shortcut icon' href={getStrapiMedia(globalAttributes.favicon).url} />
         )}
-        <title>NZSE { pageTitle ? `| ${pageTitle}` : ''}</title>
+        {fullSeo.metaTitle && (
+          <>
+            <title>{fullSeo.metaTitle}</title>
+            <meta property='og:title' content={fullSeo.metaTitle} />
+            <meta name='twitter:title' content={fullSeo.metaTitle} />
+          </>
+        )}
+        {fullSeo.metaDescription && (
+          <>
+            <meta name='description' content={fullSeo.metaDescription} />
+            <meta property='og:description' content={fullSeo.metaDescription} />
+            <meta name='twitter:description' content={fullSeo.metaDescription} />
+          </>
+        )}
+        <meta name='twitter:card' content='summary_large_image' />
       </Head>
       <SessionProvider session={session}>
         <AuthProvider>
@@ -41,12 +62,8 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
   );
 };
 
-// getInitialProps disables automatic static optimization for pages that don't
-// have getStaticProps. So article, category and home pages still get SSG.
-// Hopefully we can replace this with getStaticProps once this issue is fixed:
-// https://github.com/vercel/next.js/discussions/10949
 MyApp.getInitialProps = async (context) => {
-  const appProps = await App.getInitialProps(context);
+  const { ctx: { res } } = context;
   const [
     { data: globalAttributesData },
     { data: globalSeoData },
@@ -67,8 +84,12 @@ MyApp.getInitialProps = async (context) => {
   const footer = footerData.footer.data?.attributes;
   const navigation = navigationData.navigation.data?.attributes;
 
+  // Keep fresh for an 1 hour, but allow serving of stale content (and revalidate) up to a day
+  res.setHeader(
+    'Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400'
+  );
+
   return {
-    ...appProps,
     pageProps: {
       globalAttributes,
       globalSeo,

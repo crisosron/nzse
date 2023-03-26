@@ -19,6 +19,8 @@ const CustomImage = ({ image }) => {
 
   if (imageData.fileType === MEDIA_FILE_TYPES.SVG) {
     renderedImage = (
+      // next/image can't render svgs
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={imageData.url}
         title={imageData.name}

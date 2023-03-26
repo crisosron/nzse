@@ -6,21 +6,7 @@ const validRequestBody = (req) => {
   return hasRequiredProperties(["email", req.body]);
 };
 
-export default async function handler(req, res) {
-  console.log('------------------- delete-pending-member.js');
-  if(req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method not allowed');
-    return;
-  }
-
-  if(!validRequestBody(req)) {
-    res.status(400).json({ message: "Request body must contain 'email' and 'password' properties of the member to create"});
-    return;
-  }
-
-  const { email } = req.body;
-
+export const deletePendingMember = async (email) => {
   const { users } = await firebaseAdminAuth.getUsers([{ email, }]) || {};
 
   if(!users || users.length === 0) {
@@ -44,8 +30,10 @@ export default async function handler(req, res) {
   const uid = users[0].uid;
 
   try {
-    const result = await firebaseAdminAuth.deleteUser(uid);
-    return result;
+    await firebaseAdminAuth.deleteUser(uid);
+    return {
+      success: true
+    };
 
   } catch(error) {
     return {
@@ -55,4 +43,33 @@ export default async function handler(req, res) {
       }
     };
   }
+
+};
+
+export default async function handler(req, res) {
+  if(req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method not allowed');
+    return;
+  }
+
+  if(!validRequestBody(req)) {
+    res.status(400).json({ message: "Request body must contain 'email' of the member to delete from firebase"});
+    return;
+  }
+
+  const { email } = req.body;
+
+  try {
+    const results = await deletePendingMember(email);
+    if(results.error) {
+      res.status(results.error.status).json({ message: results.error.message });
+      return;
+    }
+    res.status(200).send();
+
+  } catch(error) {
+    res.status('500').json({ message: 'Something went wrong trying to delete a pending member'});
+  }
+
 }
