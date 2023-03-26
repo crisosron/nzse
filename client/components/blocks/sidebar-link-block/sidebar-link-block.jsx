@@ -4,12 +4,11 @@ import Link from 'next/link';
 
 const SidebarLinkBlock = (props) => {
   // TODO: Get users logged in status somehow...
-  const { sidebarLinkTitle: title, page, user, className } = props;
+  const { sidebarLinkTitle: title, page, className } = props;
   const {
     title: pageTitle,
     slug: pageSlug,
     type: pageType,
-    membersOnly: pageMembersOnly
   } = unwrapEntityResponse(page);
 
   const router = useRouter();
