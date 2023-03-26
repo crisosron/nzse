@@ -5,11 +5,11 @@ import { deletePendingMember } from "../members/delete-pending-member";
 
 // Disable the body parser for this api route because we need to send the raw body to Stripe for
 // verification
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   }
-// };
+export const config = {
+  api: {
+    bodyParser: false,
+  }
+};
 
 const findStripeCustomerById = async (customerId) => {
   const stripe = await initStripe();
@@ -55,6 +55,15 @@ const deletePendingMemberAccount = async (charge) => {
   }
 };
 
+// https://vercel.com/guides/how-do-i-get-the-raw-body-of-a-serverless-function#with-node.js
+async function buffer(readable) {
+  const chunks = [];
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+  }
+  return Buffer.concat(chunks);
+}
+
 export default async function handler(req, res) {
   if(req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -64,17 +73,20 @@ export default async function handler(req, res) {
 
   const stripe = await initStripe();
   // const bodyBuffer = await buffer(req);
+  const buf = await buffer(req);
+  const rawBody = buf.toString('utf8');
   const signature = req.headers['stripe-signature'];
 
   console.log('req.body: ', req.body);
   console.log('req.rawBody: ', req.rawBody);
+  console.log('rawBody: ', rawBody);
 
   // const body = process.env.NODE_ENV === 'development' ? bodyBuffer : req.body;
 
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET_KEY);
+    event = stripe.webhooks.constructEvent(rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET_KEY);
   } catch (error) {
     res.status(400).send(`Webhook Error: ${error.message}`);
     return;
