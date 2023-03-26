@@ -77,7 +77,7 @@ const Blocks = ({ blocks, noContainerSpacing }) => {
             <div
               key={`${blockType}-${id}`}
               className={classNames('ContentBlockContainer', {
-                'mb-8 md:mb-12 lg:mb-18': isContentBlock(blockType)
+                'mb-8 md:mb-10': isContentBlock(blockType)
               })}
             >
               <Block blockRecord={block} noContainerSpacing={noContainerSpacing} />
