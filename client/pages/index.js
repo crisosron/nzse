@@ -1,6 +1,5 @@
 import { useEffect, useContext } from 'react';
 import Layout from '../components/layout';
-import Seo from '../components/seo';
 import { GlobalContext } from '../pages/_app';
 import { graphqlClient } from '../lib/graphql-api';
 import { getHomepage } from '../graphql/queries';
@@ -22,10 +21,9 @@ const Home = ({ homepage, authenticatedUser }) => {
     navigation: navigationData
   } = useContext(GlobalContext);
 
-  const { seo: homepageSeo, blocks: homepageBlocks } = homepage;
+  const { blocks: homepageBlocks } = homepage;
   return (
     <Layout footerData={footerData} navigationData={navigationData}>
-      <Seo seo={homepageSeo}></Seo>
       <Blocks blocks={homepageBlocks} />
     </Layout>
   );

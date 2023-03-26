@@ -1,5 +1,4 @@
 import { Layout, Sidebar } from '.';
-import Seo from './seo';
 import { Blocks } from './blocks';
 
 const GeneralPage = ({
@@ -8,7 +7,6 @@ const GeneralPage = ({
   sidebarNavBlocks,
   footer: footerData,
   navigation: navigationData,
-  seo
 }) => {
   let sidebarTitle = type.charAt(0).toUpperCase() + type.slice(1);
 
@@ -16,7 +14,6 @@ const GeneralPage = ({
 
   return (
     <Layout navigationData={navigationData} footerData={footerData}>
-      <Seo seo={seo} />
       <div className='GeneralPage flex'>
         <Sidebar className='hidden md:block' navBlocks={sidebarNavBlocks} title={sidebarTitle} />
         <div className='general-page-blocks w-full mx-[23px] py-4 md:ml-9 md:mr-[9%] md:py-12 lg:ml-12 lg:mr-[15%] lg:py-12'>

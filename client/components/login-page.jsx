@@ -7,7 +7,6 @@ import { useAuth } from '../lib/hooks/use-auth';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Notice from './notice';
-import Seo from './seo';
 
 const LoginPage = () => {
   const { signInUser, authLoading, authError } = useAuth();
@@ -36,7 +35,6 @@ const LoginPage = () => {
 
   return (
     <Container className='h-full md:h-[100vh]'>
-      <Seo />
       <div className='LoginPage mx-auto w-full h-full flex flex-col justify-center items-center font-poppins'>
         <div className='w-[70%] md:w-[20rem] min-h-[10rem] relative md:mb-10'>
           <Link href='/'>
