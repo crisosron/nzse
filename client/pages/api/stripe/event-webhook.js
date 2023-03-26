@@ -66,10 +66,12 @@ export default async function handler(req, res) {
   const bodyBuffer = await buffer(req);
   const signature = req.headers['stripe-signature'];
 
+  const body = process.env.NODE_ENV === 'development' ? bodyBuffer : req.body;
+
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(bodyBuffer, signature, process.env.STRIPE_WEBHOOK_SECRET_KEY);
+    event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET_KEY);
   } catch (error) {
     res.status(400).send(`Webhook Error: ${error.message}`);
     return;
