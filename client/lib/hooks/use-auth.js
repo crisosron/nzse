@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }) => {
       router.push('/');
     })
       .catch((error) => {
-        console.error('Got signin error: ', error);
         setAuthError(error);
       })
       .finally(() => {

@@ -4,7 +4,7 @@ import { GlobalContext } from '../pages/_app';
 import { graphqlClient } from '../lib/graphql-api';
 import { getHomepage } from '../graphql/queries';
 import { Blocks } from '../components/blocks';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import { useAuth } from '../lib/hooks/use-auth';
 
@@ -31,7 +31,7 @@ const Home = ({ homepage, authenticatedUser }) => {
 
 export const getServerSideProps = async (context) => {
   const { req, res } = context;
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   const [{ data: homepageData }] = await Promise.all([
     graphqlClient.query({ query: getHomepage })
