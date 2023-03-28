@@ -103,19 +103,19 @@ export default async function handler(req, res) {
   try {
     switch (event.type) {
       case 'charge.captured':
-        activatePendingMemberAccount(event.data.object);
+        await activatePendingMemberAccount(event.data.object);
         break;
       case 'charge.refunded':
         console.log('HANDLING charge.refunded event');
-        deletePendingMemberAccount(event.data.object);
+        await deletePendingMemberAccount(event.data.object);
         break;
       case 'charge.expired':
         console.log('HANDLING charge.expired event');
-        deletePendingMemberAccount(event.data.object);
+        await deletePendingMemberAccount(event.data.object);
         break;
       case 'charge.failed':
         console.log('HANDLING charge.failed event');
-        deletePendingMemberAccount(event.data.object);
+        await deletePendingMemberAccount(event.data.object);
         break;
     }
   } catch(error) {
