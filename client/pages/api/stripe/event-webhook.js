@@ -40,15 +40,18 @@ const activatePendingMemberAccount = async (charge) => {
 // subsequent attempts at registering with the same email address is not blocked by 'email already
 // exists' error in firebase
 const deletePendingMemberAccount = async (charge) => {
+  console.log('Called delete pending member account with charge: ', charge);
   const { customer: customerId } = charge;
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
+  console.log('deleting acc with email: ', customerEmail);
 
   if(!customerEmail) {
     throw new Error('No email address was found in the customer stripe object. Cannot activate member');
   }
 
   const deletionResult = await deletePendingMember(customerEmail);
+  console.log('Deletion result: ', deletionResult);
 
   if(deletionResult.error) {
     throw new Error('Failed to activate member: ', deletionResult.error.message);
@@ -95,6 +98,8 @@ export default async function handler(req, res) {
   
   // Return 200 here so that the webhook doesn't timeout
   // res.status(200).json({ received: true });
+  console.log('event: ', event);
+  console.log('event.type: ', event.type);
 
   try {
     switch (event.type) {
@@ -102,12 +107,15 @@ export default async function handler(req, res) {
         activatePendingMemberAccount(event.data.object);
         break;
       case 'charge.refunded':
+        console.log('HANDLING charge.refunded event');
         deletePendingMemberAccount(event.data.object);
         break;
       case 'charge.expired':
+        console.log('HANDLING charge.expired event');
         deletePendingMemberAccount(event.data.object);
         break;
       case 'charge.failed':
+        console.log('HANDLING charge.failed event');
         deletePendingMemberAccount(event.data.object);
         break;
     }
