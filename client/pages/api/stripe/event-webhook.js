@@ -40,7 +40,7 @@ const activatePendingMemberAccount = async (charge) => {
 // subsequent attempts at registering with the same email address is not blocked by 'email already
 // exists' error in firebase
 const deletePendingMemberAccount = async (charge) => {
-  console.log('Called delete pending member account with charge: ', charge);
+  // console.log('Called delete pending member account with charge);
   const { customer: customerId } = charge;
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
@@ -81,9 +81,9 @@ export default async function handler(req, res) {
   const signature = req.headers['stripe-signature'];
 
   // TODO: add console logs to deletion and activation fns above to see if they are triggering
-  console.log('req.body: ', req.body);
-  console.log('req.rawBody: ', req.rawBody);
-  console.log('rawBody: ', rawBody);
+  // console.log('req.body: ', req.body);
+  // console.log('req.rawBody: ', req.rawBody);
+  // console.log('rawBody: ', rawBody);
 
   // const body = process.env.NODE_ENV === 'development' ? bodyBuffer : req.body;
 
@@ -98,7 +98,6 @@ export default async function handler(req, res) {
   
   // Return 200 here so that the webhook doesn't timeout
   // res.status(200).json({ received: true });
-  console.log('event: ', event);
   console.log('event.type: ', event.type);
 
   try {
@@ -125,3 +124,5 @@ export default async function handler(req, res) {
 
   res.status(200).json({ received: true });
 }
+
+
