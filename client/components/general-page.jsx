@@ -2,7 +2,6 @@ import { Layout, Sidebar } from '.';
 import { Blocks } from './blocks';
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
-import { useAuth } from '../lib/hooks/use-auth';
 import { TailSpin } from 'react-loader-spinner';
 import Link from 'next/link';
 
@@ -17,8 +16,7 @@ const GeneralPage = ({
   let sidebarTitle = type.charAt(0).toUpperCase() + type.slice(1);
 
   if (sidebarTitle === 'Root') sidebarTitle = 'NZSE';
-  const { data: session, status } = useSession();
-  const { setAuthenticatedUser } = useAuth();
+  const { status } = useSession();
   const [authStatusResolved, setAuthStatusResolved] = useState(false);
 
 
@@ -62,9 +60,8 @@ const GeneralPage = ({
   };
 
   useEffect(() => {
-    if(status === 'authenticated') setAuthenticatedUser({ email: session.user.email });
     setAuthStatusResolved(true);
-  }, [membersOnly, status]);
+  }, [status]);
 
   return (
     <Layout navigationData={navigationData} footerData={footerData}>

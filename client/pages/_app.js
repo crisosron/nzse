@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { createContext } from 'react';
 import { getStrapiMedia } from '../lib/media';
 import { graphqlClient } from '../lib/graphql-api';
 import {
@@ -13,8 +12,7 @@ import { SessionProvider } from 'next-auth/react';
 
 import '../styles/globals.scss';
 import { AuthProvider } from '../lib/hooks/use-auth';
-
-export const GlobalContext = createContext({});
+import { GlobalContextProvider } from '../lib/contexts/global-context';
 
 const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
   const { globalAttributes, globalSeo, seo } = pageProps;
@@ -53,17 +51,16 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
       </Head>
       <SessionProvider session={session}>
         <AuthProvider>
-          <GlobalContext.Provider value={pageProps}>
+          <GlobalContextProvider pageProps={pageProps}>
             <Component {...pageProps} />
-          </GlobalContext.Provider>
+          </GlobalContextProvider>
         </AuthProvider>
       </SessionProvider>
     </>
   );
 };
 
-MyApp.getInitialProps = async (context) => {
-  const { ctx: { res } } = context;
+MyApp.getInitialProps = async () => {
   const [
     { data: globalAttributesData },
     { data: globalSeoData },
@@ -83,15 +80,6 @@ MyApp.getInitialProps = async (context) => {
   const sidebar = sidebarData.sidebar.data?.attributes;
   const footer = footerData.footer.data?.attributes;
   const navigation = navigationData.navigation.data?.attributes;
-
-  // Keep fresh for an 1 hour, but allow serving of stale content (and revalidate) up to a day
-  // TODO: This causes a problem with authentication... because when the page is cached, the
-  // getServerSideProps for the page is never called, and because getServerSideProps is where
-  // the gating of the content takes place.... this means that the site can't consistently detect
-  // the auth status of the end-user
-  // res.setHeader(
-  //   'Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400'
-  // );
 
   return {
     pageProps: {
