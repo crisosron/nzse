@@ -39,6 +39,8 @@ export const getServerSideProps = async (context) => {
 
   const homepage = homepageData.homepage.data?.attributes;
 
+  console.log('----- homepage session: ', session);
+
   return {
     props: {
       homepage,
