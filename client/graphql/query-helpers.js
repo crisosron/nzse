@@ -80,6 +80,7 @@ const generalPageBlocksListSubquery = `
       id
       subjectTitle
       flipbookLink
+      ${fileSubquery}
     }
   }
 `;
@@ -173,11 +174,6 @@ const blocksListSubquery = `
         }
         ${imagesSubquery}
       }
-    }
-    ...on ComponentContentBlocksFlipbookBlock {
-      id
-      subjectTitle
-      flipbookLink
     }
   }
 `;
