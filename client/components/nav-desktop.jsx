@@ -7,6 +7,7 @@ import PopoverTransitionWrapper from './popover-transition-wrapper';
 import { ChevronRightIcon, LogoutIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
 import { useAuth } from '../lib/hooks/use-auth';
+import { useSession } from 'next-auth/react';
 
 const NavLink = ({ link, className }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -169,8 +170,10 @@ const UnAuthenticatedNavButtons = () => {
 const AuthenticatedNavButtons = ({ authenticatedUser }) => {
   const { signOutUser } = useAuth();
 
-  const { email } = authenticatedUser;
+  const { email } = authenticatedUser || {};
   const [signoutHovered, setSignoutHovered] = useState(false);
+  if(!email) return <></>;
+
   return (
     <div
       className='group z-max'
@@ -216,6 +219,7 @@ const AuthenticatedNavButtons = ({ authenticatedUser }) => {
 
 const NavDesktop = ({ linkItems }) => {
   const { authenticatedUser } = useAuth();
+  const { status: authStatus } = useSession();
   return (
     <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max'>
       <div className='NavDesktop flex flex-row items-center'>
@@ -233,7 +237,7 @@ const NavDesktop = ({ linkItems }) => {
         </div>
       </div>
       <div className='flex flex-row w-1/3 justify-end'>
-        {authenticatedUser ? (
+        {authStatus === 'authenticated' ? (
           <AuthenticatedNavButtons authenticatedUser={authenticatedUser} />
         ) : (
           <UnAuthenticatedNavButtons />

@@ -1,11 +1,10 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { GeneralPage } from '../../components';
 // import { getServerSession } from 'next-auth/next';
 // import { authOptions } from '../api/auth/[...nextauth]';
 // import { useAuth } from '../../lib/hooks/use-auth';
 import { buildGeneralPageSlugs, buildGeneralPageProps } from '../../lib/general-page-utils';
 import { useAuth } from '../../lib/hooks/use-auth';
-import { useSession } from "next-auth/react";
 
 export const getStaticPaths = async () => {
   return {
@@ -51,17 +50,25 @@ const PatientsGeneralPage = (props) => {
   const { sidebar } = props;
   const patientsSidebar = sidebar?.patientsSidebar;
 
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
 
-  // const { authenticatedUser } = useAuth();
-  console.log('PatientsGeneralpage session: ', session);
-  console.log('status: ', status);
+  // const { setAuthenticatedUser } = useAuth();
+  // console.log('PatientsGeneralpage session: ', session);
+  // console.log('status: ', status);
+
+  // useEffect(() => {
+  //   console.log('In PatientsGeneralPage useEffect');
+  //   console.log('PatientsGeneralpage session: ', session);
+  //   console.log('status: ', status);
+  // }, []);
 
   // Set the authenticated user state here to prevent flashing of un-authenticated Nav component state
   // const { setAuthenticatedUser } = useAuth();
   // useEffect(() => {
-  //   setAuthenticatedUser(authenticatedUser);
-  // }, []);
+  //   if(status === 'authenticated') setAuthenticatedUser({ email: session.user.email });
+  // }, [status]);
+
+  // if(status === 'authenticated') setAuthenticatedUser({ email: session.user.email });
 
   return <GeneralPage sidebarNavBlocks={patientsSidebar} {...props} />;
 };

@@ -3,7 +3,7 @@ import { GeneralPage } from '../components';
 // import { getServerSession } from 'next-auth/next';
 // import { authOptions } from './api/auth/[...nextauth]';
 import { useAuth } from '../lib/hooks/use-auth';
-import { buildGeneralPageSlugs, buildGeneralPageProps } from '../../lib/general-page-utils';
+import { buildGeneralPageSlugs, buildGeneralPageProps } from '../lib/general-page-utils';
 
 export const getStaticPaths = async () => {
   return {
