@@ -80,7 +80,6 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      // authenticatedUser: session ? { email: session.user.email } : null,
       memberships,
       joinPageProps: {
         ...joinPage,
