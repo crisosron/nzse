@@ -7,10 +7,13 @@ const GeneralPage = ({
   sidebarNavBlocks,
   footer: footerData,
   navigation: navigationData,
+  membersOnly
 }) => {
   let sidebarTitle = type.charAt(0).toUpperCase() + type.slice(1);
 
   if (sidebarTitle === 'Root') sidebarTitle = 'NZSE';
+
+  console.log('membersOnly: ', membersOnly);
 
   return (
     <Layout navigationData={navigationData} footerData={footerData}>
