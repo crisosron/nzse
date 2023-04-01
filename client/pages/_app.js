@@ -85,9 +85,13 @@ MyApp.getInitialProps = async (context) => {
   const navigation = navigationData.navigation.data?.attributes;
 
   // Keep fresh for an 1 hour, but allow serving of stale content (and revalidate) up to a day
-  res.setHeader(
-    'Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400'
-  );
+  // TODO: This causes a problem with authentication... because when the page is cached, the
+  // getServerSideProps for the page is never called, and because getServerSideProps is where
+  // the gating of the content takes place.... this means that the site can't consistently detect
+  // the auth status of the end-user
+  // res.setHeader(
+  //   'Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400'
+  // );
 
   return {
     pageProps: {
