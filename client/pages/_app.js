@@ -85,9 +85,9 @@ MyApp.getInitialProps = async (context) => {
   const navigation = navigationData.navigation.data?.attributes;
 
   // Keep fresh for an 1 hour, but allow serving of stale content (and revalidate) up to a day
-  res.setHeader(
-    'Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400'
-  );
+  // res.setHeader(
+  //   'Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400'
+  // );
 
   return {
     pageProps: {
