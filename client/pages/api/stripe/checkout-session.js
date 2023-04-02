@@ -15,10 +15,25 @@ const validRequestBody = (req) => {
 };
 
 const customerMetadata = (customerDetails) => {
-  const { firstName, surname, dob, mobileNumber, address, suburb, city, postcode, nzdaMember, dcnzLicenseNumber, specialisation } = customerDetails || {};
+  const { 
+    firstName,
+    surname,
+    email,
+    dob,
+    mobileNumber,
+    address,
+    suburb,
+    city,
+    postcode,
+    nzdaMember,
+    dcnzLicenseNumber,
+    specialisation 
+  } = customerDetails || {};
+  
   return {
     'First name': firstName,
     'Last name': surname,
+    'Email': email,
     'Date of Birth': dob,
     'Mobile number': mobileNumber || 'Not specified',
     'Address': address,
