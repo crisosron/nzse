@@ -42,13 +42,18 @@ const SplitRow = ({ children }) => {
 };
 
 const SuccessState = ({ message }) => {
+  // To set the minimum height such that the content container fills the page, whilst making sure
+  // the footer remains visible in the viewport:
+  // md:min-h calc: 13rem (h-52) = footer height, 6rem (h-24): nav height
   return (
-    <Container className='prose my-10 md:my-20'>
-      <div className='flex justify-center items-center'>
-        <TickIcon className='fill-affirmative-green w-[40%] h-[40%] md:w-[15%] md:h-[15%] mb-8' />
-      </div>
-      <div className='text-center'>
-        <ReactMarkdown>{message}</ReactMarkdown>
+    <Container className='md:min-h-[calc(100vh-13rem-6rem)] prose flex justify-center items-center'>
+      <div>
+        <div className='flex justify-center items-center'>
+          <TickIcon className='fill-affirmative-green md:w-[15%] md:h-[15%] mb-8' />
+        </div>
+        <div className='text-center'>
+          <ReactMarkdown>{message}</ReactMarkdown>
+        </div>
       </div>
     </Container>
   );
