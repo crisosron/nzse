@@ -15,18 +15,19 @@ const validRequestBody = (req) => {
 };
 
 const customerMetadata = (customerDetails) => {
-  const { firstName, surname, mobileNumber, address, suburb, city, postcode, nzdaMember, dcnzLicenseNumber, specialisation } = customerDetails || {};
+  const { firstName, surname, dob, mobileNumber, address, suburb, city, postcode, nzdaMember, dcnzLicenseNumber, specialisation } = customerDetails || {};
   return {
     'First name': firstName,
     'Last name': surname,
-    'Mobile number': mobileNumber,
+    'Date of Birth': dob,
+    'Mobile number': mobileNumber || 'Not specified',
     'Address': address,
-    'Suburb': suburb,
-    'City': city,
-    'Post code': postcode,
+    'Suburb': suburb || 'Not specified',
+    'City': city || 'Not specified',
+    'Post code': postcode || 'Not specified',
     'NZDA Member?': nzdaMember,
-    'DCNZ License Number': dcnzLicenseNumber,
-    'Specialisation/Category of Dentistry': specialisation
+    'DCNZ License Number': dcnzLicenseNumber || 'Not specified',
+    'Specialisation/Category of Dentistry': specialisation || 'Not specified'
   };
 };
 

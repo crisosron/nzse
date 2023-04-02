@@ -98,6 +98,7 @@ const JoinPage = ({
       password,
       firstName,
       surname,
+      dob,
       mobileNumber,
       address,
       suburb,
@@ -117,6 +118,7 @@ const JoinPage = ({
     const customer = {
       firstName,
       surname,
+      dob,
       email,
       mobileNumber,
       address,
