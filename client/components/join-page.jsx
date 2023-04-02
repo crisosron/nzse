@@ -201,6 +201,10 @@ const JoinPage = ({
     });
   }, []);
 
+  useEffect(() => {
+    if(processingError || stripeError) window.scrollTo(0, 0);
+  }, [processingError, stripeError]);
+
   if (showPaymentSuccessState) {
     return <SuccessState message={successMessage} />;
   }
@@ -208,15 +212,15 @@ const JoinPage = ({
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
-      {processingError ||
-        (stripeError && (
-          <Notice type='danger'>
-            <span>
-              An error occurred trying to process your request. Please try again later, or contact
-              <a href='mailto:info@nzse.org.nz'>info@nzse.org.nz</a> for more information.
-            </span>
-          </Notice>
-        ))}
+      {
+        (processingError || stripeError) &&
+        <Notice type='danger'>
+          <span>
+            An error occurred trying to process your request. Please try again later, or contact{' '}
+            <a href='mailto:info@nzse.org.nz'>info@nzse.org.nz</a> for more information.
+          </span>
+        </Notice>        
+      }
       {authenticatedUser && (
         <Notice type='info'>
           <span>
