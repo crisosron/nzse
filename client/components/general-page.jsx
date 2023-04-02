@@ -68,7 +68,8 @@ const GeneralPage = ({
       <div className='GeneralPage flex'>
         <Sidebar className='hidden md:block' navBlocks={sidebarNavBlocks} title={sidebarTitle} />
         {/*
-          To set the minimum height such that the footer is still fully visible on the viewport 
+          To set the minimum height such that the content container fills the page, whilst making
+          sure the footer remains visbile in the viewport:  
           md:min-h calc: 13rem (h-52) = footer height, 6rem (h-24): nav height
         */}
         <div className='general-page-blocks md:min-h-[calc(100vh-13rem-6rem)] w-full mx-[23px] py-4 md:ml-9 md:mr-[9%] md:py-12 lg:ml-12 lg:mr-[15%] lg:py-12'>

@@ -3,7 +3,7 @@ import { hasRequiredProperties } from "../../../lib/api-utils";
 
 const validRequestBody = (req) => {
   if(!req.body) return false;
-  return hasRequiredProperties(["email", req.body]);
+  return hasRequiredProperties(["email"], req.body);
 };
 
 export const deletePendingMember = async (email) => {
@@ -58,10 +58,8 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { email } = req.body;
-
   try {
-    const results = await deletePendingMember(email);
+    const results = await deletePendingMember(req.body.email);
     if(results.error) {
       res.status(results.error.status).json({ message: results.error.message });
       return;
