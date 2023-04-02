@@ -221,7 +221,7 @@ const NavDesktop = ({ linkItems }) => {
   const { authenticatedUser } = useAuth();
   const { status: authStatus } = useSession();
   return (
-    <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max'>
+    <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max border-b-2 border-gray-200'>
       <div className='NavDesktop flex flex-row items-center'>
         <div className='mr-14'>
           <Link href='/'>
