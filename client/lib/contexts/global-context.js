@@ -7,11 +7,11 @@ export const GlobalContext = createContext({});
 
 export const GlobalContextProvider = ({ children, pageProps }) => {
   const { data: session, status } = useSession();
-  const { setAuthenticatedUser } = useAuth();
+  const { setAuthenticatedUser, authenticatedUser } = useAuth();
 
   useEffect(() => {
-    if(status === 'authenticated') setAuthenticatedUser({ email: session.user.email });
-  }, [status]);
+    if(status === 'authenticated' && !authenticatedUser) setAuthenticatedUser({ email: session.user.email });
+  });
 
   return (
     <GlobalContext.Provider value={pageProps}>
