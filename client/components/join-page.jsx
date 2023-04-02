@@ -68,7 +68,7 @@ const JoinPage = ({
   showPaymentSuccessState,
   error: stripeError,
   successMessage,
-  designationOptions: designationOptionsString
+  specialisationOptions: specialisationOptionsString
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
@@ -79,9 +79,14 @@ const JoinPage = ({
 
   const { authenticatedUser } = useAuth();
 
-  const designationOptions = designationOptionsString
+  const specialisationOptions = specialisationOptionsString
     .split(',')
-    .map((option) => ({ label: option, value: option }));
+    .map((option) => ({ label: option.trim(), value: option.trim() }));
+
+  const nzdaMemberOptions = [
+    { label: 'Yes', value: 'Yes' },
+    { label: 'No', value: 'No' }
+  ];
 
   const onSubmit = async (data) => {
     if (submitting) return;
@@ -98,9 +103,9 @@ const JoinPage = ({
       suburb,
       city,
       postcode,
-      institution,
-      department,
-      designation
+      nzdaMember,
+      dcnzLicenseNumber,
+      specialisation,
     } = data;
 
     const item = {
@@ -108,6 +113,7 @@ const JoinPage = ({
       quantity: 1
     };
 
+    // This is the information stored under the customer object in Stripe
     const customer = {
       firstName,
       surname,
@@ -117,9 +123,9 @@ const JoinPage = ({
       suburb,
       city,
       postcode,
-      institution,
-      department,
-      designation
+      nzdaMember,
+      dcnzLicenseNumber,
+      specialisation,
     };
 
     try {
@@ -285,16 +291,23 @@ const JoinPage = ({
         <Section title='Your professional details'>
           <ReactMarkdown>{professionalDetailsSectionDescription}</ReactMarkdown>
           <SplitRow>
-            <InputField type='text' name='institution' label='Institution' />
-            <InputField type='text' name='department' label='Department' />
+            <InputField 
+              type='select'
+              name='nzdaMember'
+              label='Are you a member of the NZDA?'
+              options={nzdaMemberOptions}
+              placeholder='Select an option' 
+              validations={{ required: 'Please select an option'}}
+            />
+            <InputField type='text' name='dcnzLicenseNumber' label='DCNZ (Dental Council of NZ) License Number' />
           </SplitRow>
           <SplitRow>
-            <InputField
+            <InputField 
               type='select'
-              name='designation'
-              label='Designation'
-              placeholder='Select a designation'
-              options={designationOptions}
+              name='specialisation'
+              label='Specialisation/Category of Dentistry'
+              options={specialisationOptions}
+              placeholder='Select an option' 
             />
           </SplitRow>
         </Section>

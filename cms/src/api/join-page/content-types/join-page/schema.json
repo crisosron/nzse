@@ -51,9 +51,10 @@
     "successMessage": {
       "type": "richtext"
     },
-    "designationOptions": {
+    "specialisationOptions": {
       "type": "text",
-      "unique": false
+      "default": "Postgraduate student,Undergraduate student,Endodontist,Prosthodontist,Periodontist,Oral Surgeon,Orthodontist ,Overseas Practicing Dentist",
+      "required": true
     }
   }
 }

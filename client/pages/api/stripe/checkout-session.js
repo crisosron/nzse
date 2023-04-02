@@ -15,7 +15,7 @@ const validRequestBody = (req) => {
 };
 
 const customerMetadata = (customerDetails) => {
-  const { firstName, surname, mobileNumber, address, suburb, city, postcode, institution, department, designation } = customerDetails || {};
+  const { firstName, surname, mobileNumber, address, suburb, city, postcode, nzdaMember, dcnzLicenseNumber, specialisation } = customerDetails || {};
   return {
     'First name': firstName,
     'Last name': surname,
@@ -24,9 +24,9 @@ const customerMetadata = (customerDetails) => {
     'Suburb': suburb,
     'City': city,
     'Post code': postcode,
-    'Institution': institution,
-    'Department': department,
-    'Designation': designation
+    'NZDA Member?': nzdaMember,
+    'DCNZ License Number': dcnzLicenseNumber,
+    'Specialisation/Category of Dentistry': specialisation
   };
 };
 
