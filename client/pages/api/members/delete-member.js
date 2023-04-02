@@ -6,7 +6,7 @@ const validRequestBody = (req) => {
   return hasRequiredProperties(["email"], req.body);
 };
 
-export const deletePendingMember = async (email) => {
+export const deleteMember = async (email, pendingOnly) => {
   const { users } = await firebaseAdminAuth.getUsers([{ email, }]) || {};
 
   if(!users || users.length === 0) {
@@ -18,7 +18,7 @@ export const deletePendingMember = async (email) => {
     };
   }
 
-  if(!users[0].disabled) {
+  if(pendingOnly && !users[0].disabled) {
     return {
       error: {
         message: `An activated member was found with the email '${email}' and cannot be deleted`,
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const results = await deletePendingMember(req.body.email);
+    const results = await deleteMember(req.body.email, req.body.pendingOnly);
     if(results.error) {
       res.status(results.error.status).json({ message: results.error.message });
       return;

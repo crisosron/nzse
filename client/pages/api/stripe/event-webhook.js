@@ -1,6 +1,6 @@
 import { initStripe } from "../../../lib/stripe";
 import { activateMember } from "../members/activate-member";
-import { deletePendingMember } from "../members/delete-pending-member";
+import { deleteMember } from "../members/delete-member";
 
 // Disable the body parser for this api route because we need to send the raw body to Stripe for
 // verification
@@ -39,7 +39,6 @@ const activatePendingMemberAccount = async (charge) => {
 // subsequent attempts at registering with the same email address is not blocked by 'email already
 // exists' error in firebase
 const deletePendingMemberAccount = async (charge) => {
-  // console.log('Called delete pending member account with charge);
   const { customer: customerId } = charge;
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
@@ -48,7 +47,66 @@ const deletePendingMemberAccount = async (charge) => {
     throw new Error('No email address was found in the customer stripe object. Cannot activate member');
   }
 
-  const deletionResult = await deletePendingMember(customerEmail);
+  const deletionResult = await deleteMember(customerEmail);
+
+  if(deletionResult.error) {
+    throw new Error('Failed to activate member: ', deletionResult.error.message);
+  }
+};
+
+const pauseSubscriptionOnCreate = async (subscription) => {
+  const stripe = await initStripe();
+  const { id } = subscription;
+  
+  await stripe.subscriptions.update(id, { 
+    pause_collection: { 
+      behavior: 'keep_as_draft'
+    }
+  });
+};
+
+const handleSubscriptionChange = async (subscription) => {
+  const { pause_collection: pauseCollection, customer: customerId } = subscription;
+
+  if(pauseCollection) return;
+
+  // If the subscription has been unpaused, this means that the NZSE committee has approved the
+  // membership. Therefore, activate the account in firebase to enable their login
+  const customerObject = await findStripeCustomerById(customerId);
+  const { email: customerEmail } = customerObject;
+  
+  if(!customerEmail) {
+    throw new Error('No email address was found in the customer stripe object. Cannot activate member');
+  }
+
+  const activationResult = await activateMember(customerEmail);
+
+  if(activationResult.error) {
+    throw new Error('Failed to activate member: ', activationResult.error.message);
+  }
+};
+
+// When a subscription is deleted, one of 2 scenarios have taken place
+// - The subscription was in the initial trial period and was manually rejected by the NZSE
+// committee after a manual review
+// - The subscription was cancelled manually by NZSE for some other reason (i.e. not because the
+// member's application failed to meet the acceptance criteria)
+//
+// In either case, the member's account is deleted in firebase, irrespective if they were a
+// pending/disabled member (which would be the case if the subscription was in the initial trial
+// period) or not.
+//
+// By deleting the account in firebase, login access is effectively revoked.
+const handleSubscriptionDeleted = async (subscription) => {
+  const { customer: customerId } = subscription;
+  const customerObject = await findStripeCustomerById(customerId);
+  const { email: customerEmail } = customerObject;
+
+  if(!customerEmail) {
+    throw new Error('No email address was found in the customer stripe object. Cannot activate member');
+  }
+
+  const deletionResult = await deleteMember(customerEmail);
 
   if(deletionResult.error) {
     throw new Error('Failed to activate member: ', deletionResult.error.message);
@@ -84,9 +142,18 @@ export default async function handler(req, res) {
     res.status(400).send(`Webhook Error: ${error.message}`);
     return;
   }
+
+  console.log('------------ event.type: ', event.type);
   
   try {
     switch (event.type) {
+
+      // TODO: Are these charge events needed?
+      // TODO: Need to handle if a subscription has not been paid?
+      // TODO: Need to not collect payment information on initial sign up, and send an invoice for manual payment...
+      // On invoice pay, only then is the account activated... (approval action is to send the invoice) - This will apply for free
+      // Events of interest: invoice.paid. invoice.payment_failed
+      
       case 'charge.captured':
         await activatePendingMemberAccount(event.data.object);
         break;
@@ -98,6 +165,15 @@ export default async function handler(req, res) {
         break;
       case 'charge.failed':
         await deletePendingMemberAccount(event.data.object);
+        break;
+      case 'customer.subscription.created':
+        await pauseSubscriptionOnCreate(event.data.object);
+        break;
+      case 'customer.subscription.updated':
+        await handleSubscriptionChange(event.data.object);
+        break;
+      case 'customer.subscription.deleted':
+        handleSubscriptionDeleted(event.data.object);
         break;
     }
   } catch(error) {

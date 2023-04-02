@@ -192,7 +192,7 @@ const JoinPage = ({
     const pendingMemberEmail = getCookie('pendingMemberEmail');
 
     const deletePendingMember = async () => {
-      await axios.post('/api/members/delete-pending-member', { email: pendingMemberEmail });
+      await axios.post('/api/members/delete-pending-member', { email: pendingMemberEmail, pendingOnly: true });
       deleteCookie('pendingMemberEmail');
     };
 

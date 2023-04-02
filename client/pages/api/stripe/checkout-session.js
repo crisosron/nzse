@@ -122,6 +122,7 @@ export default async function handler(req, res) {
   
   try {
     if(!validRequestBody(req)) {
+      console.log('CHECKOUT SESSION INVALID REQUEST BODY');
       res.status(400).json({ message: "Request body must contain an 'item' object with the properties '{ price: <price_id>, quantity: <number> }' and a 'customer' object with the properties '{email: <email address>}'"});
       return;
     }
@@ -129,18 +130,33 @@ export default async function handler(req, res) {
     const stripe = await initStripe();
 
     const customer = await findOrCreateStripeCustomer(req.body.customer);
+    // console.log('Customer: ', customer);
+    // console.log('req.body.item: ', req.body.item);
+
+    // TODO: Need to create the subscription so we can specify payment type to send invoice
+    // TODO: specify collection_method as send_invoice
+    // TODO: But will this send the invoice immediately to the user? If so then this doesn't work
 
     const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
+      mode: 'subscription',
       payment_method_types: ['card'],
       line_items: [
         req.body.item
       ],
       customer: customer.id,
-      payment_intent_data: {
-        capture_method: 'manual',
-        metadata: customerMetadata(req.body.customer)
+      // payment_intent_data: {
+      //   capture_method: 'manual',
+      //   metadata: customerMetadata(req.body.customer)
+      // },
+
+      // TODO: Need to use setupIntent to use created subscription
+
+      subscription_data: {
+        metadata: customerMetadata(req.body.customer),
+        trial_period_days: 1
       },
+
+      // TODO: set collect payment to false
 
       // Note: template string comes from Stripe
       // https://stripe.com/docs/payments/checkout/custom-success-page
@@ -151,6 +167,7 @@ export default async function handler(req, res) {
     res.status(200).json({ checkoutSessionUrl: session.url });
 
   } catch(error) {
+    console.log('checkout session Got error: ', error);
     res.status(error.statusCode || 500).json(
       {
         error: {
