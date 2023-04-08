@@ -161,14 +161,12 @@ export default async function handler(req, res) {
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(rawBody, signature, 'whsec_a18b94417d88417c4c70a8ae5b6b8d494f74c8bc55d276ce746af3b0895ad2ca');
+    event = stripe.webhooks.constructEvent(rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET_KEY);
   } catch (error) {
     res.status(400).send(`Webhook Error: ${error.message}`);
     return;
   }
 
-  console.log('------------ event.type: ', event.type);
-  
   try {
     switch (event.type) {
       case 'customer.subscription.created':
