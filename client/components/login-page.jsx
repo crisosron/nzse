@@ -7,6 +7,7 @@ import { useAuth } from '../lib/hooks/use-auth';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Notice from './notice';
+import { PAGE_LINKS } from '../lib/constants';
 
 const LoginPage = () => {
   const { signInUser, authLoading, authError } = useAuth();
@@ -48,7 +49,7 @@ const LoginPage = () => {
           <span>
             If you are a member of the old NZSE website and this is your first time logging in,
             navigate to the{' '}
-            <Link href='/password-reset'>
+            <Link href={PAGE_LINKS.PASSWORD_RESET}>
               <a>password reset</a>
             </Link>{' '}
             page and follow the instructions to activate your account.
@@ -79,7 +80,7 @@ const LoginPage = () => {
               <span className='text-alert-red'>{manualErrors.invalidLogin.message}</span>
             )}
             <div className='flex justify-end mb-8 mt-[-15px]'>
-              <Link href='/password-reset'>
+              <Link href={PAGE_LINKS.PASSWORD_RESET}>
                 <a className='text-[14px] font-normal'>Forgot your password?</a>
               </Link>
             </div>
@@ -93,7 +94,7 @@ const LoginPage = () => {
               }}
             />
             <div className='flex justify-center'>
-              <Link href='/memberships'>
+              <Link href={PAGE_LINKS.MEMBERSHIP_INFO}>
                 <a className='text-[14px] font-normal'>Find out more about our memberships</a>
               </Link>
             </div>

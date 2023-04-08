@@ -8,6 +8,7 @@ import { ChevronRightIcon, LogoutIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
 import { useAuth } from '../lib/hooks/use-auth';
 import { useSession } from 'next-auth/react';
+import { PAGE_LINKS } from '../lib/constants';
 
 const NavLink = ({ link, className }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -160,7 +161,7 @@ const UnAuthenticatedNavButtons = () => {
           Member Login
         </div>
       </NavButton>
-      <NavButton href='/memberships' className='mr-6 last:mr-0' applyAccent>
+      <NavButton href={PAGE_LINKS.MEMBERSHIP_INFO} className='mr-6 last:mr-0' applyAccent>
         Become a member
       </NavButton>
     </>
