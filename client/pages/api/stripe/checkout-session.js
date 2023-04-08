@@ -151,7 +151,7 @@ export default async function handler(req, res) {
     res.status(200).json({ checkoutSessionUrl: session.url });
 
   } catch(error) {
-    console.log('checkout session Got error: ', error);
+    console.log('Checkout session got error: ', error);
     res.status(error.statusCode || 500).json(
       {
         error: {
