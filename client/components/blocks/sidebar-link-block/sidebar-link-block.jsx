@@ -11,12 +11,10 @@ const SidebarLinkBlock = (props) => {
   } = unwrapEntityResponse(page);
 
   const router = useRouter();
-  
-  let href;
-  if(!pageType) href = '';
-  else if(pageType.toLowerCase() === 'root') href = `/${pageSlug}`;
-  else `/${pageType.toLowerCase()}/${pageSlug}`;
 
+  if(!page || !pageType) return <></>;
+  
+  const href = pageType.toLowerCase() === 'root' ? `/${pageSlug}` : `/${pageType.toLowerCase()}/${pageSlug}`;
   const pathComponents = router.asPath.split('/');
   const representsCurrentRoute = pathComponents[pathComponents.length - 1] === pageSlug;
 
