@@ -9,7 +9,8 @@ import {
   SidebarLinkBlock,
   SidebarDropdownBlock,
   HeroBannerBlock,
-  LargeCardsBlock
+  LargeCardsBlock,
+  EmbedBlock
 } from './index';
 
 import Container from '../container';
@@ -24,7 +25,8 @@ const CONTENT_BLOCK_NAMES = [
   'ComponentContentBlocksCardBlock',
   'ComponentContentBlocksFlipbookBlock',
   'ComponentContentBlocksHeroBannerBlock',
-  'ComponentContentBlocksLargeCardsBlock'
+  'ComponentContentBlocksLargeCardsBlock',
+  'ComponentContentBlocksEmbedBlock'
 ];
 
 const Block = ({ blockRecord, noContainerSpacing }) => {
@@ -39,7 +41,8 @@ const Block = ({ blockRecord, noContainerSpacing }) => {
     ComponentContentBlocksHeroBannerBlock: HeroBannerBlock,
     ComponentContentBlocksLargeCardsBlock: LargeCardsBlock,
     ComponentNavigationBlocksSidebarLink: SidebarLinkBlock,
-    ComponentNavigationBlocksSidebarDropdown: SidebarDropdownBlock
+    ComponentNavigationBlocksSidebarDropdown: SidebarDropdownBlock,
+    ComponentContentBlocksEmbedBlock: EmbedBlock
   };
 
   const blockType = blockRecord.__typename;
