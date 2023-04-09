@@ -179,6 +179,7 @@ export default async function handler(req, res) {
         handleSubscriptionDeleted(event.data.object);
         break;
       default:
+        res.status(200).json({ received: true });
         return;
     }
   } catch(error) {
