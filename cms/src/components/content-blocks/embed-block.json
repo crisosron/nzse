@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_content_blocks_embed_blocks",
+  "info": {
+    "displayName": "EmbedBlock"
+  },
+  "options": {},
+  "attributes": {
+    "snippet": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

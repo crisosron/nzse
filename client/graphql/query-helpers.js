@@ -82,6 +82,10 @@ const generalPageBlocksListSubquery = `
       flipbookLink
       ${fileSubquery}
     }
+    ...on ComponentContentBlocksEmbedBlock {
+      id
+      snippet
+    }
   }
 `;
 
