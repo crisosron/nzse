@@ -25,7 +25,7 @@ const ButtonBlock = ({ title, externalLink, internalLink, alignment, className }
     if (internalLink && internalLink.data) {
       const internalLinkURL = buildPageUrl(internalLink.data.attributes);
       return (
-        <Link href={internalLinkURL} passHref>
+        <Link href={internalLinkURL || '/'} passHref>
           {anchorElement()}
         </Link>
       );

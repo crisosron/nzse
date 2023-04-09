@@ -19,7 +19,7 @@ const SidebarLinkBlock = (props) => {
   const representsCurrentRoute = pathComponents[pathComponents.length - 1] === pageSlug;
 
   return (
-    <Link href={href ?? ''}>
+    <Link href={href || '/'}>
       <a
         className={`block mb-4 ${
           representsCurrentRoute ? 'text-light-blue-700' : 'text-gray'
