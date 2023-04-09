@@ -1,3 +1,5 @@
+// TODO: This api route is no longer used and should be deleted
+
 import { firebaseAdminAuth } from "../../../lib/firebase-admin";
 
 export const activateMember = async (email) => {

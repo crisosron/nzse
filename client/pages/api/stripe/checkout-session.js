@@ -15,18 +15,34 @@ const validRequestBody = (req) => {
 };
 
 const customerMetadata = (customerDetails) => {
-  const { firstName, surname, mobileNumber, address, suburb, city, postcode, institution, department, designation } = customerDetails || {};
+  const { 
+    firstName,
+    surname,
+    email,
+    dob,
+    mobileNumber,
+    address,
+    suburb,
+    city,
+    postcode,
+    nzdaMember,
+    dcnzLicenseNumber,
+    specialisation 
+  } = customerDetails || {};
+  
   return {
     'First name': firstName,
     'Last name': surname,
-    'Mobile number': mobileNumber,
+    'Email': email,
+    'Date of Birth': dob,
+    'Mobile number': mobileNumber || 'Not specified',
     'Address': address,
-    'Suburb': suburb,
-    'City': city,
-    'Post code': postcode,
-    'Institution': institution,
-    'Department': department,
-    'Designation': designation
+    'Suburb': suburb || 'Not specified',
+    'City': city || 'Not specified',
+    'Post code': postcode || 'Not specified',
+    'NZDA Member?': nzdaMember,
+    'DCNZ License Number': dcnzLicenseNumber || 'Not specified',
+    'Specialisation/Category of Dentistry': specialisation || 'Not specified'
   };
 };
 
@@ -115,15 +131,15 @@ export default async function handler(req, res) {
     const customer = await findOrCreateStripeCustomer(req.body.customer);
 
     const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
+      mode: 'subscription',
       payment_method_types: ['card'],
       line_items: [
         req.body.item
       ],
       customer: customer.id,
-      payment_intent_data: {
-        capture_method: 'manual',
-        metadata: customerMetadata(req.body.customer)
+      subscription_data: {
+        metadata: customerMetadata(req.body.customer),
+        trial_period_days: 14
       },
 
       // Note: template string comes from Stripe
@@ -135,6 +151,7 @@ export default async function handler(req, res) {
     res.status(200).json({ checkoutSessionUrl: session.url });
 
   } catch(error) {
+    console.log('Checkout session got error: ', error);
     res.status(error.statusCode || 500).json(
       {
         error: {

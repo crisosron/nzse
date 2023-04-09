@@ -14,7 +14,8 @@ jobs:
   deploy:
     # needs: lint-client
     if: ${{ github.event_name == 'push' }}
-    runs-on: ubuntu-18.04 # Matches the machine used by Digital Ocean App Platform
+    # runs-on: ubuntu-18.04 # Matches the machine used by Digital Ocean App Platform
+    runs-on: ubuntu-latest
     steps:
       - uses: digitalocean/app_action@main
         with:

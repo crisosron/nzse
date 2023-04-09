@@ -1,6 +1,6 @@
 import { initStripe } from "../../../lib/stripe";
-import { activateMember } from "../members/activate-member";
-import { deletePendingMember } from "../members/delete-pending-member";
+import { updateMemberLoginStatus } from "../../../lib/member-actions";
+import { deleteMember } from "../members/delete-member";
 
 // Disable the body parser for this api route because we need to send the raw body to Stripe for
 // verification
@@ -16,9 +16,7 @@ const findStripeCustomerById = async (customerId) => {
   return stripeCustomer;
 };
 
-// Activate the firebase account of the customer in the charge object
-const activatePendingMemberAccount = async (charge) => {
-  const { customer: customerId } = charge;
+const activateMemberLogin = async (customerId) => {
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
 
@@ -26,21 +24,103 @@ const activatePendingMemberAccount = async (charge) => {
     throw new Error('No email address was found in the customer stripe object. Cannot activate member');
   }
 
-  const activationResult = await activateMember(customerEmail);
+  const activationResult = await updateMemberLoginStatus({ email: customerEmail, loginDisabled: false });
 
   if(activationResult.error) {
     throw new Error('Failed to activate member: ', activationResult.error.message);
   }
 };
 
-// Delete the firebase account of the customer in the charge object.
+const deactivateMemberLogin = async (customerId) => {
+  const customerObject = await findStripeCustomerById(customerId);
+  const { email: customerEmail } = customerObject;
+
+  if(!customerEmail) {
+    throw new Error('No email address was found in the customer stripe object. Cannot deactivate member');
+  }
+
+  const deactivationResult = await updateMemberLoginStatus({ email: customerEmail, loginDisabled: true });
+
+  if(deactivationResult.error) {
+    throw new Error('Failed to deactivate member: ', deactivationResult.error.message);
+  }
+};
+
+// When a subscription is created, the payment collection should be paused
 //
-// Deleting the firebase account is important to free up the email address in firebase, ensuring that
-// subsequent attempts at registering with the same email address is not blocked by 'email already
-// exists' error in firebase
-const deletePendingMemberAccount = async (charge) => {
-  // console.log('Called delete pending member account with charge);
-  const { customer: customerId } = charge;
+// By pausing payment collection, the process of manually approving the membership application can
+// begin. The idea is to ensure that the applicant IS NOT charged until after the NZSE committee 
+// has reviewed and approved the application.
+//
+// Note that in addition to pausing the subscription, the subscription starts off with a trial
+// period (as setup in stripe) to prevent the automatic charging of the applicant in between
+// the creation of the subscription, and pausing the payment collection.
+const pauseSubscriptionOnCreate = async (subscription) => {
+  const stripe = await initStripe();
+  const { id } = subscription;
+  
+  await stripe.subscriptions.update(id, { 
+    pause_collection: { 
+      behavior: 'keep_as_draft'
+    }
+  });
+};
+
+const handleSubscriptionChange = async (subscription) => {
+  try {
+    const { pause_collection: pauseCollection, customer: customerId, status } = subscription;
+
+    // Deactivate member login if collection was paused, or the subscription has not been paid on
+    // time or if it has entered some 'negative' state where payment has not been processed
+    if(
+      pauseCollection || 
+      status === 'unpaid' || 
+      status === 'past_due' ||
+      status === 'canceled' || 
+      status === 'incomplete' || 
+      status === 'incomplete_expired' ||
+      status === 'paused'
+    ) {
+      await deactivateMemberLogin(customerId);
+      return;
+    }
+
+    // If the subscription has been unpaused (i.e. when pauseCollection is null), this means that the 
+    // NZSE committee has approved the membership. Therefore, activate the account in firebase to 
+    // enable their login
+    //
+    // 'active' or 'trialling' status is also required to ensure that when the unpause takes place, 
+    // the account is only activated if the subscription is in a valid/paid for state (this will 
+    // apply if the subscription has been paused and this function has been called because it has 
+    // been unpaused)
+    if(!pauseCollection && (status === 'active' || status === 'trialing')) {
+      await activateMemberLogin(customerId);
+      return;
+    }
+
+  } catch(error) {
+    console.log('Got error handling a change in a subscription');
+    console.log('subscription: ', subscription);
+    console.log('error: ', error);
+  }
+};
+
+// When a subscription is deleted, one of 2 scenarios have taken place
+// - The subscription was in the initial trial period and was manually rejected by the NZSE
+// committee after a manual review
+// - The subscription was cancelled manually by NZSE for some other reason (i.e. not because the
+// member's application failed to meet the acceptance criteria)
+//
+// In either case, the member's account is deleted in firebase, irrespective if they were a
+// pending/disabled member (which would be the case if the subscription was in the initial trial
+// period) or not.
+//
+// By deleting the account in firebase, login access is effectively revoked.
+//
+// To re-subscribe and gain login access again, a user would have to register again via the join
+// page form.
+const handleSubscriptionDeleted = async (subscription) => {
+  const { customer: customerId } = subscription;
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
 
@@ -48,13 +128,15 @@ const deletePendingMemberAccount = async (charge) => {
     throw new Error('No email address was found in the customer stripe object. Cannot activate member');
   }
 
-  const deletionResult = await deletePendingMember(customerEmail);
+  const deletionResult = await deleteMember(customerEmail);
 
   if(deletionResult.error) {
     throw new Error('Failed to activate member: ', deletionResult.error.message);
   }
 };
 
+// A function that converts the request body into a buffer so we can pass it to stripe for
+// verification
 // https://vercel.com/guides/how-do-i-get-the-raw-body-of-a-serverless-function#with-node.js
 async function buffer(readable) {
   const chunks = [];
@@ -84,21 +166,21 @@ export default async function handler(req, res) {
     res.status(400).send(`Webhook Error: ${error.message}`);
     return;
   }
-  
+
   try {
     switch (event.type) {
-      case 'charge.captured':
-        await activatePendingMemberAccount(event.data.object);
+      case 'customer.subscription.created':
+        await pauseSubscriptionOnCreate(event.data.object);
         break;
-      case 'charge.refunded':
-        await deletePendingMemberAccount(event.data.object);
+      case 'customer.subscription.updated':
+        await handleSubscriptionChange(event.data.object);
         break;
-      case 'charge.expired':
-        await deletePendingMemberAccount(event.data.object);
+      case 'customer.subscription.deleted':
+        handleSubscriptionDeleted(event.data.object);
         break;
-      case 'charge.failed':
-        await deletePendingMemberAccount(event.data.object);
-        break;
+      default:
+        res.status(200).json({ received: true });
+        return;
     }
   } catch(error) {
     console.log('Error handling webhook event: ', error.message);
