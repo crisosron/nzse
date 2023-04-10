@@ -12,7 +12,7 @@ const CardBlock = (props) => {
   const { url: imageUrl, alternativeText: imageAlt } = unwrapEntityResponse(image);
 
   return (
-    <Link href={pageUrl}>
+    <Link href={pageUrl || '/'}>
       <a className='card-block w-full mb-8 lg:mr-4 last:mr-0 lg:my-0 md:max-w-lg lg:max-w-xs h-100 cursor-pointer overflow-hidden shadow-lg hover:shadow-xl transition-all self-center flex flex-col'>
         <div className='flex-none w-full h-2/4 overflow-hidden relative'>
           <Image src={imageUrl} layout='fill' objectFit='cover' alt={imageAlt} />

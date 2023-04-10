@@ -7,6 +7,8 @@ import PopoverTransitionWrapper from './popover-transition-wrapper';
 import { ChevronRightIcon, LogoutIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
 import { useAuth } from '../lib/hooks/use-auth';
+import { useSession } from 'next-auth/react';
+import { PAGE_LINKS } from '../lib/constants';
 
 const NavLink = ({ link, className }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -159,7 +161,7 @@ const UnAuthenticatedNavButtons = () => {
           Member Login
         </div>
       </NavButton>
-      <NavButton href='/memberships' className='mr-6 last:mr-0' applyAccent>
+      <NavButton href={PAGE_LINKS.MEMBERSHIP_INFO} className='mr-6 last:mr-0' applyAccent>
         Become a member
       </NavButton>
     </>
@@ -169,8 +171,10 @@ const UnAuthenticatedNavButtons = () => {
 const AuthenticatedNavButtons = ({ authenticatedUser }) => {
   const { signOutUser } = useAuth();
 
-  const { email } = authenticatedUser;
+  const { email } = authenticatedUser || {};
   const [signoutHovered, setSignoutHovered] = useState(false);
+  if(!email) return <></>;
+
   return (
     <div
       className='group z-max'
@@ -216,8 +220,9 @@ const AuthenticatedNavButtons = ({ authenticatedUser }) => {
 
 const NavDesktop = ({ linkItems }) => {
   const { authenticatedUser } = useAuth();
+  const { status: authStatus } = useSession();
   return (
-    <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max'>
+    <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max border-b-2 border-gray-200'>
       <div className='NavDesktop flex flex-row items-center'>
         <div className='mr-14'>
           <Link href='/'>
@@ -233,7 +238,7 @@ const NavDesktop = ({ linkItems }) => {
         </div>
       </div>
       <div className='flex flex-row w-1/3 justify-end'>
-        {authenticatedUser ? (
+        {authStatus === 'authenticated' ? (
           <AuthenticatedNavButtons authenticatedUser={authenticatedUser} />
         ) : (
           <UnAuthenticatedNavButtons />

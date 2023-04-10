@@ -42,13 +42,18 @@ const SplitRow = ({ children }) => {
 };
 
 const SuccessState = ({ message }) => {
+  // To set the minimum height such that the content container fills the page, whilst making sure
+  // the footer remains visible in the viewport:
+  // md:min-h calc: 13rem (h-52) = footer height, 6rem (h-24): nav height
   return (
-    <Container className='prose my-10 md:my-20'>
-      <div className='flex justify-center items-center'>
-        <TickIcon className='fill-affirmative-green w-[40%] h-[40%] md:w-[15%] md:h-[15%] mb-8' />
-      </div>
-      <div className='text-center'>
-        <ReactMarkdown>{message}</ReactMarkdown>
+    <Container className='md:min-h-[calc(100vh-13rem-6rem)] prose flex justify-center items-center'>
+      <div>
+        <div className='flex justify-center items-center'>
+          <TickIcon className='fill-affirmative-green md:w-[15%] md:h-[15%] mb-8' />
+        </div>
+        <div className='text-center'>
+          <ReactMarkdown>{message}</ReactMarkdown>
+        </div>
       </div>
     </Container>
   );
@@ -68,7 +73,7 @@ const JoinPage = ({
   showPaymentSuccessState,
   error: stripeError,
   successMessage,
-  designationOptions: designationOptionsString
+  specialisationOptions: specialisationOptionsString
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
@@ -79,9 +84,14 @@ const JoinPage = ({
 
   const { authenticatedUser } = useAuth();
 
-  const designationOptions = designationOptionsString
+  const specialisationOptions = specialisationOptionsString
     .split(',')
-    .map((option) => ({ label: option, value: option }));
+    .map((option) => ({ label: option.trim(), value: option.trim() }));
+
+  const nzdaMemberOptions = [
+    { label: 'Yes', value: 'Yes' },
+    { label: 'No', value: 'No' }
+  ];
 
   const onSubmit = async (data) => {
     if (submitting) return;
@@ -93,14 +103,15 @@ const JoinPage = ({
       password,
       firstName,
       surname,
+      dob,
       mobileNumber,
       address,
       suburb,
       city,
       postcode,
-      institution,
-      department,
-      designation
+      nzdaMember,
+      dcnzLicenseNumber,
+      specialisation,
     } = data;
 
     const item = {
@@ -108,18 +119,20 @@ const JoinPage = ({
       quantity: 1
     };
 
+    // This is the information stored under the customer object in Stripe
     const customer = {
       firstName,
       surname,
+      dob,
       email,
       mobileNumber,
       address,
       suburb,
       city,
       postcode,
-      institution,
-      department,
-      designation
+      nzdaMember,
+      dcnzLicenseNumber,
+      specialisation,
     };
 
     try {
@@ -179,7 +192,7 @@ const JoinPage = ({
     const pendingMemberEmail = getCookie('pendingMemberEmail');
 
     const deletePendingMember = async () => {
-      await axios.post('/api/members/delete-pending-member', { email: pendingMemberEmail });
+      await axios.post('/api/members/delete-member', { email: pendingMemberEmail, pendingOnly: true });
       deleteCookie('pendingMemberEmail');
     };
 
@@ -188,6 +201,10 @@ const JoinPage = ({
     });
   }, []);
 
+  useEffect(() => {
+    if(processingError || stripeError) window.scrollTo(0, 0);
+  }, [processingError, stripeError]);
+
   if (showPaymentSuccessState) {
     return <SuccessState message={successMessage} />;
   }
@@ -195,15 +212,15 @@ const JoinPage = ({
   return (
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
-      {processingError ||
-        (stripeError && (
-          <Notice type='danger'>
-            <span>
-              An error occurred trying to process your request. Please try again later, or contact
-              <a href='mailto:info@nzse.org.nz'>info@nzse.org.nz</a> for more information.
-            </span>
-          </Notice>
-        ))}
+      {
+        (processingError || stripeError) &&
+        <Notice type='danger'>
+          <span>
+            An error occurred trying to process your request. Please try again later, or contact{' '}
+            <a href='mailto:info@nzse.org.nz'>info@nzse.org.nz</a> for more information.
+          </span>
+        </Notice>        
+      }
       {authenticatedUser && (
         <Notice type='info'>
           <span>
@@ -285,16 +302,23 @@ const JoinPage = ({
         <Section title='Your professional details'>
           <ReactMarkdown>{professionalDetailsSectionDescription}</ReactMarkdown>
           <SplitRow>
-            <InputField type='text' name='institution' label='Institution' />
-            <InputField type='text' name='department' label='Department' />
+            <InputField 
+              type='select'
+              name='nzdaMember'
+              label='Are you a member of the NZDA?'
+              options={nzdaMemberOptions}
+              placeholder='Select an option' 
+              validations={{ required: 'Please select an option'}}
+            />
+            <InputField type='text' name='dcnzLicenseNumber' label='DCNZ (Dental Council of NZ) License Number' />
           </SplitRow>
           <SplitRow>
-            <InputField
+            <InputField 
               type='select'
-              name='designation'
-              label='Designation'
-              placeholder='Select a designation'
-              options={designationOptions}
+              name='specialisation'
+              label='Specialisation/Category of Dentistry'
+              options={specialisationOptions}
+              placeholder='Select an option' 
             />
           </SplitRow>
         </Section>

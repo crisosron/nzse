@@ -31,7 +31,7 @@ const HeroBannerBlock = ({
         <Image src={imageUrl} alt={alternativeText} layout='fill' objectFit='cover' priority />
       </div>
       <Container>
-        <div className='absolute top-0 w-[80%] h-full flex leading-snug flex-col justify-end py-5 md:py-0 text-white z-10 md:justify-center max-w-[75%] md:max-w-[100%]'>
+        <div className='absolute top-0 w-[80%] h-full flex leading-snug flex-col justify-end py-5 md:py-0 text-white z-10 md:justify-center max-w-[75%] md:max-w-[40%]'>
           {preTitle && <span className='block text-h3 md:text-h3-xl lg:text-h3-2xl'>{preTitle}</span>}
           {title && (
             <span className='block text-h1 text-light-blue md:text-h1-xl lg:text-h1-2xl font-medium'>

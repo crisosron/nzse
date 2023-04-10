@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { HamburgerIcon, CloseIcon, UserIcon } from './svg-components';
 import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
 import { useAuth } from '../lib/hooks/use-auth';
+import { PAGE_LINKS } from '../lib/constants';
 
 const MenuItem = ({ item, className }) => {
   const page = unwrapEntityResponse(item.page);
@@ -75,7 +76,7 @@ const UnAuthenticatedMenuButtons = () => {
           Member Login
         </div>
       </MenuButton>
-      <MenuButton href='/memberships' className='mb-12 last:mb-0' applyAccent>
+      <MenuButton href={PAGE_LINKS.MEMBERSHIP_INFO} className='mb-12 last:mb-0' applyAccent>
         Become a member
       </MenuButton>
     </>

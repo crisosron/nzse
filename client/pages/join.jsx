@@ -1,9 +1,5 @@
 /* eslint-disable indent */
 import { JoinPage, Layout } from '../components';
-import { useEffect } from 'react';
-import { unstable_getServerSession } from 'next-auth/next';
-import { authOptions } from './api/auth/[...nextauth]';
-import { useAuth } from '../lib/hooks/use-auth';
 import { graphqlClient } from '../lib/graphql-api';
 import { getJoinPage, getMemberships } from '../graphql/queries';
 import { initStripe } from '../lib/stripe';
@@ -47,7 +43,6 @@ const findSuccessfulCheckoutSession = async (successfulSessionId, stripe) => {
 
 export const getServerSideProps = async (context) => {
   const { req, res, query } = context;
-  const session = await unstable_getServerSession(req, res, authOptions);
 
   const [membershipsResponse, { data: joinPageData }] = await Promise.all([
     graphqlClient.query({ query: getMemberships }),
@@ -85,7 +80,6 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      authenticatedUser: session ? { email: session.user.email } : null,
       memberships,
       joinPageProps: {
         ...joinPage,
@@ -106,16 +100,9 @@ const Join = (props) => {
   const {
     footer: footerData,
     navigation: navigationData,
-    authenticatedUser,
     memberships,
     joinPageProps
   } = props;
-
-  // Set the authenticated user state here to prevent flashing of un-authenticated Nav component state
-  const { setAuthenticatedUser } = useAuth();
-  useEffect(() => {
-    setAuthenticatedUser(authenticatedUser);
-  }, []);
 
   return (
     <Layout footerData={footerData} navigationData={navigationData}>
