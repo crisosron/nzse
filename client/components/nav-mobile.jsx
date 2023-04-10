@@ -70,7 +70,7 @@ const MenuButton = ({ className, onClick, children, applyAccent, href }) => {
 const UnAuthenticatedMenuButtons = () => {
   return (
     <>
-      <MenuButton href='/login' className='mb-12 last:mb-0'>
+      <MenuButton href='/login' className='mb-6 last:mb-0'>
         <div className='flex justify-center items-center'>
           <UserIcon className='mr-2 fill-dark-blue' />
           Member Login
@@ -103,18 +103,16 @@ const Menu = ({ linkItems, handleMenuIconClicked, className }) => {
       className={`Menu z-max fixed left-0 top-0 w-full h-screen z-50 bg-white/95 backdrop-blur-md flex flex-col px-4 py-2 md:px-10 md:py-5 font-poppins ${className}`}
     >
       {/* Meant to imitate the NavMobile component dimensions closely */}
-      <div className='h-14 w-full flex justify-end items-center'>
+      <div className='right-4 top-6 absolute'>
         <div onClick={handleMenuIconClicked}>
           <CloseIcon className='fill-dark-blue' />
         </div>
       </div>
 
-      <div className='flex flex-grow flex-col justify-center items-center'>
+      <div className='flex h-full flex-col justify-center items-center'>
         {linkItems.map((item, index) => {
           return <MenuItem className='mb-6 last:mb-0' key={`menu-item-${index}`} item={item} />;
         })}
-      </div>
-      <div className='flex flex-grow flex-col justify-center items-center'>
         {authenticatedUser ? <AuthenticatedMenuButtons /> : <UnAuthenticatedMenuButtons />}
       </div>
     </div>
