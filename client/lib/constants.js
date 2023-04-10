@@ -1,4 +1,4 @@
 export const PAGE_LINKS = {
-  MEMBERSHIP_INFO: '/join-nzse',
+  MEMBERSHIP_INFO: '/professionals/join-nzse',
   PASSWORD_RESET: '/password-reset'
 };
