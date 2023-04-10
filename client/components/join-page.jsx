@@ -207,7 +207,7 @@ const JoinPage = ({
 
         const { valid: validCheckoutSession } = verifyCheckoutSessionResult.data;
 
-        if(validCheckoutSession && hasCookie('')) {
+        if(validCheckoutSession && hasCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL)) {
           deleteCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL);
           setShowSuccessState(true);
           return;
