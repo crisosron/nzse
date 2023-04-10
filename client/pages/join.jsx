@@ -44,7 +44,6 @@ export const getStaticProps = async () => {
       memberships,
       joinPageProps: {
         ...joinPage,
-        error: null
       }
     }
   };

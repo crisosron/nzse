@@ -11,7 +11,6 @@ import { getCookie, setCookie, deleteCookie, hasCookie } from 'cookies-next';
 import { useAuth } from '../lib/hooks/use-auth';
 import { TickIcon } from './svg-components';
 import Notice from './notice';
-// import { initStripe } from '../lib/stripe';
 import { useRouter } from 'next/router';
 import { COOKIE_NAMES } from '../lib/constants';
 
@@ -73,7 +72,6 @@ const JoinPage = ({
   declarationSectionDescription,
   termsAndConditionsPage,
   privacyPolicyPage,
-  error: stripeError,
   successMessage,
   specialisationOptions: specialisationOptionsString
 }) => {
@@ -237,8 +235,8 @@ const JoinPage = ({
   }, []);
 
   useEffect(() => {
-    if(processingError || stripeError) window.scrollTo(0, 0);
-  }, [processingError, stripeError]);
+    if(processingError) window.scrollTo(0, 0);
+  }, [processingError]);
 
   if (showSuccessState) {
     return <SuccessState message={successMessage} />;
@@ -248,7 +246,7 @@ const JoinPage = ({
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
       {
-        (processingError || stripeError) &&
+        (processingError) &&
         <Notice type='danger'>
           <span>
             An error occurred trying to process your request. Please try again later, or contact{' '}
