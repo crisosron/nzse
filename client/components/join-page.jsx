@@ -11,8 +11,6 @@ import { getCookie, setCookie, deleteCookie, hasCookie } from 'cookies-next';
 import { useAuth } from '../lib/hooks/use-auth';
 import { TickIcon } from './svg-components';
 import Notice from './notice';
-import { useRouter } from 'next/router';
-import { COOKIE_NAMES } from '../lib/constants';
 
 const Section = ({ title, children }) => {
   return (
@@ -72,19 +70,19 @@ const JoinPage = ({
   declarationSectionDescription,
   termsAndConditionsPage,
   privacyPolicyPage,
+  showPaymentSuccessState,
+  error: stripeError,
   successMessage,
   specialisationOptions: specialisationOptionsString
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
-  const [showSuccessState, setShowSuccessState] = useState(false);
   const [processingError, setProcessingError] = useState(null);
 
   const termsAndConditionsPageUrl = buildPageUrl(termsAndConditionsPage?.data);
   const privacyPolicyPageUrl = buildPageUrl(privacyPolicyPage?.data);
 
   const { authenticatedUser } = useAuth();
-  const router = useRouter();
 
   const specialisationOptions = specialisationOptionsString
     .split(',')
@@ -144,7 +142,7 @@ const JoinPage = ({
 
       await axios.post('/api/members/create-member', { email, password });
 
-      setCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL, email);
+      setCookie('pendingMemberEmail', email);
 
       window.location.href = data.checkoutSessionUrl;
     } catch (error) {
@@ -179,66 +177,35 @@ const JoinPage = ({
     );
   };
 
+  // Handles the deletion of a pending member
+  //
+  // When this component loads with the pendingMemberEmail cookie set, this means that the user attempted
+  // to register as a member, but at some point during the checkout session decided to cancel (by clicking the browser
+  // back button or through some other means), sending the user back to the join page and causing this
+  // component to remount.
+  //
+  // When this happens, the firebase user created for the member when the form is submitted should
+  // be deleted to ensure that subsequent attempts at membership registration is not blocked by
+  // Firebase because the email already exists in the system
   useEffect(() => {
+    if (!hasCookie('pendingMemberEmail')) return;
+    const pendingMemberEmail = getCookie('pendingMemberEmail');
 
-    const deletePendingMember = async (email) => {
-      await axios.post('/api/members/delete-member', { email, pendingOnly: true });
-      deleteCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL);
+    const deletePendingMember = async () => {
+      await axios.post('/api/members/delete-member', { email: pendingMemberEmail, pendingOnly: true });
+      deleteCookie('pendingMemberEmail');
     };
 
-    const processPostCheckout = async () => {
-
-      // A 'successful_session_id' query will exist if this page is redirected to by Stripe after a
-      // successful payment (see /api/stripe/checkout-session)
-      //
-      // If this is the case, then we know that the user has completed the checkout session, and
-      // therefore any processing that needs to take place to transition to the success state of
-      // this form should be exected
-      const { successful_session_id: successfulSessionId } = router.query;
-
-      if(successfulSessionId) {
-
-        // Before transitioning to the success state, the value of successfulSessionId in the url
-        // query string should be verified. If it is not a valid value, then cancel the transition
-        // to a success state
-        const verifyCheckoutSessionResult = await axios.post('/api/stripe/verify-checkout-session', { 
-          checkoutSessionId: successfulSessionId 
-        });
-
-        const { valid: validCheckoutSession } = verifyCheckoutSessionResult.data;
-
-        if(validCheckoutSession && hasCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL)) {
-          deleteCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL);
-          setShowSuccessState(true);
-          return;
-        }
-      }
-
-      if (!hasCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL)) return;
-
-      // If this page is rendered without a 'successful_session_id' query string AND there exists a 
-      // cookie '_nzse_pendingMemberEmail', this means that the user entered the checkout session, but
-      // exited the checkout without successfully completing it.
-      //
-      // When this happens, the firebase user created for the member when the form is submitted
-      // should be deleted to ensure that subsequent attempts at membership registration is not 
-      // blocked by Firebase because the email already exists in the system
-      const pendingMemberEmail = getCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL);
-      deletePendingMember(pendingMemberEmail).catch((error) => {
-        setProcessingError(error);
-      });
-    };
-
-    processPostCheckout().catch((error) => {
+    deletePendingMember().catch((error) => {
       setProcessingError(error);
     });
   }, []);
 
   useEffect(() => {
-    if(processingError) window.scrollTo(0, 0);
-  }, [processingError]);
+    if(processingError || stripeError) window.scrollTo(0, 0);
+  }, [processingError, stripeError]);
 
-  if (showSuccessState) {
+  if (showPaymentSuccessState) {
     return <SuccessState message={successMessage} />;
   }
 
@@ -246,7 +213,7 @@ const JoinPage = ({
     <Container className='prose my-10 md:my-20'>
       <h1>Join NZSE</h1>
       {
-        (processingError) &&
+        (processingError || stripeError) &&
         <Notice type='danger'>
           <span>
             An error occurred trying to process your request. Please try again later, or contact{' '}
