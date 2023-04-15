@@ -168,7 +168,6 @@ const JoinPage = ({
       window.location.href = data.checkoutSessionUrl;
     } catch (error) {
       setProcessingError(error);
-    } finally {
       setSubmitting(false);
     }
   };
