@@ -199,6 +199,23 @@ const JoinPage = ({
   };
 
   useEffect(() => {
+
+    // This prevents the flashing of the join form after a successful checkout session redirect.
+    // The result is that the form loading state is displayed, and will directly transition into
+    // the success state once processPostCheckout has been completed
+    if(router.isReady && Object.keys(router.query).length > 0 && router.query.successful_session_id) {
+      setFormLoading(true);
+
+      // This will take effect if successful_session_id query is invalid (i.e. not processed
+      // by processPostCheckout)
+      setTimeout(() => {
+        setFormLoading(false);
+        router.replace('/join', undefined, { shallow: true });
+      }, [5000]);
+      
+      return;
+    }
+
     setFormLoading(!router.isReady);
 
   }, [router.isReady]);
@@ -234,6 +251,7 @@ const JoinPage = ({
         if(validCheckoutSession && hasCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL)) {
           deleteCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL);
           setShowSuccessState(true);
+          router.replace('/join', undefined, { shallow: true });
           return;
         }
       }
@@ -263,7 +281,7 @@ const JoinPage = ({
       setProcessingError(error);
     });
 
-  }, [router.query]);
+  }, [router.query, router.isReady]);
 
   useEffect(() => {
     if(processingError) window.scrollTo(0, 0);
