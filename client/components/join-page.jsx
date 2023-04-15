@@ -232,7 +232,8 @@ const JoinPage = ({
     processPostCheckout().catch((error) => {
       setProcessingError(error);
     });
-  }, []);
+
+  }, [router.query]);
 
   useEffect(() => {
     if(processingError) window.scrollTo(0, 0);
