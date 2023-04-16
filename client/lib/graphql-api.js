@@ -23,6 +23,12 @@ const link = ApolloLink.from([errorLink, httpLink]);
 const graphqlClient = new ApolloClient({
   uri: GRAPHQL_API_URL,
   cache: new InMemoryCache(),
+  defaultOptions: {
+    // This needs to be so that the cache doesn't block Next.js on-demand revalidation
+    query: {
+      fetchPolicy: 'network-only'
+    }
+  },
   link
 });
 
