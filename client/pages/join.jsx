@@ -45,7 +45,8 @@ export const getStaticProps = async () => {
       joinPageProps: {
         ...joinPage,
       }
-    }
+    },
+    revalidate: 60
   };
 };
 

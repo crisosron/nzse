@@ -13,6 +13,7 @@ import { TickIcon } from './svg-components';
 import Notice from './notice';
 import { useRouter } from 'next/router';
 import { COOKIE_NAMES } from '../lib/constants';
+import { TailSpin } from 'react-loader-spinner';
 
 const Section = ({ title, children }) => {
   return (
@@ -61,6 +62,23 @@ const SuccessState = ({ message }) => {
   );
 };
 
+const FormLoadingState = () => {
+  return (
+    <Container className='md:min-h-[calc(100vh-13rem-6rem)] prose flex justify-center items-center'>
+      <div className='flex justify-center items-center'>
+        <TailSpin
+          height='64'
+          width='64'
+          color='#4cbedb'
+          ariaLabel='tail-spin-loading'
+          radius='1'
+          visible={true}
+        />
+      </div>
+    </Container>
+  );
+};
+
 const JoinPage = ({
   memberships,
   formIntro,
@@ -79,6 +97,7 @@ const JoinPage = ({
   const [selectedMembershipPriceId, setSelectedMembershipPriceId] = useState(null);
   const [showSuccessState, setShowSuccessState] = useState(false);
   const [processingError, setProcessingError] = useState(null);
+  const [formLoading, setFormLoading] = useState(true);
 
   const termsAndConditionsPageUrl = buildPageUrl(termsAndConditionsPage?.data);
   const privacyPolicyPageUrl = buildPageUrl(privacyPolicyPage?.data);
@@ -149,7 +168,6 @@ const JoinPage = ({
       window.location.href = data.checkoutSessionUrl;
     } catch (error) {
       setProcessingError(error);
-    } finally {
       setSubmitting(false);
     }
   };
@@ -178,6 +196,28 @@ const JoinPage = ({
       </div>
     );
   };
+
+  useEffect(() => {
+
+    // This prevents the flashing of the join form after a successful checkout session redirect.
+    // The result is that the form loading state is displayed, and will directly transition into
+    // the success state once processPostCheckout has been completed
+    if(router.isReady && Object.keys(router.query).length > 0 && router.query.successful_session_id) {
+      setFormLoading(true);
+
+      // This will take effect if successful_session_id query is invalid (i.e. not processed
+      // by processPostCheckout)
+      setTimeout(() => {
+        setFormLoading(false);
+        router.replace('/join', undefined, { shallow: true });
+      }, [5000]);
+      
+      return;
+    }
+
+    setFormLoading(!router.isReady);
+
+  }, [router.isReady]);
 
   useEffect(() => {
 
@@ -210,6 +250,7 @@ const JoinPage = ({
         if(validCheckoutSession && hasCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL)) {
           deleteCookie(COOKIE_NAMES.PENDING_MEMBER_EMAIL);
           setShowSuccessState(true);
+          router.replace('/join', undefined, { shallow: true });
           return;
         }
       }
@@ -229,10 +270,17 @@ const JoinPage = ({
       });
     };
 
+    // Don't process the checkout session if the router query has not been hydrated yet. router.isReady
+    // will be false on initial render because of nextjs automatic static optimisation on pages
+    // that use SSG, which means that the query string will be inaccessible, and therefore the
+    // execution of the code below should be deferred to a subsequent render.
+    if(!router.isReady) return;
+
     processPostCheckout().catch((error) => {
       setProcessingError(error);
     });
-  }, []);
+
+  }, [router.query, router.isReady]);
 
   useEffect(() => {
     if(processingError) window.scrollTo(0, 0);
@@ -240,6 +288,10 @@ const JoinPage = ({
 
   if (showSuccessState) {
     return <SuccessState message={successMessage} />;
+  }
+
+  if(formLoading) {
+    return <FormLoadingState />;
   }
 
   return (
