@@ -15,10 +15,13 @@ export default async function handler(req, res) {
     slug = '/join';
   }
 
+  console.log('Revalidating slug: ', slug);
+
   try {
     await res.revalidate(slug);
     return res.json({ revalidated: true });
   } catch(error) {
+    console.log('Got an error revalidating: ', error);
     return res.status(500).send('Error revalidating');
   }
 }
