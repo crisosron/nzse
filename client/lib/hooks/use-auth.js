@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn, signOut } from 'next-auth/react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { firebaseAuth } from '../firebase';
+import { FIREBASE_ERROR_MESSAGE } from '../constants';
 
 /**
  * Fore more info on firebase authentication: https://firebase.google.com/docs/auth/web/start
@@ -20,12 +21,6 @@ const AuthContext = createContext({
   setAuthenticatedUser: null,
   resetUserPassword: null
 });
-
-// Maps an error code returned by firebase to prose
-// All error codes and what they mean: https://firebase.google.com/docs/auth/admin/errors
-const FIREBASE_ERROR_CODE_TO_MESSAGE_MAPPING = {
-  'auth/user-not-found': 'A user with that email address could not be found.'
-};
 
 export const AuthProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(null);
@@ -80,7 +75,7 @@ export const AuthProvider = ({ children }) => {
         setAuthError({
           status: 500,
           error,
-          message: FIREBASE_ERROR_CODE_TO_MESSAGE_MAPPING[error.code] || "Something went wrong. Please try again later."
+          message: FIREBASE_ERROR_MESSAGE[error.code] || "Something went wrong. Please try again later."
         });
         reject();
 

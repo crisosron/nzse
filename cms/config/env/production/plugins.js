@@ -1,10 +1,13 @@
 module.exports = ({ env }) => ({
+  // https://docs.strapi.io/dev-docs/configurations/plugins#graphql-configuration
   graphql: {
     config: {
       endpoint: '/graphql',
       shadowCRUD: true,
       playgroundAlways: false,
       depthLimit: 20,
+      defaultLimit: 100,
+      maxLimit: 150,
       amountLimit: 100,
       apolloServer: {
         tracing: false,
