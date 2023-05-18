@@ -40,7 +40,7 @@ const getAllArticles = gql`
 
 const getAllGeneralPages = gql`
   query allGeneralPages {
-    generalPages {
+    generalPages(pagination: { limit: -1 }) {
       ${generalPageDataSubquery}
     }
   }
@@ -97,7 +97,7 @@ const getGlobalSeo = gql`
 
 const getAllGeneralPageSlugs = gql`
   query allGeneralPageSlugs {
-    generalPages {
+    generalPages(pagination: { limit: -1 }) {
       data {
         attributes {
           slug
@@ -235,7 +235,7 @@ const getJoinPage = gql`
 const buildGeneralPageBySlugQuery = (slug) => {
   return gql`
     query generalPageBySlug {
-      generalPages(filters: { slug: { eq: "${slug}" } } ) {
+      generalPages(filters: { slug: { eq: "${slug}" } }, pagination: { limit: -1 } ) {
         ${generalPageDataSubquery}
       }
     }
@@ -249,7 +249,9 @@ const buildGeneralPageBySlugAndTypeQuery = (slug, type) => {
         and: [
           { slug: { eq: "${slug}" } }, 
           { type: { eq: "${type}" } } 
-        ]}) {
+        ]}
+        pagination: { limit: -1 }
+      ) {
         ${generalPageDataSubquery}
       }
     }
@@ -259,7 +261,7 @@ const buildGeneralPageBySlugAndTypeQuery = (slug, type) => {
 const buildGeneralPageSlugsByTypeQuery = (type) => {
   return gql`
     query generalPageSlugsByType {
-      generalPages(filters: { type: { eq: "${type}" } } ) {
+      generalPages(filters: { type: { eq: "${type}" } }, pagination: { limit: -1 } ) {
         data {
           attributes {
             slug
