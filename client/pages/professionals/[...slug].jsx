@@ -4,7 +4,7 @@ import { buildGeneralPageSlugs, buildGeneralPageProps } from '../../lib/general-
 export const getStaticPaths = async () => {
   return {
     paths: await buildGeneralPageSlugs('Professionals'),
-    fallback: true
+    fallback: 'blocking'
   };
 };
 

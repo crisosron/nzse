@@ -4,7 +4,7 @@ import { buildGeneralPageSlugs, buildGeneralPageProps } from '../lib/general-pag
 export const getStaticPaths = async () => {
   return {
     paths: await buildGeneralPageSlugs('Root'),
-    fallback: true
+    fallback: 'blocking'
   };
 };
 
