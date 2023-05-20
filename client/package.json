@@ -24,7 +24,7 @@
     "cookies-next": "^2.1.1",
     "firebase": "^9.15.0",
     "firebase-admin": "^11.5.0",
-    "graphql": "^16.5.0",
+    "graphql": "15.0.0",
     "html-react-parser": "^3.0.15",
     "i": "^0.3.7",
     "next": "12.2.0",
