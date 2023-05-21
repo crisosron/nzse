@@ -44,7 +44,7 @@ const GeneralPage = ({
     return (
       <div>
         <p className="mb-10">
-          You need to be a member of NZSE to view this content. Click <Link href={PAGE_LINKS.MEMBERSHIP_INFO}>here</Link> to learn more about our memberships .
+          You need to be a member of NZSE to view this content. Click <Link href={PAGE_LINKS.MEMBERSHIP_INFO}>here</Link> to learn more about our memberships.
         </p>
 
         <p>
