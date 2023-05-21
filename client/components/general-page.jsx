@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { TailSpin } from 'react-loader-spinner';
 import Link from 'next/link';
+import { PAGE_LINKS } from '../lib/constants';
 
 const GeneralPage = ({
   type,
@@ -43,7 +44,7 @@ const GeneralPage = ({
     return (
       <div>
         <p className="mb-10">
-          You need to be a member of NZSE to view this content. Click <Link href="/join-nzse">here</Link> to learn more about our memberships .
+          You need to be a member of NZSE to view this content. Click <Link href={PAGE_LINKS.MEMBERSHIP_INFO}>here</Link> to learn more about our memberships .
         </p>
 
         <p>
