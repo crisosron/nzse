@@ -122,6 +122,7 @@ const handleSubscriptionChange = async (subscription) => {
 const handleSubscriptionDeleted = async (subscription) => {
   console.log('--------- Handling subscription deleted event ---------');
   const { customer: customerId } = subscription;
+  console.log('customerId: ', customerId);
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
   console.log('deleting firebase user with customerEmail: ', customerEmail);
