@@ -120,9 +120,11 @@ const handleSubscriptionChange = async (subscription) => {
 // To re-subscribe and gain login access again, a user would have to register again via the join
 // page form.
 const handleSubscriptionDeleted = async (subscription) => {
+  console.log('--------- Handling subscription deleted event ---------');
   const { customer: customerId } = subscription;
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
+  console.log('deleting firebase user with customerEmail: ', customerEmail);
 
   if(!customerEmail) {
     throw new Error('No email address was found in the customer stripe object. Cannot activate member');
@@ -130,8 +132,10 @@ const handleSubscriptionDeleted = async (subscription) => {
 
   const deletionResult = await deleteMember(customerEmail);
 
+  console.log('deletionResult: ', deletionResult);
+
   if(deletionResult.error) {
-    throw new Error('Failed to activate member: ', deletionResult.error.message);
+    throw new Error('Failed to delete member: ', deletionResult.error.message);
   }
 };
 
