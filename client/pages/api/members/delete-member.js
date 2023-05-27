@@ -7,6 +7,7 @@ const validRequestBody = (req) => {
 };
 
 export const deleteMember = async (email, pendingOnly) => {
+  console.log('called deleteMember api route with email: ', email);
   const { users } = await firebaseAdminAuth.getUsers([{ email, }]) || {};
 
   if(!users || users.length === 0) {
@@ -18,6 +19,7 @@ export const deleteMember = async (email, pendingOnly) => {
     };
   }
 
+  // TODO: Is pendingOnly still used?
   if(pendingOnly && !users[0].disabled) {
     return {
       error: {
@@ -28,14 +30,17 @@ export const deleteMember = async (email, pendingOnly) => {
   }
 
   const uid = users[0].uid;
+  console.log('Attempting to delete the user from firebase with the uid: ', uid);
 
   try {
     await firebaseAdminAuth.deleteUser(uid);
+    console.log('Successfully deleted the user!: ', uid);
     return {
       success: true
     };
 
-  } catch(error) {
+  } catch (error) {
+    console.log('Got an error trying to delete a user: ', error);
     return {
       error: {
         message: error.message || 'Something went wrong. Please try again later',
