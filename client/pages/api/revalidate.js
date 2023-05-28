@@ -19,7 +19,6 @@ export default async function handler(req, res) {
     await res.revalidate(slug);
     return res.json({ revalidated: true });
   } catch(error) {
-    console.log('Got an error revalidating: ', error);
-    return res.status(500).send('Error revalidating');
+    return res.status(500).send('Error revalidating: ', error);
   }
 }

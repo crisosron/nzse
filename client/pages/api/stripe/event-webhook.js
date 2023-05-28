@@ -99,9 +99,7 @@ const handleSubscriptionChange = async (subscription) => {
     }
 
   } catch(error) {
-    console.log('Got error handling a change in a subscription');
-    console.log('subscription: ', subscription);
-    console.log('error: ', error);
+    throw new Error('Error occurred trying to handle a subscription change: ', error);
   }
 };
 
@@ -120,20 +118,15 @@ const handleSubscriptionChange = async (subscription) => {
 // To re-subscribe and gain login access again, a user would have to register again via the join
 // page form.
 const handleSubscriptionDeleted = async (subscription) => {
-  console.log('--------- Handling subscription deleted event ---------');
   const { customer: customerId } = subscription;
-  console.log('customerId: ', customerId);
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
-  console.log('deleting firebase user with customerEmail: ', customerEmail);
 
   if(!customerEmail) {
     throw new Error('No email address was found in the customer stripe object. Cannot activate member');
   }
 
   const deletionResult = await deleteMember(customerEmail);
-
-  console.log('deletionResult: ', deletionResult);
 
   if(deletionResult.error) {
     throw new Error('Failed to delete member: ', deletionResult.error.message);
@@ -188,7 +181,7 @@ export default async function handler(req, res) {
         return;
     }
   } catch(error) {
-    console.log('Error handling webhook event: ', error.message);
+    throw new Error('Error handling webhook event: ', error.message);
   }
 
   res.status(200).json({ received: true });
