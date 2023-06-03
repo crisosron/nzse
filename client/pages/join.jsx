@@ -16,7 +16,7 @@ const attachPriceToMemberships = (membershipsCMS, stripePrices) => {
 
     const priceInCents = price.unit_amount_decimal || price.unit_amount;
     const priceInCentsNum = parseFloat(priceInCents);
-    const priceDollar = Math.round(priceInCentsNum / 100).toFixed(2);
+    const priceDollar = (priceInCentsNum / 100).toFixed(2);
 
     let paymentInterval;
     const intervalUnit = price.recurring?.interval; // 'month' | 'year' | 'week' | 'day'
