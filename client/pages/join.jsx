@@ -5,6 +5,7 @@ import { getJoinPage, getMemberships } from '../graphql/queries';
 import { initStripe } from '../lib/stripe';
 import { unwrapCollectionEntityResponse } from '../lib/utils';
 
+// Stripe docs on the 'price' object: https://stripe.com/docs/api/prices/object
 const attachPriceToMemberships = (membershipsCMS, stripePrices) => {
   return membershipsCMS.map((membershipCMS) => {
     const price = stripePrices.find(
@@ -17,10 +18,17 @@ const attachPriceToMemberships = (membershipsCMS, stripePrices) => {
     const priceInCentsNum = parseFloat(priceInCents);
     const priceDollar = Math.round(priceInCentsNum / 100).toFixed(2);
 
+    let paymentInterval;
+    const intervalUnit = price.recurring?.interval; // 'month' | 'year' | 'week' | 'day'
+    if(intervalUnit) {
+      paymentInterval = price.recurring?.interval_count === 1 ? `per ${intervalUnit}` : `every ${price.recurring?.interval_count} ${intervalUnit}`;
+    } else paymentInterval = 'one-off payment';
+
     return {
       ...membershipCMS,
       priceInCents,
-      priceDollar
+      priceDollar,
+      paymentInterval
     };
   }).filter((item) => !!item);
 };
