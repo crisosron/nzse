@@ -1,20 +1,15 @@
-import { useEffect } from 'react';
 import { GeneralPage } from '../components';
-// import { getServerSession } from 'next-auth/next';
-// import { authOptions } from './api/auth/[...nextauth]';
-import { useAuth } from '../lib/hooks/use-auth';
 import { buildGeneralPageSlugs, buildGeneralPageProps } from '../lib/general-page-utils';
 
 export const getStaticPaths = async () => {
   return {
     paths: await buildGeneralPageSlugs('Root'),
-    fallback: false // Return 404 if the path is not in slugs/paths
+    fallback: 'blocking'
   };
 };
 
 export const getStaticProps = async (context) => {
-  const { params, req, res } = context;
-  // const session = await getServerSession(req, res, authOptions);
+  const { params } = context;
   const props = await buildGeneralPageProps(params, 'Root');
 
   if (!props) {
@@ -23,38 +18,18 @@ export const getStaticProps = async (context) => {
     };
   }
 
-  const { membersOnly } = props || {};
-
-  // Redirect to login page if not signed in and the page is marked as members only
-  // if (membersOnly && !session) {
-  //   return {
-  //     redirect: {
-  //       destination: '/login',
-  //       permanent: false
-  //     }
-  //   };
-  // }
-
   return {
     props: {
       ...props,
-      // authenticatedUser: session ? { email: session.user.email } : null
     },
 
-    revalidate: 30
+    revalidate: 60
   };
 };
 
 const RootGeneralPage = (props) => {
-  const { sidebar, authenticatedUser } = props;
+  const { sidebar } = props;
   const rootSidebar = sidebar?.rootSidebar;
-
-  // Set the authenticated user state here to prevent flashing of un-authenticated Nav component state
-  const { setAuthenticatedUser } = useAuth();
-  useEffect(() => {
-    setAuthenticatedUser(authenticatedUser);
-  }, []);
-
   return <GeneralPage sidebarNavBlocks={rootSidebar} {...props} />;
 };
 

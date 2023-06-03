@@ -18,6 +18,7 @@ export const deleteMember = async (email, pendingOnly) => {
     };
   }
 
+  // TODO: Is pendingOnly still used?
   if(pendingOnly && !users[0].disabled) {
     return {
       error: {
@@ -35,7 +36,7 @@ export const deleteMember = async (email, pendingOnly) => {
       success: true
     };
 
-  } catch(error) {
+  } catch (error) {
     return {
       error: {
         message: error.message || 'Something went wrong. Please try again later',

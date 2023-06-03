@@ -26,7 +26,6 @@ export default async function handler(req, res) {
   }).then((record) => {
     res.status(200).json({ uid: record.uid });
   }).catch((error) => {
-    console.log('createUser error: ', error);
     res.status(500).json({
       error: {
         message: error.message || 'Something went wrong. Please try again later',
