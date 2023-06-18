@@ -166,7 +166,7 @@
 
 /* 
   ================================== 
-  Setting defaults on CMSable rich text typography 
+  Setting defaults on CMSable markdown/HTML typography 
   ================================== 
 */
 
@@ -177,7 +177,7 @@
   see: https://tailwindcss.com/docs/typography-plugin
 */
 
-/* Defaults on rich text headers */
+/* Defaults on headers */
 .prose > h1,
 .prose > h2,
 .prose > h3,
@@ -188,7 +188,7 @@
   font-weight: 600;
 }
 
-/* Defaults on rich text ul, and ol bullets and numbers */
+/* Defaults on ul, and ol bullets and numbers */
 .prose :where(ul > li):not(:where([class~='not-prose'] *))::marker,
 .prose :where(ol > li):not(:where([class~='not-prose'] *))::marker {
   color: theme('colors.light-blue');
@@ -197,9 +197,23 @@
 .prose :where(a):not(:where([class~='not-prose'] *)) {
   color: theme('colors.link-blue');
   text-decoration: none;
-  // &:hover {
-  //   text-decoration: solid;
-  // }
+}
+
+// Adjust vertical spacing on paragraph elements (decreased from default of 1.25em)
+.prose-base :where(p):not(:where([class~="not-prose"] *)) {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+// Adjust vertical spacing on paragraph elements that are immediately preceded by a heading element
+.prose-base :where(h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p):not(:where([class~="not-prose"] *)) {
+  margin-top: 0em;
+  margin-bottom: 1em;
+}
+
+// Adjust vertical spacing on ul elements that are immediately preceded by a p element
+.prose-base :where(p + ul):not(:where([class~="not-prose"] *)) {
+  margin-top: 0em;
 }
 
 a {
