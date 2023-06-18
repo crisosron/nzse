@@ -4,7 +4,7 @@ export { default as GeneralPage } from './general-page';
 export { default as Layout } from './layout';
 export { default as Sidebar } from './sidebar';
 export { default as Footer } from './footer';
-export { default as Blocks } from './blocks';
+export { default as Blocks } from './blocks/blocks';
 export { default as Nav } from './nav';
 export { default as NavMobile } from './nav-mobile';
 export { default as NavDesktop } from './nav-desktop';
