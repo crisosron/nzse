@@ -175,7 +175,7 @@ const JoinPage = ({
   const membershipOptions = memberships.map((membership) => {
     return {
       value: membership.stripePriceId,
-      label: `${membership.title} ($${membership.priceDollar})`
+      label: `${membership.title} ($${membership.priceDollar} ${membership.paymentInterval})`
     };
   });
 
