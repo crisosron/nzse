@@ -24,14 +24,14 @@ const GRAPHQL_API_URL =
 const graphqlClient = new ApolloClient({
   uri: GRAPHQL_API_URL,
   cache: new InMemoryCache(),
-  defaultOptions: {
-    // This is a looser cache policy than the default so that the apollo cache doesn't block Next.js 
-    // on-demand revalidation (as in, apollo will NOT continue to serve cached content when
-    // on-demand revalidation has taken place)
-    query: {
-      fetchPolicy: 'network-only'
-    }
-  },
+  // defaultOptions: {
+  //   // This is a looser cache policy than the default so that the apollo cache doesn't block Next.js 
+  //   // on-demand revalidation (as in, apollo will NOT continue to serve cached content when
+  //   // on-demand revalidation has taken place)
+  //   query: {
+  //     fetchPolicy: 'network-only'
+  //   }
+  // },
   // httpLink
   // link
 });
