@@ -1,5 +1,5 @@
 // import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
+// import { ApolloLink } from 'apollo-link';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 
 const GRAPHQL_API_URL =
@@ -18,7 +18,7 @@ const GRAPHQL_API_URL =
 // });
 
 const httpLink = new HttpLink({ uri: GRAPHQL_API_URL });
-const link = ApolloLink.from([httpLink]);
+// const link = ApolloLink.from([httpLink]);
 
 const graphqlClient = new ApolloClient({
   uri: GRAPHQL_API_URL,
@@ -31,7 +31,8 @@ const graphqlClient = new ApolloClient({
       fetchPolicy: 'network-only'
     }
   },
-  link
+  httpLink
+  // link
 });
 
 export { graphqlClient };
