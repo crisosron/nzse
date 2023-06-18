@@ -1,6 +1,7 @@
 // import { onError } from 'apollo-link-error';
 // import { ApolloLink } from 'apollo-link';
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+// import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const GRAPHQL_API_URL =
   process.env.NEXT_PUBLIC_STRAPI_GRAPHQL_API_URL || 'http://strapi:1337/graphql';
@@ -17,7 +18,7 @@ const GRAPHQL_API_URL =
 //   if (networkError) console.error('networkError: ', networkError);
 // });
 
-const httpLink = new HttpLink({ uri: GRAPHQL_API_URL });
+// const httpLink = new HttpLink({ uri: GRAPHQL_API_URL });
 // const link = ApolloLink.from([httpLink]);
 
 const graphqlClient = new ApolloClient({
@@ -31,7 +32,7 @@ const graphqlClient = new ApolloClient({
       fetchPolicy: 'network-only'
     }
   },
-  httpLink
+  // httpLink
   // link
 });
 
