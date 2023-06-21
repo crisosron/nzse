@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+// import { gql } from '@apollo/client';
 import {
   blocksListSubquery,
   generalPageDataSubquery,
@@ -12,7 +12,7 @@ import {
  * the bottom of this file for a pattern on how to achieve this.
  */
 
-const getAllArticles = gql`
+const getAllArticles = `
   query allArticles {
     articles {
       data {
@@ -38,7 +38,7 @@ const getAllArticles = gql`
   }
 `;
 
-const getAllGeneralPages = gql`
+const getAllGeneralPages = `
   query allGeneralPages {
     generalPages(pagination: { limit: -1 }) {
       ${generalPageDataSubquery}
@@ -46,7 +46,7 @@ const getAllGeneralPages = gql`
   }
 `;
 
-const getHomepage = gql`
+const getHomepage = `
   query homepage {
     homepage {
       data {
@@ -62,7 +62,7 @@ const getHomepage = gql`
   }
 `;
 
-const getGlobalAttributes = gql`
+const getGlobalAttributes = `
   query globalAttributes {
     global {
       data {
@@ -82,7 +82,7 @@ const getGlobalAttributes = gql`
   }
 `;
 
-const getGlobalSeo = gql`
+const getGlobalSeo = `
   query globalSEO {
     globalSeo {
       data {
@@ -95,7 +95,7 @@ const getGlobalSeo = gql`
   }
 `;
 
-const getAllGeneralPageSlugs = gql`
+const getAllGeneralPageSlugs = `
   query allGeneralPageSlugs {
     generalPages(pagination: { limit: -1 }) {
       data {
@@ -107,7 +107,7 @@ const getAllGeneralPageSlugs = gql`
   }
 `;
 
-const getSidebar = gql`
+const getSidebar = `
   query sidebar {
     sidebar {
       data {
@@ -127,7 +127,7 @@ const getSidebar = gql`
   }
 `;
 
-const getFooter = gql`
+const getFooter = `
   query footer {
     footer {
       data {
@@ -154,7 +154,7 @@ const getFooter = gql`
   }
 `;
 
-const getNavigation = gql`
+const getNavigation = `
   query navigation {
     navigation {
       data {
@@ -174,7 +174,7 @@ const getNavigation = gql`
   }
 `;
 
-const getMemberships = gql`
+const getMemberships = `
   query memberships {
     memberships {
       data {
@@ -188,7 +188,7 @@ const getMemberships = gql`
   }
 `;
 
-const getJoinPage = gql`
+const getJoinPage = `
   query joinPage {
     joinPage {
       data {
@@ -233,7 +233,7 @@ const getJoinPage = gql`
  */
 
 const buildGeneralPageBySlugQuery = (slug) => {
-  return gql`
+  return `
     query generalPageBySlug {
       generalPages(filters: { slug: { eq: "${slug}" } }, pagination: { limit: -1 } ) {
         ${generalPageDataSubquery}
@@ -243,7 +243,7 @@ const buildGeneralPageBySlugQuery = (slug) => {
 };
 
 const buildGeneralPageBySlugAndTypeQuery = (slug, type) => {
-  return gql`
+  return `
     query generalPageBySlugAndType {
       generalPages(filters: { 
         and: [
@@ -259,7 +259,7 @@ const buildGeneralPageBySlugAndTypeQuery = (slug, type) => {
 };
 
 const buildGeneralPageSlugsByTypeQuery = (type) => {
-  return gql`
+  return `
     query generalPageSlugsByType {
       generalPages(filters: { type: { eq: "${type}" } }, pagination: { limit: -1 } ) {
         data {
