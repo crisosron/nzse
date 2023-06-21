@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import Layout from '../components/layout';
 import { GlobalContext } from '../lib/contexts/global-context';
-import { graphqlClient } from '../lib/graphql-api';
+import { graphqlClientURQL } from '../lib/graphql-api';
 import { getHomepage } from '../graphql/queries';
 import { Blocks } from '../components/blocks';
 
@@ -20,9 +20,14 @@ const Home = ({ homepage }) => {
 };
 
 export const getStaticProps = async () => {
+  // const [{ data: homepageData }] = await Promise.all([
+  //   graphqlClient.query({ query: getHomepage })
+  // ]);
   const [{ data: homepageData }] = await Promise.all([
-    graphqlClient.query({ query: getHomepage })
+    graphqlClientURQL.query(getHomepage).toPromise()
   ]);
+
+  console.log('homepageData: ', homepageData);
 
   const homepage = homepageData.homepage.data?.attributes;
 

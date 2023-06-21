@@ -1,4 +1,4 @@
-import { graphqlClient } from './graphql-api';
+import { graphqlClientURQL } from './graphql-api';
 import {
   buildGeneralPageBySlugAndTypeQuery,
   buildGeneralPageSlugsByTypeQuery
@@ -11,7 +11,8 @@ import { unwrapCollectionEntityResponse } from './utils';
 const buildGeneralPageSlugs = async (pageType) => {
   const slugQuery = buildGeneralPageSlugsByTypeQuery(pageType);
   const slugs = unwrapCollectionEntityResponse(
-    await graphqlClient.query({ query: slugQuery }),
+    // await graphqlClient.query({ query: slugQuery }),
+    await graphqlClientURQL.query(slugQuery).toPromise(),
     'generalPages'
   ).map((entry) => {
     if (pageType === 'Root') return `/${entry.slug}`;
@@ -24,7 +25,8 @@ const buildGeneralPageSlugs = async (pageType) => {
 const buildGeneralPageProps = async (params, pageType) => {
   const { slug } = params;
   const query = buildGeneralPageBySlugAndTypeQuery(slug, pageType);
-  const queryResponse = await graphqlClient.query({ query });
+  // const queryResponse = await graphqlClient.query({ query });
+  const queryResponse = await graphqlClientURQL.query(query).toPromise();
   const generalPages = unwrapCollectionEntityResponse(queryResponse, 'generalPages');
   return generalPages.length ? generalPages[0] : null;
 };

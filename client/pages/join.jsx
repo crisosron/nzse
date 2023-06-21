@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { JoinPage, Layout } from '../components';
-import { graphqlClient } from '../lib/graphql-api';
+import { graphqlClientURQL } from '../lib/graphql-api';
 import { getJoinPage, getMemberships } from '../graphql/queries';
 import { initStripe } from '../lib/stripe';
 import { unwrapCollectionEntityResponse } from '../lib/utils';
@@ -36,8 +36,10 @@ const attachPriceToMemberships = (membershipsCMS, stripePrices) => {
 export const getStaticProps = async () => {
 
   const [membershipsResponse, { data: joinPageData }] = await Promise.all([
-    graphqlClient.query({ query: getMemberships }),
-    graphqlClient.query({ query: getJoinPage })
+    // graphqlClient.query({ query: getMemberships }),
+    // graphqlClient.query({ query: getJoinPage })
+    graphqlClientURQL.query(getMemberships).toPromise(),
+    graphqlClientURQL.query(getJoinPage).toPromise()
   ]);
 
   const membershipsCMS = unwrapCollectionEntityResponse(membershipsResponse, 'memberships');

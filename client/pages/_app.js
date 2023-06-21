@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { getStrapiMedia } from '../lib/media';
-import { graphqlClient } from '../lib/graphql-api';
+import { graphqlClientURQL } from '../lib/graphql-api';
 import {
   getGlobalAttributes,
   getGlobalSeo,
@@ -68,11 +68,16 @@ MyApp.getInitialProps = async () => {
     { data: footerData },
     { data: navigationData }
   ] = await Promise.all([
-    graphqlClient.query({ query: getGlobalAttributes }),
-    graphqlClient.query({ query: getGlobalSeo }),
-    graphqlClient.query({ query: getSidebar }),
-    graphqlClient.query({ query: getFooter }),
-    graphqlClient.query({ query: getNavigation })
+    // graphqlClient.query({ query: getGlobalAttributes }),
+    // graphqlClient.query({ query: getGlobalSeo }),
+    // graphqlClient.query({ query: getSidebar }),
+    // graphqlClient.query({ query: getFooter }),
+    // graphqlClient.query({ query: getNavigation })
+    graphqlClientURQL.query(getGlobalAttributes).toPromise(),
+    graphqlClientURQL.query(getGlobalSeo).toPromise(),
+    graphqlClientURQL.query(getSidebar).toPromise(),
+    graphqlClientURQL.query(getFooter).toPromise(),
+    graphqlClientURQL.query(getNavigation).toPromise()
   ]);
 
   const globalAttributes = globalAttributesData.global.data.attributes;

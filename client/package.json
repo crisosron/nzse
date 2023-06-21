@@ -41,7 +41,8 @@
     "react-markdown": "^8.0.3",
     "react-select": "^5.7.0",
     "sass": "^1.53.0",
-    "stripe": "^11.11.0"
+    "stripe": "^11.11.0",
+    "urql": "^4.0.4"
   },
   "devDependencies": {
     "eslint": "8.16.0",
