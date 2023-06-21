@@ -2,6 +2,7 @@
 // import { ApolloLink } from 'apollo-link';
 // import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { Client, cacheExchange, fetchExchange } from 'urql';
+import { retryExchange } from '@urql/exchange-retry';
 
 const GRAPHQL_API_URL =
   process.env.NEXT_PUBLIC_STRAPI_GRAPHQL_API_URL || 'http://strapi:1337/graphql';
@@ -35,9 +36,17 @@ const GRAPHQL_API_URL =
 //   link
 // });
 
+const options = {
+  initialDelayMs: 1000,
+  maxDelayMs: 15000,
+  randomDelay: true,
+  maxNumberAttempts: 2,
+  retryIf: err => err && err.networkError,
+};
+
 const graphqlClientURQL = new Client({
   url: GRAPHQL_API_URL,
-  exchanges: [cacheExchange, fetchExchange]
+  exchanges: [cacheExchange, retryExchange(options), fetchExchange]
 });
 
 export { graphqlClientURQL };
