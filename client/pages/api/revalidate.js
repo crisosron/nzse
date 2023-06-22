@@ -13,6 +13,19 @@ export default async function handler(req, res) {
     slug = updatedContent.entry.type.toLowerCase() === 'root' ? `/${updatedContent.entry.slug}` : `/${updatedContent.entry.type.toLowerCase()}/${updatedContent.entry.slug}`;
   } else if (updatedContent.model === 'join-page' || updatedContent.model === 'membership') {
     slug = '/join';
+
+  } else if (updatedContent.model === 'footer' || updatedContent.model === 'navigation') {
+    // In the case that global content types are edited, trigger a rebuild of the entire site
+    try {
+      await fetch(process.env.SITE_DEPLOY_HOOK_URL, { method: 'POST' });
+      res.status(200).end();
+      return;
+    } catch(error) {
+      res.status(500).send({ 
+        message: 'An error occurred attempting to rebuild the site for revalidation: ', error
+      });
+      return;
+    }
   }
 
   try {
