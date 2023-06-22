@@ -14,7 +14,10 @@ export default async function handler(req, res) {
   } else if (updatedContent.model === 'join-page' || updatedContent.model === 'membership') {
     slug = '/join';
 
-  } else if (updatedContent.model === 'footer' || updatedContent.model === 'navigation') {
+  } else if (
+    (updatedContent.model === 'footer' || updatedContent.model === 'navigation') &&
+    process.env.SITE_DEPLOY_HOOK_URL
+  ) {
     // In the case that global content types are edited, trigger a rebuild of the entire site
     try {
       await fetch(process.env.SITE_DEPLOY_HOOK_URL, { method: 'POST' });
