@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames';
@@ -9,23 +9,21 @@ import { buildPageUrl, unwrapEntityResponse } from '../lib/utils';
 import { useAuth } from '../lib/hooks/use-auth';
 import { useSession } from 'next-auth/react';
 import { PAGE_LINKS } from '../lib/constants';
+import { useRouter } from 'next/router';
 
 const NavLink = ({ link, className }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const hasChildLinks = link.childPages.data?.length > 0;
   const page = unwrapEntityResponse(link.page);
+  const router = useRouter();
 
   const linkedPage = {
     title: page.title,
     url: buildPageUrl(page)
   };
 
-  const handleOnMouseEnter = () => {
-    if (hasChildLinks) setShowDropdown(true);
-  };
-
-  const handleOnMouseLeave = () => {
-    if (hasChildLinks) setShowDropdown(false);
+  const toggleDropdown = () => {
+    setShowDropdown(prev => !prev);
   };
 
   const renderUnlinkedItem = () => {
@@ -46,12 +44,17 @@ const NavLink = ({ link, className }) => {
     );
   };
 
+  // Hide the menu when the user clicks on a link and the route changes
+  useEffect(() => {
+    setShowDropdown(false);
+  }, [router.query.slug]);
+
   return (
     <div className={`group ${className} z-max`}>
       <Popover>
         {() => (
           <>
-            <div onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
+            <div onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
               <Popover.Button
                 className={classNames(
                   'flex focus:outline-none items-center select-none px-2 py1 rounded transition duration-75 group-hover:bg-light-blue-100',
