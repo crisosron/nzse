@@ -139,7 +139,9 @@ export default async function handler(req, res) {
       customer: customer.id,
       subscription_data: {
         metadata: customerMetadata(req.body.customer),
-        trial_period_days: 14
+        // TODO: reinstate trial period of 14 days when ready
+        // trial_period_days: 14,
+        trial_period_days: 1
       },
 
       // Note: template string comes from Stripe

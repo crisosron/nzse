@@ -55,14 +55,19 @@ const deactivateMemberLogin = async (customerId) => {
 // Note that in addition to pausing the subscription, the subscription starts off with a trial
 // period (as setup in stripe) to prevent the automatic charging of the applicant in between
 // the creation of the subscription, and pausing the payment collection.
-const pauseSubscriptionOnCreate = async (subscription) => {
+// 
+// The collection method is also set to 'send invoice' so that when stripe requires the user to
+// pay for their membership, an invoice is sent with instructions on how to pay, instead of
+// automatically charging the user's payment method
+const handleSubscriptionCreate = async (subscription) => {
   const stripe = await initStripe();
   const { id } = subscription;
   
   await stripe.subscriptions.update(id, { 
     pause_collection: { 
       behavior: 'keep_as_draft'
-    }
+    },
+    collection_method: 'send_invoice'
   });
 };
 
@@ -168,7 +173,7 @@ export default async function handler(req, res) {
   try {
     switch (event.type) {
       case 'customer.subscription.created':
-        await pauseSubscriptionOnCreate(event.data.object);
+        await handleSubscriptionCreate(event.data.object);
         break;
       case 'customer.subscription.updated':
         await handleSubscriptionChange(event.data.object);
