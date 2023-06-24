@@ -60,15 +60,21 @@ const deactivateMemberLogin = async (customerId) => {
 // pay for their membership, an invoice is sent with instructions on how to pay, instead of
 // automatically charging the user's payment method
 const handleSubscriptionCreate = async (subscription) => {
+  console.log('HANDLE SUBSCRIPTION CREATE CALLED');
   const stripe = await initStripe();
   const { id } = subscription;
   
-  await stripe.subscriptions.update(id, { 
-    pause_collection: { 
-      behavior: 'keep_as_draft'
-    },
-    collection_method: 'send_invoice'
-  });
+  try {
+    await stripe.subscriptions.update(id, { 
+      pause_collection: { 
+        behavior: 'keep_as_draft'
+      },
+      collection_method: 'send_invoice',
+      days_until_due: 14 // Days until the invoice is due after it was sent to the user
+    });
+  } catch (error) {
+    throw new Error('Got an error handling subscription create event: ', error);
+  }
 };
 
 const handleSubscriptionChange = async (subscription) => {
@@ -164,7 +170,7 @@ export default async function handler(req, res) {
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET_KEY);
+    event = stripe.webhooks.constructEvent(rawBody, signature, 'whsec_d94cdf906ce5cfbce8fb03ddb288a82ef750a970efa6c493a2c56e2cc7696e48');
   } catch (error) {
     res.status(400).send(`Webhook Error: ${error.message}`);
     return;
