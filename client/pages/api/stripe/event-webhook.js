@@ -128,6 +128,7 @@ const handleSubscriptionChange = async (subscription) => {
 // To re-subscribe and gain login access again, a user would have to register again via the join
 // page form.
 const handleSubscriptionDeleted = async (subscription) => {
+  console.log('Failed to delete mem');
   const { customer: customerId } = subscription;
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
@@ -191,6 +192,7 @@ export default async function handler(req, res) {
         return;
     }
   } catch(error) {
+    res.status(500).json({ message: 'Error handling webhook event' });
     throw new Error('Error handling webhook event: ', error.message);
   }
 
