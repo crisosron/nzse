@@ -128,10 +128,11 @@ const handleSubscriptionChange = async (subscription) => {
 // To re-subscribe and gain login access again, a user would have to register again via the join
 // page form.
 const handleSubscriptionDeleted = async (subscription) => {
-  console.log('Failed to delete mem');
+  console.log('Handling subscription deleted event');
   const { customer: customerId } = subscription;
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
+  console.log('customerEmail: ', customerEmail);
 
   if(!customerEmail) {
     throw new Error('No email address was found in the customer stripe object. Cannot activate member');
