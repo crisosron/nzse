@@ -11,14 +11,10 @@ export const config = {
 
 const findStripeCustomerById = async (customerId) => {
   try {
-    console.log('Called findStripeCustomerById: ', customerId);
     const stripe = await initStripe();
-    console.log('stripe object: ', stripe);
     const stripeCustomer = await stripe.customers.retrieve(customerId);
-    console.log('stripeCustomer: ', stripeCustomer);
     return stripeCustomer;
   } catch(error) {
-    console.log('Got an error attempting to find a stripe customer: ', error);
     throw new Error(error.message);
   }
 };
@@ -54,20 +50,16 @@ const deactivateMemberLogin = async (customerId) => {
 };
 
 const removeMember = async(customerId) => {
-  console.log('REMOVING MEMBER: ', customerId);
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
-  console.log('Removing customerEmail: ', customerEmail);
 
   if(!customerEmail) {
-    console.log('Got an error trying to remove member: No email address was found');
     throw new Error('No email address was found in the customer stripe object. Cannot remove member');
   }
 
   const removalResult = await deleteMember(customerEmail);
 
   if(removalResult.error) {
-    console.log('Got an error attempting to remove a member: ', removalResult.error);
     throw new Error('Failed to remove member: ', removalResult.error.message);
   }
 };
@@ -154,27 +146,7 @@ const handleSubscriptionChange = async (subscription) => {
 // To re-subscribe and gain login access again, a user would have to register again via the join
 // page form.
 const handleSubscriptionDeleted = async (subscription) => {
-  // console.log('Handling subscription deleted event');
-  // const { customer: customerId } = subscription;
-  // console.log('customerId: ', customerId);
-  // const customerObject = await findStripeCustomerById(customerId);
-  // console.log('customerObject: ', customerObject);
-  // const { email: customerEmail } = customerObject;
-  // console.log('customerEmail: ', customerEmail);
-
-  // if(!customerEmail) {
-  //   throw new Error('No email address was found in the customer stripe object. Cannot activate member');
-  // }
-
-  // const deletionResult = await deleteMember(customerEmail, false);
-  // console.log('Deletion result: ', deletionResult);
-
-  // if(deletionResult.error) {
-  //   console.log('Got an error in deletion result: ', deletionResult.error);
-  //   throw new Error('Failed to delete member: ', deletionResult.error.message);
-  // }
   try {
-    console.log('Handling subscription deleted event');
     const { customer: customerId } = subscription;
     await removeMember(customerId);
   } catch(error) {
