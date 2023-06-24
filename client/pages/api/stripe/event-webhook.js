@@ -139,9 +139,11 @@ const handleSubscriptionDeleted = async (subscription) => {
     throw new Error('No email address was found in the customer stripe object. Cannot activate member');
   }
 
-  const deletionResult = await deleteMember(customerEmail);
+  const deletionResult = await deleteMember(customerEmail, false);
+  console.log('Deletion result: ', deletionResult);
 
   if(deletionResult.error) {
+    console.log('Got an error in deletion result: ', deletionResult.error);
     throw new Error('Failed to delete member: ', deletionResult.error.message);
   }
 };
@@ -174,7 +176,7 @@ export default async function handler(req, res) {
   try {
     event = stripe.webhooks.constructEvent(rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET_KEY);
   } catch (error) {
-    res.status(400).send(`Webhook Error: ${error.message}`);
+    res.status(400).json({ message: `Webhook Error: ${error.message}` });
     return;
   }
 
