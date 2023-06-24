@@ -223,7 +223,7 @@ const NavDesktop = ({ linkItems }) => {
   const { status: authStatus } = useSession();
   return (
     <div className='Nav h-24 w-full flex justify-around items-center font-poppins font-medium z-max border-b-2 border-gray-200'>
-      <div className='NavDesktop flex flex-row items-center'>
+      <div className='NavDesktop flex items-center'>
         <div className='mr-14'>
           <Link href='/'>
             <a>
@@ -231,13 +231,13 @@ const NavDesktop = ({ linkItems }) => {
             </a>
           </Link>
         </div>
-        <div className='flex flex-row justify-between'>
+        <div className='flex'>
           {linkItems.map((item, index) => {
             return <NavLink key={`nav-link-${index}`} link={item} className='mr-4 last:mr-0' />;
           })}
         </div>
       </div>
-      <div className='flex flex-row w-1/3 justify-end'>
+      <div className='flex justify-end'>
         {authStatus === 'authenticated' ? (
           <AuthenticatedNavButtons authenticatedUser={authenticatedUser} />
         ) : (
