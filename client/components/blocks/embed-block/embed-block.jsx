@@ -2,7 +2,7 @@ import parse from 'html-react-parser';
 
 const EmbedBlock = ({ snippet }) => {
   return (
-    <>{parse(snippet)}</>
+    <div className="[&>iframe]:max-w-full">{parse(snippet)}</div>
   );
 };
 
