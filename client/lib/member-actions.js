@@ -29,7 +29,7 @@ export const updateMemberLoginStatus = async ({ email, loginDisabled }) => {
 };
 
 export const deleteMember = async (email, pendingOnly) => {
-  const { users } = await firebaseAdminAuth.getUsers([{ email, }]) || {};
+  const { users } = await firebaseAdminAuth.getUsers([{ email }]) || {};
   console.log('deleting member with email: ', email);
   console.log('pendingOnly?: ', pendingOnly);
 
