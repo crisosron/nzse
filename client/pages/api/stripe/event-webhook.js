@@ -10,11 +10,16 @@ export const config = {
 };
 
 const findStripeCustomerById = async (customerId) => {
-  console.log('Called findStripeCustomerById: ', customerId);
-  const stripe = await initStripe();
-  const stripeCustomer = await stripe.customers.retrieve(customerId);
-  console.log('stripeCustomer: ', stripeCustomer);
-  return stripeCustomer;
+  try {
+    console.log('Called findStripeCustomerById: ', customerId);
+    const stripe = await initStripe();
+    const stripeCustomer = await stripe.customers.retrieve(customerId);
+    console.log('stripeCustomer: ', stripeCustomer);
+    return stripeCustomer;
+  } catch(error) {
+    console.log('Got an error attempting to find a stripe customer: ', error);
+    throw new Error(error.message);
+  }
 };
 
 const activateMemberLogin = async (customerId) => {
