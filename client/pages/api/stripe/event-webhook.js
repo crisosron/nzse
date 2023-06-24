@@ -10,8 +10,10 @@ export const config = {
 };
 
 const findStripeCustomerById = async (customerId) => {
+  console.log('Called findStripeCustomerById: ', customerId);
   const stripe = await initStripe();
   const stripeCustomer = await stripe.customers.retrieve(customerId);
+  console.log('stripeCustomer: ', stripeCustomer);
   return stripeCustomer;
 };
 
