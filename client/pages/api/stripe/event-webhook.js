@@ -13,6 +13,7 @@ const findStripeCustomerById = async (customerId) => {
   try {
     console.log('Called findStripeCustomerById: ', customerId);
     const stripe = await initStripe();
+    console.log('stripe object: ', stripe);
     const stripeCustomer = await stripe.customers.retrieve(customerId);
     console.log('stripeCustomer: ', stripeCustomer);
     return stripeCustomer;
@@ -222,7 +223,7 @@ export default async function handler(req, res) {
         await handleSubscriptionChange(event.data.object);
         break;
       case 'customer.subscription.deleted':
-        handleSubscriptionDeleted(event.data.object);
+        await handleSubscriptionDeleted(event.data.object);
         break;
       default:
         res.status(200).json({ received: true });
