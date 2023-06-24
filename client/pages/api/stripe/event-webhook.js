@@ -1,6 +1,5 @@
 import { initStripe } from "../../../lib/stripe";
-import { updateMemberLoginStatus } from "../../../lib/member-actions";
-import { deleteMember } from "../members/delete-member";
+import { updateMemberLoginStatus, deleteMember } from "../../../lib/member-actions";
 
 // Disable the body parser for this api route because we need to send the raw body to Stripe for
 // verification
