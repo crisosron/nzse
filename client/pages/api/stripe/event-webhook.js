@@ -86,8 +86,8 @@ const handleSubscriptionCreate = async (subscription) => {
       pause_collection: { 
         behavior: 'keep_as_draft'
       },
-      collection_method: 'send_invoice',
-      days_until_due: 14 // Days until the invoice is due after it was sent to the user
+      // collection_method: 'send_invoice',
+      // days_until_due: 14 // Days until the invoice is due after it was sent to the user
     });
   } catch (error) {
     throw new Error('Got an error handling subscription create event: ', error);
