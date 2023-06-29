@@ -27,12 +27,9 @@ export const getStaticProps = async (context) => {
 };
 
 const PatientsGeneralPage = (props) => {
-  // const { sidebar } = props;
-  // const patientsSidebar = sidebar?.patientsSidebar;
-  // return <GeneralPage sidebarNavBlocks={patientsSidebar} {...props} />;
-  return (
-    <div>Patients general page</div>
-  );
+  const { sidebar } = props;
+  const patientsSidebar = sidebar?.patientsSidebar;
+  return <GeneralPage sidebarNavBlocks={patientsSidebar} {...props} />;
 };
 
 export default PatientsGeneralPage;

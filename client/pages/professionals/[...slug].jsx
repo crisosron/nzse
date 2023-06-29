@@ -28,12 +28,9 @@ export const getStaticProps = async (context) => {
 };
 
 const ProfessionalsGeneralPage = (props) => {
-  // const { sidebar } = props;
-  // const professionalsSidebar = sidebar?.professionalsSidebar;
-  // return <GeneralPage sidebarNavBlocks={professionalsSidebar} {...props} />;
-  return (
-    <div>Professionals general page</div>
-  );
+  const { sidebar } = props;
+  const professionalsSidebar = sidebar?.professionalsSidebar;
+  return <GeneralPage sidebarNavBlocks={professionalsSidebar} {...props} />;
 };
 
 export default ProfessionalsGeneralPage;
