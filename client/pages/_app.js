@@ -14,7 +14,7 @@ import '../styles/globals.scss';
 import { AuthProvider } from '../lib/hooks/use-auth';
 import { GlobalContextProvider } from '../lib/contexts/global-context';
 
-const MyApp = ({ Component, pageProps /*pageProps: { session, ...pageProps}*/ }) => {
+const MyApp = ({ Component, pageProps: { session, ...pageProps } /*pageProps: { session, ...pageProps}*/ }) => {
   const { globalAttributes, globalSeo, seo } = pageProps;
 
   const seoWithDefaults = {
@@ -30,7 +30,7 @@ const MyApp = ({ Component, pageProps /*pageProps: { session, ...pageProps}*/ })
   return (
     <>
       <Head>
-        {/* {globalAttributes.favicon.data && (
+        {globalAttributes.favicon.data && (
           <link rel='shortcut icon' href={getStrapiMedia(globalAttributes.favicon).url} />
         )}
         {fullSeo.metaTitle && (
@@ -47,16 +47,15 @@ const MyApp = ({ Component, pageProps /*pageProps: { session, ...pageProps}*/ })
             <meta name='twitter:description' content={fullSeo.metaDescription} />
           </>
         )}
-        <meta name='twitter:card' content='summary_large_image' /> */}
-        <Component />
+        <meta name='twitter:card' content='summary_large_image' />
       </Head>
-      {/* <SessionProvider session={session}>
+      <SessionProvider session={session}>
         <AuthProvider>
           <GlobalContextProvider pageProps={pageProps}>
             <Component {...pageProps} />
           </GlobalContextProvider>
         </AuthProvider>
-      </SessionProvider> */}
+      </SessionProvider>
     </>
   );
 };
