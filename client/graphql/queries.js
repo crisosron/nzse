@@ -1,4 +1,4 @@
-// import { gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 import {
   blocksListSubquery,
   generalPageDataSubquery,
@@ -62,7 +62,7 @@ const getHomepage = `
   }
 `;
 
-const getGlobalAttributes = `
+const getGlobalAttributes = gql`
   query globalAttributes {
     global {
       data {

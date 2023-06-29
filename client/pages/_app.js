@@ -1,18 +1,18 @@
 import Head from 'next/head';
-// import { getStrapiMedia } from '../lib/media';
-// import { graphqlClientURQL } from '../lib/graphql-api';
-// import {
-//   getGlobalAttributes,
-//   getGlobalSeo,
-//   getSidebar,
-//   getFooter,
-//   getNavigation
-// } from '../graphql/queries';
-// import { SessionProvider } from 'next-auth/react';
+import { getStrapiMedia } from '../lib/media';
+import { graphqlClient } from '../lib/graphql-api';
+import {
+  getGlobalAttributes,
+  getGlobalSeo,
+  getSidebar,
+  getFooter,
+  getNavigation
+} from '../graphql/queries';
+import { SessionProvider } from 'next-auth/react';
 
 import '../styles/globals.scss';
-// import { AuthProvider } from '../lib/hooks/use-auth';
-// import { GlobalContextProvider } from '../lib/contexts/global-context';
+import { AuthProvider } from '../lib/hooks/use-auth';
+import { GlobalContextProvider } from '../lib/contexts/global-context';
 
 const MyApp = ({ Component, /*pageProps: { session, ...pageProps}*/ }) => {
   // const { globalAttributes, globalSeo, seo } = pageProps;
@@ -62,30 +62,32 @@ const MyApp = ({ Component, /*pageProps: { session, ...pageProps}*/ }) => {
 };
 
 MyApp.getInitialProps = async () => {
-  // const [
-  //   { data: globalAttributesData },
-  //   { data: globalSeoData },
-  //   { data: sidebarData },
-  //   { data: footerData },
-  //   { data: navigationData }
-  // ] = await Promise.all([
-  //   // graphqlClient.query({ query: getGlobalAttributes }),
-  //   // graphqlClient.query({ query: getGlobalSeo }),
-  //   // graphqlClient.query({ query: getSidebar }),
-  //   // graphqlClient.query({ query: getFooter }),
-  //   // graphqlClient.query({ query: getNavigation })
-  //   graphqlClientURQL.query(getGlobalAttributes).toPromise(),
-  //   graphqlClientURQL.query(getGlobalSeo).toPromise(),
-  //   graphqlClientURQL.query(getSidebar).toPromise(),
-  //   graphqlClientURQL.query(getFooter).toPromise(),
-  //   graphqlClientURQL.query(getNavigation).toPromise()
-  // ]);
+  const [
+    { data: globalAttributesData },
+    // { data: globalSeoData },
+    // { data: sidebarData },
+    // { data: footerData },
+    // { data: navigationData }
+  ] = await Promise.all([
+    graphqlClient.query({ query: getGlobalAttributes }),
+    // graphqlClient.query({ query: getGlobalSeo }),
+    // graphqlClient.query({ query: getSidebar }),
+    // graphqlClient.query({ query: getFooter }),
+    // graphqlClient.query({ query: getNavigation })
+    // graphqlClientURQL.query(getGlobalAttributes).toPromise(),
+    // graphqlClientURQL.query(getGlobalSeo).toPromise(),
+    // graphqlClientURQL.query(getSidebar).toPromise(),
+    // graphqlClientURQL.query(getFooter).toPromise(),
+    // graphqlClientURQL.query(getNavigation).toPromise()
+  ]);
 
-  // const globalAttributes = globalAttributesData.global.data.attributes;
+  const globalAttributes = globalAttributesData.global.data.attributes;
   // const globalSeo = globalSeoData.globalSeo.data.attributes;
   // const sidebar = sidebarData.sidebar.data?.attributes;
   // const footer = footerData.footer.data?.attributes;
   // const navigation = navigationData.navigation.data?.attributes;
+
+  console.log('globalAttributes: ', globalAttributes);
 
   // return {
   //   pageProps: {
