@@ -1,4 +1,4 @@
-// This renders an error page for errors that are not 404
+// // This renders an error page for errors that are not 404
 const Error = ({ statusCode }) => {
   return (
     <p>
