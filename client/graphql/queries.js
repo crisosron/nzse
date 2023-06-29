@@ -12,7 +12,7 @@ import {
  * the bottom of this file for a pattern on how to achieve this.
  */
 
-const getAllArticles = `
+const getAllArticles = gql`
   query allArticles {
     articles {
       data {
@@ -38,7 +38,7 @@ const getAllArticles = `
   }
 `;
 
-const getAllGeneralPages = `
+const getAllGeneralPages = gql`
   query allGeneralPages {
     generalPages(pagination: { limit: -1 }) {
       ${generalPageDataSubquery}
@@ -46,7 +46,7 @@ const getAllGeneralPages = `
   }
 `;
 
-const getHomepage = `
+const getHomepage = gql`
   query homepage {
     homepage {
       data {
@@ -82,7 +82,7 @@ const getGlobalAttributes = gql`
   }
 `;
 
-const getGlobalSeo = `
+const getGlobalSeo = gql`
   query globalSEO {
     globalSeo {
       data {
@@ -95,7 +95,7 @@ const getGlobalSeo = `
   }
 `;
 
-const getAllGeneralPageSlugs = `
+const getAllGeneralPageSlugs = gql`
   query allGeneralPageSlugs {
     generalPages(pagination: { limit: -1 }) {
       data {
@@ -107,7 +107,7 @@ const getAllGeneralPageSlugs = `
   }
 `;
 
-const getSidebar = `
+const getSidebar = gql`
   query sidebar {
     sidebar {
       data {
@@ -127,7 +127,7 @@ const getSidebar = `
   }
 `;
 
-const getFooter = `
+const getFooter = gql`
   query footer {
     footer {
       data {
@@ -154,7 +154,7 @@ const getFooter = `
   }
 `;
 
-const getNavigation = `
+const getNavigation = gql`
   query navigation {
     navigation {
       data {
@@ -174,7 +174,7 @@ const getNavigation = `
   }
 `;
 
-const getMemberships = `
+const getMemberships = gql`
   query memberships {
     memberships {
       data {
@@ -188,7 +188,7 @@ const getMemberships = `
   }
 `;
 
-const getJoinPage = `
+const getJoinPage = gql`
   query joinPage {
     joinPage {
       data {
@@ -233,7 +233,7 @@ const getJoinPage = `
  */
 
 const buildGeneralPageBySlugQuery = (slug) => {
-  return `
+  return gql`
     query generalPageBySlug {
       generalPages(filters: { slug: { eq: "${slug}" } }, pagination: { limit: -1 } ) {
         ${generalPageDataSubquery}
@@ -243,7 +243,7 @@ const buildGeneralPageBySlugQuery = (slug) => {
 };
 
 const buildGeneralPageBySlugAndTypeQuery = (slug, type) => {
-  return `
+  return gql`
     query generalPageBySlugAndType {
       generalPages(filters: { 
         and: [
@@ -259,7 +259,7 @@ const buildGeneralPageBySlugAndTypeQuery = (slug, type) => {
 };
 
 const buildGeneralPageSlugsByTypeQuery = (type) => {
-  return `
+  return gql`
     query generalPageSlugsByType {
       generalPages(filters: { type: { eq: "${type}" } }, pagination: { limit: -1 } ) {
         data {
