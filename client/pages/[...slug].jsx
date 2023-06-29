@@ -28,10 +28,9 @@ export const getStaticProps = async (context) => {
 };
 
 const RootGeneralPage = (props) => {
-  // const { sidebar } = props;
-  // const rootSidebar = sidebar?.rootSidebar;
-  // return <GeneralPage sidebarNavBlocks={rootSidebar} {...props} />;
-  return <div>Root general page</div>;
+  const { sidebar } = props;
+  const rootSidebar = sidebar?.rootSidebar;
+  return <GeneralPage sidebarNavBlocks={rootSidebar} {...props} />;
 };
 
 export default RootGeneralPage;
