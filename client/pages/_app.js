@@ -47,7 +47,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps} }) => {
             <meta name='twitter:description' content={fullSeo.metaDescription} />
           </>
         )}
-        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='og:image' content='/nzse-logo.svg' />
       </Head>
       <SessionProvider session={session}>
         <AuthProvider>
