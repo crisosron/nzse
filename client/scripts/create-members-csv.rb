@@ -1,3 +1,13 @@
+# This script creates a csv file of ids and email addresses from a given list of email addresses.
+# The generated CSV file is used to import memberse into Firebase authentication.
+# See: https://firebase.google.com/docs/auth/admin/import-users
+# 
+# Importing users:
+# `firebase auth:import members.csv --project nzse-372c7``
+#
+# Using this script: ruby create-members-csv.rb <source_file> <target_file>
+# The source file should be a text file with one email address per line
+
 require 'securerandom'
 
 source_file_name = ARGV[0]
