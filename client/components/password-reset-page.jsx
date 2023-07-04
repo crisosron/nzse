@@ -77,7 +77,7 @@ const PasswordResetPage = () => {
           {emailSent && (
             <>
               <div className='flex justify-center items-center'>
-                <TickIcon className='fill-light-blue h-24 w-24 mb-8' />
+                <TickIcon className='fill-light-blue mb-8' />
               </div>
               <div className='block mb-8'>
                 A password reset link was emailed to you. Please check your inbox and follow the
@@ -85,7 +85,6 @@ const PasswordResetPage = () => {
               </div>
               <div className='block mb-8'>
                 If you did not receive an email, please check your spam folder, or contact{' '}
-                {/* TODO: verify this email */}
                 <a href='mailto:info@nzse.org.nz'>info@nzse.org.nz</a>.
               </div>
             </>
