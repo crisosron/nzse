@@ -139,9 +139,9 @@ export default async function handler(req, res) {
       customer: customer.id,
       subscription_data: {
         metadata: customerMetadata(req.body.customer),
-        // TODO: reinstate trial period of 14 days when ready
-        // trial_period_days: 14,
-        trial_period_days: 1
+        // The trial period of 2 weeks exists to give the NZSE comittee enough time to review
+        // and accept the application
+        trial_period_days: 14
       },
 
       // Note: template string comes from Stripe
