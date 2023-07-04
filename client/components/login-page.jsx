@@ -47,7 +47,7 @@ const LoginPage = () => {
 
         <Notice type='info' className='lg:w-[80%]'>
           <span>
-            If you are a member of the old NZSE website and this is your first time logging in,
+            If you are a NZSE member and this is your first time logging into the new website,
             navigate to the{' '}
             <Link href={PAGE_LINKS.PASSWORD_RESET}>
               <a>password reset</a>
