@@ -10,5 +10,7 @@ export const FIREBASE_ERROR_MESSAGE = {
 };
 
 export const COOKIE_NAMES = {
-  PENDING_MEMBER_EMAIL: '_nzse_pendingMemberEmail'
+  PENDING_MEMBER_EMAIL: '_nzse_pendingMemberEmail',
+  LOGGED_IN_PREVIOUSLY: '_nzse_loggedInPreviously'
+  
 };

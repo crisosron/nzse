@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { signIn, signOut } from 'next-auth/react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { firebaseAuth } from '../firebase';
-import { FIREBASE_ERROR_MESSAGE } from '../constants';
+import { COOKIE_NAMES, FIREBASE_ERROR_MESSAGE } from '../constants';
+import { setCookie } from 'cookies-next';
 
 /**
  * Fore more info on firebase authentication: https://firebase.google.com/docs/auth/web/start
@@ -44,6 +45,8 @@ export const AuthProvider = ({ children }) => {
 
         return;
       }
+      
+      setCookie(COOKIE_NAMES.LOGGED_IN_PREVIOUSLY, true);
       router.push('/');
     })
       .catch((error) => {

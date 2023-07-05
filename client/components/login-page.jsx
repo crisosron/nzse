@@ -4,13 +4,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Form, InputField } from '../components';
 import { useAuth } from '../lib/hooks/use-auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Notice from './notice';
-import { PAGE_LINKS } from '../lib/constants';
+import { COOKIE_NAMES, PAGE_LINKS } from '../lib/constants';
+import { hasCookie } from 'cookies-next';
 
 const LoginPage = () => {
   const { signInUser, authLoading, authError } = useAuth();
+  const [ hasPreviouslyLoggedIn, setHasPreviouslyLoggedIn ] = useState(false);
   const {
     setError,
     clearErrors,
@@ -34,6 +36,12 @@ const LoginPage = () => {
     }
   }, [authError]);
 
+  // This is in a useEffect because otherwise a server-client hydration mismatch will occur as the
+  // cookie is only evaluated on the client side
+  useEffect(() => {
+    setHasPreviouslyLoggedIn(hasCookie(COOKIE_NAMES.LOGGED_IN_PREVIOUSLY));
+  }, []);
+
   return (
     <Container className='h-full md:h-[100vh]'>
       <div className='LoginPage mx-auto w-full h-full flex flex-col justify-center items-center font-poppins'>
@@ -45,16 +53,18 @@ const LoginPage = () => {
           </Link>
         </div>
 
-        <Notice type='info' className='lg:w-[80%]'>
-          <span>
+        { !hasPreviouslyLoggedIn &&
+          <Notice type='info' className='lg:w-[80%]'>
+            <span>
             If you are a NZSE member and this is your first time logging into the new website,
             navigate to the{' '}
-            <Link href={PAGE_LINKS.PASSWORD_RESET}>
-              <a>password reset</a>
-            </Link>{' '}
+              <Link href={PAGE_LINKS.PASSWORD_RESET}>
+                <a>password reset</a>
+              </Link>{' '}
             page and follow the instructions to activate your account.
-          </span>
-        </Notice>
+            </span>
+          </Notice>
+        }
 
         <div className='prose flex grow md:grow-0 md:flex-shrink flex-col justify-center mb-10 w-full md:w-[70%] lg:w-[60%] md:border md:border-gray-300 md:p-10 md:shadow-lg md:rounded-md'>
           <span className='text-center mb-10 text-charcoal text-h2 font-medium'>Member Login</span>
