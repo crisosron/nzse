@@ -11,12 +11,10 @@ export const config = {
 
 const findStripeCustomerById = async (customerId) => {
   try {
-    console.log('Called findStripeCustomerById: ', customerId);
     const stripe = await initStripe();
     const stripeCustomer = await stripe.customers.retrieve(customerId);
     return stripeCustomer;
   } catch(error) {
-    console.log('Got an error attempting to fetch stripe customer by id: ', error);
     throw new Error(error.message);
   }
 };
@@ -52,19 +50,14 @@ const deactivateMemberLogin = async (customerId) => {
 };
 
 const removeMember = async(customerId) => {
-  console.log('CALLED removeMember');
   const customerObject = await findStripeCustomerById(customerId);
   const { email: customerEmail } = customerObject;
-  console.log('Got customerEmail to remove: ', customerObject);
-  console.log('Got customerEmail to remove: ', customerEmail);
 
   if(!customerEmail) {
-    console.log('Customer email was not found in stripe object');
     throw new Error('No email address was found in the customer stripe object. Cannot remove member');
   }
 
   const removalResult = await deleteMember(customerEmail);
-  console.log('removalResult: ', removalResult);
 
   if(removalResult.error) {
     throw new Error('Failed to remove member: ', removalResult.error.message);
@@ -152,12 +145,10 @@ const handleSubscriptionChange = async (subscription) => {
 // page form.
 const handleSubscriptionDeleted = async (subscription) => {
   try {
-    console.log('HANDLING SUBSCRIPTION DELETED');
     const { customer: customerId } = subscription;
-    console.log('DELETING CUSTOMER ID: ', customerId);
     await removeMember(customerId);
   } catch(error) {
-    throw new Error('Error occurred trying to handle a subscription deleted event: ', error);
+    throw new Error('Error occurred trying to handle a subscription deleted event: ', error.message);
   }
 };
 
@@ -209,7 +200,7 @@ export default async function handler(req, res) {
         return;
     }
   } catch(error) {
-    res.status(500).json({ message: 'Error handling webhook event' });
+    res.status(500).json({ message: `Error handling webhook event: ${error.message}` });
     throw new Error('Error handling webhook event: ', error.message);
   }
 

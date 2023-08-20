@@ -29,13 +29,12 @@ export const updateMemberLoginStatus = async ({ email, loginDisabled }) => {
 };
 
 export const deleteMember = async (email, pendingOnly) => {
-  console.log('CALLED deleteMember: ', email);
   const { users } = await firebaseAdminAuth.getUsers([{ email }]) || {};
 
   if(!users || users.length === 0) {
     return {
       error: {
-        message: `No pending members with the email ${email} were found`,
+        message: `No members with the email ${email} were found`,
         status: 404
       }
     };
@@ -52,11 +51,8 @@ export const deleteMember = async (email, pendingOnly) => {
 
   const uid = users[0].uid;
 
-  console.log('Got uid to delete: ', uid);
-
   try {
     await firebaseAdminAuth.deleteUser(uid);
-    console.log('^^^^^^^^^^^^^^^^ SUCCESSFULLY DELETED USER FROM FIREBASE');
     return {
       success: true
     };
