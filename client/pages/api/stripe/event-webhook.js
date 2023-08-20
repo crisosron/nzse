@@ -88,7 +88,7 @@ const handleSubscriptionCreate = async (subscription) => {
       }
     });
   } catch (error) {
-    throw new Error('Got an error handling subscription create event: ', error);
+    throw new Error('Got an error handling subscription create event: ', error.message);
   }
 };
 
@@ -125,7 +125,7 @@ const handleSubscriptionChange = async (subscription) => {
     }
 
   } catch(error) {
-    throw new Error('Error occurred trying to handle a subscription change: ', error);
+    throw new Error('Error occurred trying to handle a subscription change: ', error.message);
   }
 };
 
