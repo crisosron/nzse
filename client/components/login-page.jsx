@@ -53,18 +53,18 @@ const LoginPage = () => {
           </Link>
         </div>
 
-        { !hasPreviouslyLoggedIn &&
-          <Notice type='info' className='lg:w-[80%]'>
-            <span>
+        {/* { !hasPreviouslyLoggedIn && */}
+        <Notice type='info' className='lg:w-[80%]'>
+          <span>
             If you are a NZSE member and this is your first time logging into the new website,
             navigate to the{' '}
-              <Link href={PAGE_LINKS.PASSWORD_RESET}>
-                <a>password reset</a>
-              </Link>{' '}
-            page and follow the instructions to activate your account.
-            </span>
-          </Notice>
-        }
+            <Link href={PAGE_LINKS.JOIN_FORM}>
+              <a>join form</a>
+            </Link>{' '}
+            and follow the instructions to re-register your account.
+          </span>
+        </Notice>
+        {/* } */}
 
         <div className='prose flex grow md:grow-0 md:flex-shrink flex-col justify-center mb-10 w-full md:w-[70%] lg:w-[60%] md:border md:border-gray-300 md:p-10 md:shadow-lg md:rounded-md'>
           <span className='text-center mb-10 text-charcoal text-h2 font-medium'>Member Login</span>
